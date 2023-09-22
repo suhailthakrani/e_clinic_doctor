@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/main_screen_controller.dart';
+
+class MainScreen extends GetView<MainScreenController> {
+  const MainScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dashboard'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Card(
+              child: ListTile(
+                title: Text('Total Payments'),
+                trailing: Text('\$1000'), // Replace with actual data
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Total Appointments'),
+                trailing: Text('50'), // Replace with actual data
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Total Income'),
+                trailing: Text('\$2000'), // Replace with actual data
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text("Today's Appointments"),
+                trailing: Text('10'), // Replace with actual data
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Patient Reviews'),
+                trailing: Text('4.8'), // Replace with actual data
+              ),
+            ),
+            // Add more cards/widgets for other metrics
+          ],
+        ),
+      ),
+    );
+  }
+}
