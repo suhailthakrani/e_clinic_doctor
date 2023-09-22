@@ -6,7 +6,6 @@ import '../models/token_model.dart';
 import '../models/user_model.dart';
 
 
-/*Created By: Amjad Jamali on 15-Aug-2023*/
 class UserSession {
 
   static final RxBool isDataChanged = RxBool(false);
@@ -28,7 +27,7 @@ class UserSession {
   Future<bool> isUserLoggedIn() async {
     final preference = await SharedPreferences.getInstance();
     userModel.value = UserModel.fromJSON(jsonDecode(preference.getString('USER_DATA') ?? "{}"));
-    return !userModel.value.isEmpty;
+    return !userModel.value.email.isNotEmpty;
   }
 
   Future<bool> logout() async {

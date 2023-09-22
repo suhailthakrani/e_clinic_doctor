@@ -7,6 +7,7 @@ class WSvgWidget extends StatelessWidget {
   final String imageUrl;
   final double width;
   final double height;
+  Color color;
   bool showError;
 
   WSvgWidget({super.key, 
@@ -14,6 +15,7 @@ class WSvgWidget extends StatelessWidget {
     this.width = 100.0,
     this.height = 100.0,
     this.showError = false,
+    this.color = const Color(0xFF000000),
   });
 
   @override
@@ -28,6 +30,7 @@ class WSvgWidget extends StatelessWidget {
             child: SvgPicture.string(
               snapshot.data!,
               fit: BoxFit.contain,
+              theme: SvgTheme(currentColor: color),
             ),
           );
         } else if(showError) {

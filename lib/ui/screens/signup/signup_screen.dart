@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../utils/text_styles.dart';
-import '../widgets/button2.dart';
-import '../widgets/input_field.dart';
-import '../widgets/checkbox.dart';
-import 'login_screen.dart';
+import '../../../utils/text_styles.dart';
+import '../../widgets/button2.dart';
+import '../../widgets/input_field.dart';
+import '../../widgets/checkbox.dart';
+import '../signin/login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);

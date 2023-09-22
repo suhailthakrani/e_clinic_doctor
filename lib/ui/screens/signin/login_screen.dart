@@ -1,15 +1,18 @@
 
+import 'package:e_clinic_dr/controllers/login_screen_controller.dart';
+import 'package:e_clinic_dr/ui/widgets/general_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-import '../../utils/colors.dart';
-import '../../utils/text_styles.dart';
-import '../widgets/button1.dart';
-import '../widgets/input_field.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/text_styles.dart';
+import '../../widgets/button1.dart';
+import '../../widgets/input_field.dart';
 
 
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetView<LoginScreenController> {
   const LoginScreen({Key? key}) : super(key: key);
 
   static const routeName = 'login_screen';
@@ -47,25 +50,27 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 40.h),
                 Image.asset("assets/images/login_pic.png"),
                 SizedBox(height: 40.h),
-                SizedBox(
-                  height: 50.h,
-                  width: 390.w,
-                  child: const InputField(
-                    hint: "Email",
-                    label: "Email",
-                  ),
-                ),
+                GeneralTextField.withBorder(tfManager: controller.usernameManager),
+                // SizedBox(
+                //   height: 50.h,
+                //   width: 390.w,
+                //   child: const InputField(
+                //     hint: "Email",
+                //     label: "Email",
+                //   ),
+                // ),
                 SizedBox(height: 32.h),
-                SizedBox(
-                  height: 50.h,
-                  width: 390.w,
-                  child: InputField(
-                    hint: "Password",
-                    label: "Password",
-                    suffixIcon:
-                        TextButton(child: const Text("Show"), onPressed: () {}),
-                  ),
-                ),
+                GeneralTextField.withBorder(tfManager: controller.passwordManager),
+                // SizedBox(
+                //   height: 50.h,
+                //   width: 390.w,
+                //   child: InputField(
+                //     hint: "Password",
+                //     label: "Password",
+                //     suffixIcon:
+                //         TextButton(child: const Text("Show"), onPressed: () {}),
+                //   ),
+                // ),
                 // const CheckBoxWidget(text: "Remember Me"),
                 SizedBox(height: 30.h),
                 Container(
@@ -89,6 +94,8 @@ class LoginScreen extends StatelessWidget {
                     text: "Login",
                     borderRadius: 30,
                     onPress: () {
+                      
+                      controller.onLoginClick();
                       // Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
                     },
                   ),

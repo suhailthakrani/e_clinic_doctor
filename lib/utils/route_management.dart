@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../ui/screens/appointment_screen.dart';
 import '../ui/screens/availability_screen.dart';
-import '../ui/screens/login_screen.dart';
+import '../ui/screens/signin/login_screen.dart';
 import '../ui/screens/messages/messages_screen.dart';
 import '../ui/screens/my_ratings_screen.dart';
 import '../ui/screens/payment_screen.dart';
