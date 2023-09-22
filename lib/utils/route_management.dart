@@ -1,10 +1,11 @@
+import 'package:e_clinic_dr/ui/screens/main_screen/main_screen.dart';
 import 'package:e_clinic_dr/ui/screens/test_screen.dart';
 import 'package:get/get.dart';
 
 import '../ui/screens/appointment_screen.dart';
 import '../ui/screens/availability_screen.dart';
 import '../ui/screens/login_screen.dart';
-import '../ui/screens/messages_screen.dart';
+import '../ui/screens/messages/messages_screen.dart';
 import '../ui/screens/my_ratings_screen.dart';
 import '../ui/screens/payment_screen.dart';
 import '../ui/screens/settigs_screen.dart';
@@ -20,19 +21,14 @@ class RouteManagement {
         page: () => const TestScreen(),
         binding: ScreensBindings(),
       ),
-      GetPage(
-        name: kSettingsScreenRoute,
-        page: () => const SettingsScreen(),
+       GetPage(
+        name: kMainScreenRoute,
+        page: () => const MainScreen(),
         binding: ScreensBindings(),
       ),
       GetPage(
         name: kSplashScreenRoute,
         page: () => const SplashScreen(),
-        binding: ScreensBindings(),
-      ),
-      GetPage(
-        name: kLoginScreenRoute,
-        page: () => const LoginScreen(),
         binding: ScreensBindings(),
       ),
       GetPage(
@@ -63,6 +59,11 @@ class RouteManagement {
       GetPage(
         name: kSettingsScreenRoute,
         page: () => const SettingsScreen(),
+        binding: ScreensBindings(),
+      ),
+      GetPage(
+        name: kLoginScreenRoute,
+        page: () => const LoginScreen(),
         binding: ScreensBindings(),
       ),
       // GetPage(name: '/logout', page: () => LogoutScreen()),

@@ -1,3 +1,4 @@
+import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,40 +12,48 @@ class CustomDrawer extends Drawer {
     return  Drawer(
         child: ListView(
           children: [
+            DrawerHeader(child: Container(color: kPrimaryColor,)),
            ListTile(
-              title: Text('Messages'),
+              title: const Text('Messages'),
               onTap: () {
-                Get.offNamed(kMessagesScreenRoute);
+                Get.offAllNamed(kMessagesScreenRoute, predicate: ((route) => route.isFirst));
+                // Navigator.of(context).pop();
               },
             ),
             ListTile(
-              title: Text('Appointments'),
+              title: const Text('Appointments'),
               onTap: () {
-                Get.offNamed(kAppointmentsScreenRoute);
+                Get.offAllNamed(kAppointmentsScreenRoute, predicate: ((route) => route.isFirst));
               },
             ),
             ListTile(
-              title: Text('Availability'),
+              title: const Text('Availability'),
               onTap: () {
-                Get.offNamed(kAvailabilityScreenRoute);
+                Get.offAllNamed(kAvailabilityScreenRoute, predicate: ((route) => route.isFirst));
               },
             ),
             ListTile(
-              title: Text('Payments'),
+              title: const Text('Payments'),
               onTap: () {
-                Get.offNamed(kPaymentScreenRoute);
+                Get.offAllNamed(kPaymentScreenRoute, predicate: ((route) => route.isFirst));
               },
             ),
             ListTile(
-              title: Text('Ratings'),
+              title: const Text('Ratings'),
               onTap: () {
-                Get.offNamed(kRatingsScreenRoute);
+                Get.offAllNamed(kRatingsScreenRoute, predicate: ((route) => route.isFirst));
               },
             ),
             ListTile(
               title: const Text('Settings'),
               onTap: () {
-                Get.offNamed(kSettingsScreenRoute);
+                Get.offAllNamed(kSettingsScreenRoute, predicate: ((route) => route.isFirst));
+              },
+            ),
+             ListTile(
+              title: const Text('Logout'),
+              onTap: () {
+                // Get.offNamed(kSettingsScreenRoute, predicate: ((route) => route.isFirst));
               },
             ),
           ],

@@ -1,7 +1,10 @@
+import 'package:e_clinic_dr/ui/widgets/custom_drawer.dart';
+import 'package:e_clinic_dr/ui/widgets/widget_svg.dart';
+import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/main_screen_controller.dart';
+import '../../../controllers/main_screen_controller.dart';
 
 class MainScreen extends GetView<MainScreenController> {
   const MainScreen({super.key});
@@ -9,10 +12,26 @@ class MainScreen extends GetView<MainScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: controller.scaffoldKey,
       appBar: AppBar(
-        title: Text('Dashboard'),
+        elevation: 0,
+        leadingWidth: Get.width *0.4,
+        backgroundColor: kWhiteColor,
+        leading:  Padding(
+          padding: const EdgeInsets.only(left:16),
+          child:  WSvgWidget(imageUrl: 'assets/images/logo.svg',height: 120,),
+        ),
+        title: const Text('Dashboard'),
+        actions: [
+          WSvgWidget(imageUrl: 'assets/images/notification.svg',width: 60, height: 50,),
+          WSvgWidget(imageUrl: 'assets/images/logo.svg',width: 60, height: 50,),
+          IconButton(onPressed: (){
+            controller.scaffoldKey.currentState!.openEndDrawer();
+          }, icon: const Icon(Icons.menu, color: kBlackColor,)),
+        ],
       ),
-      body: Padding(
+      endDrawer: const CustomDrawer(),
+      body: const Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
