@@ -3,8 +3,8 @@ import 'package:e_clinic_dr/ui/screens/settings/components/account_settings.dart
 import 'package:e_clinic_dr/ui/screens/test_screen.dart';
 import 'package:get/get.dart';
 
-import '../ui/screens/appointment_screen.dart';
-import '../ui/screens/availability_screen.dart';
+import '../ui/appointments/appointment_screen.dart';
+import '../ui/screens/availability/availability_screen.dart';
 import '../ui/screens/signin/login_screen.dart';
 import '../ui/screens/messages/messages_screen.dart';
 import '../ui/screens/my_ratings_screen.dart';

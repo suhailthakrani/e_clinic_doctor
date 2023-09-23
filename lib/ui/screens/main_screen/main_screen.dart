@@ -2,6 +2,7 @@ import 'package:e_clinic_dr/ui/widgets/custom_drawer.dart';
 import 'package:e_clinic_dr/ui/widgets/widget_svg.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/main_screen_controller.dart';
@@ -15,19 +16,58 @@ class MainScreen extends GetView<MainScreenController> {
       key: controller.scaffoldKey,
       appBar: AppBar(
         elevation: 0,
-        leadingWidth: Get.width *0.4,
+        leadingWidth: Get.width * 0.4,
         backgroundColor: kWhiteColor,
-        leading:  Padding(
-          padding: const EdgeInsets.only(left:16),
-          child:  WSvgWidget(imageUrl: 'assets/images/logo.svg',height: 120,),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: WSvgWidget(
+            imageUrl: 'assets/images/logo.svg',
+            height: 120,
+          ),
         ),
         title: const Text('Dashboard'),
         actions: [
-          WSvgWidget(imageUrl: 'assets/images/notification.svg',width: 60, height: 50,),
-          WSvgWidget(imageUrl: 'assets/images/logo.svg',width: 60, height: 50,),
-          IconButton(onPressed: (){
-            controller.scaffoldKey.currentState!.openEndDrawer();
-          }, icon: const Icon(Icons.menu, color: kBlackColor,)),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.notifications,
+                color: kBlack45Color,
+              )),
+          SizedBox(
+            width: 55,
+            height: 10,
+            child: Card(
+              margin: const EdgeInsets.all(8),
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  'assets/images/doctor.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              controller.scaffoldKey.currentState!.openEndDrawer();
+            },
+            style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(8)),
+            icon: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                'assets/images/drawer_icon.png',
+                fit: BoxFit.contain,
+                height: 30,
+                width: 30,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 12.w,
+          )
         ],
       ),
       endDrawer: const CustomDrawer(),

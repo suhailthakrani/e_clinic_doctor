@@ -1,15 +1,20 @@
 import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTile extends StatelessWidget {
   final String title;
   final Widget icon;
   final VoidCallback onTap;
+  double? titleFontSize;
+  Widget? leading;
 
-  const CustomTile({
+  CustomTile({
     required this.title,
     this.icon = const Icon(Icons.arrow_forward_ios),
     required this.onTap,
+    this.titleFontSize,
+    this.leading,
   });
 
   @override
@@ -18,9 +23,14 @@ class CustomTile extends StatelessWidget {
       child: ListTile(
         dense: true,
         // contentPadding: EdgeInsets.zero,
+        leading: leading ?? const SizedBox(),
+        minLeadingWidth: leading != null ? 30.w : 0,
         tileColor: kWhiteColor,
-        titleTextStyle: const TextStyle(
-            fontSize: 16, fontWeight: FontWeight.bold, color: kBlackColor),
+        titleTextStyle: TextStyle(
+          fontSize: titleFontSize ?? 16,
+          fontWeight: FontWeight.bold,
+          color: kBlackColor,
+        ),
         splashColor: kFieldBorderColor,
         title: Text(title),
         onTap: onTap,

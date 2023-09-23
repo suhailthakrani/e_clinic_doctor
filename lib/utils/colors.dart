@@ -21,6 +21,7 @@ const Color kLightGreyColor=Color(0xFFa8a8a8);
 const Color kRequiredRedColor=Color(0xffc21515);
 const Color kBlackColor = Color(0xFF000000);
 const Color kBlack45Color = Color(0x45000000);
+const Color kBlack90Color = Color(0x90000000);
 
 const Color kTextColor=Color(0xFF111111);
 const Color kTextHintColor = Color(0x73000000);

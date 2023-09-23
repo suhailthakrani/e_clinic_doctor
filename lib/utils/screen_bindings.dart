@@ -4,7 +4,7 @@ import 'package:e_clinic_dr/controllers/main_screen_controller.dart';
 import 'package:e_clinic_dr/controllers/test_screen_controller.dart';
 import 'package:get/get.dart';
 
-import '../controllers/appointments_screen_cntroller.dart';
+import '../controllers/appointments/appointments_screen_cntroller.dart';
 import '../controllers/availability_screen_controller.dart';
 import '../controllers/messages_screen_controler.dart';
 import '../controllers/my_ratings_screen_controller.dart';
