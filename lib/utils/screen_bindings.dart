@@ -1,3 +1,4 @@
+import 'package:e_clinic_dr/controllers/register_screen_controller.dart';
 import 'package:e_clinic_dr/controllers/settings/account_settings_screen_controller.dart';
 import 'package:e_clinic_dr/controllers/login_screen_controller.dart';
 import 'package:e_clinic_dr/controllers/main_screen_controller.dart';
@@ -16,9 +17,10 @@ class ScreensBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => LoginScreenController());
-    Get.lazyPut(()=>TestScreenController());
-    Get.lazyPut(()=>SplashScreenController());
-    Get.lazyPut(()=> MainScreenController());
+    Get.lazyPut(() => RegisterScreenController());
+    Get.lazyPut(() => TestScreenController());
+    Get.lazyPut(() => SplashScreenController());
+    Get.lazyPut(() => MainScreenController());
     Get.lazyPut(() => MessagesController());
     Get.lazyPut(() => AppointmentsController());
     Get.lazyPut(() => AvailabilityController());

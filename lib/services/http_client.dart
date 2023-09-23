@@ -105,22 +105,6 @@ class HTTPClient extends GetConnect{
       for(MapEntry<String, String> file in files.entries){
         String type = file.value.substring(file.value.lastIndexOf('.')+1);
         String name = file.value.substring(file.value.lastIndexOf('/')+1);
-
-        // if (file.value.startsWith("http")) {
-        //   String path = await CommonCode().saveImage(url: file.value);
-        //   request.files.add(await http.MultipartFile.fromPath(
-        //     file.key, path,
-        //     filename: name,
-        //     contentType: MediaType('image', type),
-        //   ));
-        // } else{
-        //   request.files.add(await http.MultipartFile.fromPath(
-        //     file.key, file.value,
-        //     filename: name,
-        //     contentType: MediaType('image', type),
-        //   ));
-        // }
-      // }
         request.files.add(await http.MultipartFile.fromPath(
           file.key, file.value,
           filename: name,

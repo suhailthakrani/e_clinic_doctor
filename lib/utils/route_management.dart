@@ -1,5 +1,6 @@
 import 'package:e_clinic_dr/ui/screens/main_screen/main_screen.dart';
 import 'package:e_clinic_dr/ui/screens/settings/components/account_settings.dart';
+import 'package:e_clinic_dr/ui/screens/signup/signup_screen.dart';
 import 'package:e_clinic_dr/ui/screens/test_screen.dart';
 import 'package:get/get.dart';
 
@@ -70,6 +71,11 @@ class RouteManagement {
       GetPage(
         name: kLoginScreenRoute,
         page: () => const LoginScreen(),
+        binding: ScreensBindings(),
+      ),
+      GetPage(
+        name: kRegisterScreenRoute,
+        page: () => const SignUpScreen(),
         binding: ScreensBindings(),
       ),
       // GetPage(name: '/logout', page: () => LogoutScreen()),

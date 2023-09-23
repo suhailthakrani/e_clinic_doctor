@@ -1,5 +1,9 @@
+import 'package:e_clinic_dr/controllers/register_screen_controller.dart';
+import 'package:e_clinic_dr/ui/widgets/general_text_field.dart';
+import 'package:e_clinic_dr/ui/widgets/widget_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../utils/text_styles.dart';
 import '../../widgets/button2.dart';
@@ -7,7 +11,7 @@ import '../../widgets/input_field.dart';
 import '../../widgets/checkbox.dart';
 import '../signin/login_screen.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends GetView<RegisterScreenController> {
   const SignUpScreen({Key? key}) : super(key: key);
 
   static const routeName = "signup_screen";
@@ -18,21 +22,26 @@ class SignUpScreen extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: ScreenUtilInit(
-            designSize: const Size(428, 926),
+            designSize: Size(Get.width, Get.height),
             builder: (context, widget) => Container(
-              margin: EdgeInsets.all(20.w),
+              margin: EdgeInsets.all(8.w),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      IconButton(
-                        icon: const Icon(Icons.close, color: Colors.grey),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                      WSvgWidget(
+                        imageUrl: 'assets/images/logo.svg',
+                        height: 50,
                       ),
-                      Text("Sign Up", style: textTheme.headline1),
+                    ],
+                  ),
+                  Text("Join As a Doctor", style: textTheme.headline1),
+                  Row(
+                    children: [
+                      Text("Already a member?",
+                          style: textTheme.headlineMedium),
                       TextButton(
                         onPressed: () {
                           Navigator.of(context)
@@ -49,36 +58,51 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 22.h),
-                  const InputField(hint: "Name", label: "Name"),
-                  SizedBox(height: 14.h),
-                  const InputField(hint: "Email", label: "Email"),
-                  SizedBox(height: 14.h),
-                  const InputField(hint: "Password", label: "Email"),
-                  SizedBox(height: 14.h),
-                  const InputField(hint: "Zip Code", label: "Zip Code"),
-                  SizedBox(height: 14.h),
-                  InputField(
-                    hint: "How did you hear about us?",
-                    label: "How did you hear about us?",
-                    suffixIcon: IconButton(
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        onPressed: () {}),
+                  GeneralTextField.withBorder(
+                    tfManager: controller.firstNameController,
+                    paddingVertical: 0,
                   ),
-                  SizedBox(height: 5.h),
+                  GeneralTextField.withBorder(
+                    tfManager: controller.lastNameController,
+                    paddingVertical: 0,
+                  ),
+                  GeneralTextField.withBorder(
+                    tfManager: controller.emailController,
+                    paddingVertical: 0,
+                  ),
+                  GeneralTextField.withBorder(
+                    tfManager: controller.passwordController,
+                    paddingVertical: 0,
+                  ),
+                  GeneralTextField.withBorder(
+                    tfManager: controller.phoneNoController,
+                    paddingVertical: 0,
+                  ),
+                  GeneralTextField.withBorder(
+                    tfManager: controller.cityController,
+                    paddingVertical: 0,
+                  ),
+                  GeneralTextField.withBorder(
+                    tfManager: controller.stateController,
+                    paddingVertical: 0,
+                  ),
+                  GeneralTextField.withBorder(
+                    tfManager: controller.addressController,
+                    paddingVertical: 0,
+                  ),
                   SizedBox(
                     // margin: EdgeInsets.only(right: 16.w, left: 20.w),
                     // color: Colors.red,
                     height: 34.h,
-                    width: 380.w,
+                    width: Get.width,
                     child: const CheckBoxWidget(
                       text:
-                          "I agree to receive Email and SMS that may contain\npersonal health information.",
+                          "I agree to receive Email and SMS that may contain personal health information.",
                     ),
                   ),
-                  SizedBox(height: 100.h),
+                  SizedBox(height: 10.h),
                   SizedBox(
-                    width: 390.w,
+                    width: Get.width,
                     child: Button2(
                         text: "SignUp",
                         onPress: () {
@@ -87,14 +111,6 @@ class SignUpScreen extends StatelessWidget {
                         }),
                   ),
                   SizedBox(height: 16.h),
-                  TextButton(
-                    child: Text("Forgot Your Password",
-                        style: textTheme.bodyText1),
-                    onPressed: () {
-                      // Navigator.pushNamed(
-                      //     context, ForgotPasswordScreen.routeName);
-                    },
-                  ),
                 ],
               ),
             ),

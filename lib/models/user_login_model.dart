@@ -1,20 +1,22 @@
+import 'package:e_clinic_dr/models/user_model.dart';
+
 class UserLoginModel {
-  int clientId = -1;
-  String clientSecret = "";
   String username = "";
   String _password = "";
 
   UserLoginModel.fromJson(Map<String, dynamic> json) {
-    clientId = json["client_id"] ?? -1;
-    clientSecret = json["client_secret"] ?? "";
     username = json["username"] ?? "";
     _password = json["password"] ?? "";
   }
 
   String get password => _password;
 
+  UserLoginModel.empty()
+      : username = '',
+        _password = '';
+
   @override
   String toString() {
-    return 'UserLoginModel{client_id: $clientId, client_id: $clientSecret, username: $username, _password: $_password,}';
+    return 'UserLoginModel{username: $username, _password: $_password,}';
   }
 }

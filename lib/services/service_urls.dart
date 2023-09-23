@@ -3,8 +3,7 @@ const String kBaseURL = "https://api.eclinic.live/api/"; // BASE URL
 
 
 const String kLoginURL = "${kBaseURL}auth/signin";
-
-
+const String kRegisterURL = "${kBaseURL}doctors/register";
 const String kGetDistrictListURL = "${kBaseURL}districts";
 const String kGetTalukaListByDistrictIdURL = "${kBaseURL}taluka";
 const String kGetUnionCouncilListByTalukaIdURL = "${kBaseURL}unioin_council";
