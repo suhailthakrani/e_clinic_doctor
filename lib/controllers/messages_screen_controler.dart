@@ -1,8 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../ui/screens/messages/components/message_tile.dart';
 
 class MessagesController extends GetxController {
+
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  
   RxList<MessageTile> messages = [
     MessageTile(
       image: "assets/images/doctor.png",

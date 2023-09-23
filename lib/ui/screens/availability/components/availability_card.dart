@@ -1,29 +1,45 @@
 import 'package:e_clinic_dr/models/availability_model.dart';
+import 'package:e_clinic_dr/utils/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SingleAvailabilityWidget extends StatelessWidget {
   final Rx<AvailabilityModel> availability;
 
-  SingleAvailabilityWidget(this.availability);
+  const SingleAvailabilityWidget(this.availability);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Day: ${availability.value.day}'),
-            SizedBox(height: 8.0),
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Obx(
+                  () => Switch(
+                    value: availability.value.isActive,
+                    onChanged: (value) {
+                      availability.value.copyWith(isActive: value);
+                    },
+                  ),
+                ),
+                Text(availability.value.day.capitalizeFirst ?? ''),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: TextFormField(
                     initialValue: availability.value.startTime,
-                    decoration: InputDecoration(labelText: 'From'),
+                    decoration: const InputDecoration(labelText: 'Start Time'),
                     onTap: () async {
                       TimeOfDay? picked = await showTimePicker(
                         context: context,
@@ -32,16 +48,23 @@ class SingleAvailabilityWidget extends StatelessWidget {
                         ),
                       );
                       if (picked != null) {
-                        availability.value.copyWith(startTime: picked.toString());
+                        availability.value
+                            .copyWith(startTime: picked.toString());
                       }
                     },
                   ),
                 ),
-                SizedBox(width: 16.0),
+                const SizedBox(width: 16.0),
                 Expanded(
                   child: TextFormField(
                     initialValue: availability.value.endTime,
-                    decoration: InputDecoration(labelText: 'To'),
+                    decoration: const InputDecoration(
+                      labelText: 'End Time',
+                      labelStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     onTap: () async {
                       TimeOfDay? picked = await showTimePicker(
                         context: context,
@@ -50,73 +73,70 @@ class SingleAvailabilityWidget extends StatelessWidget {
                         ),
                       );
                       if (picked != null) {
-                        availability.value.copyWith(endTime: picked. toString());
+                        availability.value.copyWith(endTime: picked.toString());
                       }
                     },
                   ),
                 ),
+                const SizedBox(width: 16.0),
+                GestureDetector(
+                    onTap: () {},
+                    child: const Icon(
+                      CupertinoIcons.delete,
+                      color: kRequiredRedColor,
+                    )),
               ],
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // TODO: Add more time
-                  },
-                  child: Text('Add More Time'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // TODO: Copy
-                  },
-                  child: Text('Copy'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    //TODO: // must be deleted
-                    // availability.value.copyWith(isActive: false);
-                  },
-                  child: Text('Delete'),
-                ),
+                GestureDetector(
+                    onTap: () {},
+                    child: const Icon(
+                      CupertinoIcons.add,
+                    )),
+                const SizedBox(width: 16.0),
+                GestureDetector(
+                    onTap: () {},
+                    child: Image.asset(
+                      'assets/images/copy.png',
+                      width: 50.w,
+                      height: 50.h,
+                    )),
               ],
             ),
-            SizedBox(height: 8.0),
-            Obx(
-              () => Switch(
-                value: availability.value.isActive,
-                onChanged: (value) {
-                  availability.value.copyWith(isActive: value);
-                },
-              ),
-            ),
-            SizedBox(height: 8.0),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    initialValue: availability.value.appointmentInterval.toString(),
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Appointment Interval (min)'),
-                    onChanged: (value) {
-                      availability.value.copyWith(appointmentInterval: int.tryParse(value) ?? 0);
-                    },
-                  ),
-                ),
-                SizedBox(width: 16.0),
-                Expanded(
-                  child: TextFormField(
-                    initialValue: availability.value.buffer.toString(),
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Buffer (min)'),
-                    onChanged: (value) {
-                      availability.value.copyWith(buffer: int.tryParse(value) ?? 0);
-                    },
-                  ),
-                ),
-              ],
-            ),
+            // const SizedBox(height: 8.0),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: TextFormField(
+            //         initialValue:
+            //             availability.value.appointmentInterval.toString(),
+            //         keyboardType: TextInputType.number,
+            //         decoration: const InputDecoration(
+            //             labelText: 'Appointment Interval (min)'),
+            //         onChanged: (value) {
+            //           availability.value.copyWith(
+            //               appointmentInterval: int.tryParse(value) ?? 0);
+            //         },
+            //       ),
+            //     ),
+            //     const SizedBox(width: 16.0),
+            //     Expanded(
+            //       child: TextFormField(
+            //         initialValue: availability.value.buffer.toString(),
+            //         keyboardType: TextInputType.number,
+            //         decoration:
+            //             const InputDecoration(labelText: 'Buffer (min)'),
+            //         onChanged: (value) {
+            //           availability.value
+            //               .copyWith(buffer: int.tryParse(value) ?? 0);
+            //         },
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

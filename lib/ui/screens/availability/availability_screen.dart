@@ -1,4 +1,5 @@
 import 'package:e_clinic_dr/ui/screens/availability/components/availability_card.dart';
+import 'package:e_clinic_dr/ui/widgets/custom_scaffold.dart';
 import 'package:e_clinic_dr/ui/widgets/general_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,27 +12,27 @@ class AvailabilityScreen extends GetView<AvailabilityController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: ScreenUtilInit(
-          designSize: Size(
-            MediaQuery.of(context).size.width,
-            MediaQuery.of(context).size.height,
+    return CustomScaffold(
+      scaffoldKey: controller.scaffoldKey,
+      className: runtimeType.toString(),
+      screenName: 'Schedule Timings',
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // SizedBox(height: 20.h),
+          Text(
+            "Schedule Timings",
+            style: TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold),
           ),
-          builder: (context, w) => Center(
+          SizedBox(height: 8.h),
+          Text(
+            "Schedule Your Availability",
+            style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),
+          ),
+          Container(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 20.h),
-                Text(
-                  "Schedule Timings",
-                  style: TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8.h),
-                Text(
-                  "Schedule Your Availability",
-                  style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),
-                ),
                 Row(
                   children: [
                     Flexible(
@@ -60,8 +61,8 @@ class AvailabilityScreen extends GetView<AvailabilityController> {
                     ))
               ],
             ),
-          ),
-        ),
+          )
+        ],
       ),
     );
   }

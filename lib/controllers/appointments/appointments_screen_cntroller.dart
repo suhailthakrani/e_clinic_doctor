@@ -1,22 +1,16 @@
 import 'package:e_clinic_dr/models/appointment_type.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppointmentsController extends GetxController {
-  List<AppointmentTypeModel> appointmentTypeList = [
-    AppointmentTypeModel(
-      title: 'Upcoming',
-      selected: false,
-    ),
-    AppointmentTypeModel(
-      title: 'Previous',
-      selected: true,
-    ),
-  ];
+
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+
+  List<String> appointmentTypes = ['Upcoming', 'Previous'];
+  RxInt selectedAppointmentType = 0.obs;
 
   void selectAppointmentType(int index) {
-    for (var element in appointmentTypeList) {
-      element.copyWith(selected: false);
-    }
-    appointmentTypeList[index].copyWith(selected: true);
+    selectedAppointmentType.value = index;
   }
 }

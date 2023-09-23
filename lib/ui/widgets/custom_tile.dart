@@ -21,14 +21,14 @@ class CustomTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: ListTile(
-        dense: true,
+        // dense: true,
         // contentPadding: EdgeInsets.zero,
         leading: leading ?? const SizedBox(),
         minLeadingWidth: leading != null ? 30.w : 0,
         tileColor: kWhiteColor,
         titleTextStyle: TextStyle(
           fontSize: titleFontSize ?? 16,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
           color: kBlackColor,
         ),
         splashColor: kFieldBorderColor,

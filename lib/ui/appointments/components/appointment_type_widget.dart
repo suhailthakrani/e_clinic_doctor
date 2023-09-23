@@ -1,16 +1,17 @@
+import 'package:e_clinic_dr/controllers/appointments/appointments_screen_cntroller.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppointmentType extends StatelessWidget {
   final String title;
-  final bool selected;
-  final VoidCallback onTap;
+  final int index;
+  final AppointmentsController controller;
   const AppointmentType({
     Key? key,
+    required this.index,
     required this.title,
-    required this.selected,
-    required this.onTap,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -21,9 +22,12 @@ class AppointmentType extends StatelessWidget {
         MediaQuery.of(context).size.height,
       ),
       builder: (context, w) => InkWell(
-        onTap:onTap,
+        onTap: () {
+          controller.selectAppointmentType(index);
+        },
         child: AnimatedOpacity(
-          opacity: selected ? 1.0 : 0.8,
+          opacity:
+              controller.selectedAppointmentType.value == index ? 1.0 : 0.8,
           duration: const Duration(milliseconds: 300),
           child: Container(
             alignment: Alignment.center,
@@ -31,12 +35,16 @@ class AppointmentType extends StatelessWidget {
             width: 156.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.w),
-              color: selected ? kPrimaryColor : Colors.white,
+              color: controller.selectedAppointmentType.value == index
+                  ? kPrimaryColor
+                  : Colors.white,
             ),
             child: Text(
               title,
               style: TextStyle(
-                color: selected ? Colors.white : Colors.grey,
+                color: controller.selectedAppointmentType.value == index
+                    ? Colors.white
+                    : Colors.grey,
               ),
             ),
           ),

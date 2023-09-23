@@ -1,3 +1,5 @@
+import 'package:e_clinic_dr/ui/widgets/custom_scaffold.dart';
+import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,8 +11,10 @@ class MessagesScreen extends GetView<MessagesController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(),
+    return CustomScaffold(
+      scaffoldKey: controller.scaffoldKey,
+      className: runtimeType.toString(),
+      screenName: 'Messages',
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(top: 16),

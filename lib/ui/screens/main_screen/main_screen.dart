@@ -1,4 +1,5 @@
 import 'package:e_clinic_dr/ui/widgets/custom_drawer.dart';
+import 'package:e_clinic_dr/ui/widgets/custom_scaffold.dart';
 import 'package:e_clinic_dr/ui/widgets/widget_svg.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -12,65 +13,12 @@ class MainScreen extends GetView<MainScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: controller.scaffoldKey,
-      appBar: AppBar(
-        elevation: 0,
-        leadingWidth: Get.width * 0.4,
-        backgroundColor: kWhiteColor,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: WSvgWidget(
-            imageUrl: 'assets/images/logo.svg',
-            height: 120,
-          ),
-        ),
-        title: const Text('Dashboard'),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.notifications,
-                color: kBlack45Color,
-              )),
-          SizedBox(
-            width: 55,
-            height: 10,
-            child: Card(
-              margin: const EdgeInsets.all(8),
-              elevation: 8,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  'assets/images/doctor.png',
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              controller.scaffoldKey.currentState!.openEndDrawer();
-            },
-            style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(8)),
-            icon: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                'assets/images/drawer_icon.png',
-                fit: BoxFit.contain,
-                height: 30,
-                width: 30,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 12.w,
-          )
-        ],
-      ),
-      endDrawer: const CustomDrawer(),
+    return CustomScaffold(
+      scaffoldKey: controller.scaffoldKey,
+      className: runtimeType.toString(),
+      screenName: 'Dashboard',
+      // appBar: AppBar(),
+      // endDrawer: const CustomDrawer(),
       body: const Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(

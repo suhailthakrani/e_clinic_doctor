@@ -1,4 +1,5 @@
 import 'package:e_clinic_dr/ui/appointments/components/appointment_type_widget.dart';
+import 'package:e_clinic_dr/ui/widgets/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,41 +12,37 @@ class AppointmentsScreen extends GetView<AppointmentsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
-          child: ScreenUtilInit(
-            designSize: Size(
-              MediaQuery.of(context).size.width,
-              MediaQuery.of(context).size.height,
-            ),
-            builder: (context, w) => Center(
-              child: Column(
-                children: [
-                  SizedBox(height: 20.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (int i = 0;
-                          i < controller.appointmentTypeList.length;
-                          i++)
-                        AppointmentType(
-                            title: controller.appointmentTypeList[i].title,
-                            selected:
-                                controller.appointmentTypeList[i].selected,
-                            onTap: () {
-                              controller.selectAppointmentType(i);
-                            })
-                    ],
-                  ),
-                  SizedBox(height: 25.h),
-                  if (controller.appointmentTypeList[0].selected)
-                    ...upComingAppointments
-                  else
-                    ...previousAppointments
-                ],
-              ),
+    return CustomScaffold(
+      scaffoldKey: controller.scaffoldKey,
+      className: runtimeType.toString(),
+      screenName: 'Dashboard',
+      body: ScreenUtilInit(
+        designSize: Size(
+          MediaQuery.of(context).size.width,
+          MediaQuery.of(context).size.height,
+        ),
+        builder: (context, w) => Center(
+          child: Obx(
+            () => Column(
+              children: [
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (int i = 0; i < controller.appointmentTypes.length; i++)
+                      AppointmentType(
+                        title: controller.appointmentTypes[i],
+                        index: i,
+                        controller: controller,
+                      )
+                  ],
+                ),
+                SizedBox(height: 25.h),
+                if (controller.selectedAppointmentType.value == 0)
+                  ...upComingAppointments
+                else
+                  ...previousAppointments
+              ],
             ),
           ),
         ),

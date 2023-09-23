@@ -2,13 +2,19 @@ import 'dart:convert';
 
 import 'package:e_clinic_dr/utils/text_field_manager.dart';
 import 'package:e_clinic_dr/utils/text_filter.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/availability_model.dart';
-import '../ui/appointments/components/appointment_type_widget.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class AvailabilityController extends GetxController {
+
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+
+
   TextFieldManager timeSlotController = TextFieldManager('Time Slot Duration',
       length: 50, filter: TextFilter.none);
   TextFieldManager assignSessionController =

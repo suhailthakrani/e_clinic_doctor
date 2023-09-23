@@ -23,6 +23,22 @@ class CustomDrawer extends Drawer {
             ),
           ),
           ListTile(
+            title: const Text('Dashboard'),
+            leading: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Image.asset(
+                'assets/images/dashboard.png',
+                scale: 0.1,
+                color: kPrimaryColor,
+              ),
+            ),
+            // titleFontSize: 18,
+            onTap: () {
+              Get.offAllNamed(kMainScreenRoute,
+                  predicate: ((route) => route.isFirst));
+            },
+          ),
+          ListTile(
             title: const Text('Messages'),
             leading: Padding(
               padding: const EdgeInsets.all(12),
