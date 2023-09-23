@@ -1,4 +1,3 @@
-
 import 'package:e_clinic_dr/utils/route_management.dart';
 import 'package:e_clinic_dr/utils/screen_bindings.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +6,15 @@ import 'package:get/get.dart';
 
 import 'utils/constants.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   // HttpOverrides.global = new MyHttpOverrides();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.white,
-    statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+    statusBarIconBrightness: Brightness.dark,
 
     // statusBarBrightness: Brightness.dark
   ));
@@ -37,5 +38,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

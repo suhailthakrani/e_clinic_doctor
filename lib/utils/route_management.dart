@@ -1,4 +1,5 @@
 import 'package:e_clinic_dr/ui/screens/main_screen/main_screen.dart';
+import 'package:e_clinic_dr/ui/screens/settings/components/account_settings.dart';
 import 'package:e_clinic_dr/ui/screens/test_screen.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +9,7 @@ import '../ui/screens/signin/login_screen.dart';
 import '../ui/screens/messages/messages_screen.dart';
 import '../ui/screens/my_ratings_screen.dart';
 import '../ui/screens/payment_screen.dart';
-import '../ui/screens/settigs_screen.dart';
+import '../ui/screens/settings/settigs_screen.dart';
 import '../ui/screens/splash_screen.dart';
 import 'constants.dart';
 import 'screen_bindings.dart';
@@ -59,6 +60,11 @@ class RouteManagement {
       GetPage(
         name: kSettingsScreenRoute,
         page: () => const SettingsScreen(),
+        binding: ScreensBindings(),
+      ), 
+      GetPage(
+        name: kAccountSettingsScreenRoute,
+        page: () => const AccountSettingsScreen(),
         binding: ScreensBindings(),
       ),
       GetPage(

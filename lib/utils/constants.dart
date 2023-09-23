@@ -14,6 +14,7 @@ const String kAvailabilityScreenRoute = '/availability';
 const String kPaymentScreenRoute = '/payments';
 const String kRatingsScreenRoute = '/ratings';
 const String kSettingsScreenRoute = '/settings';
+const String kAccountSettingsScreenRoute = "/account_settings";
 
 
 //

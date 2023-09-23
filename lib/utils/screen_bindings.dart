@@ -1,3 +1,4 @@
+import 'package:e_clinic_dr/controllers/account_settings_screen_controller.dart';
 import 'package:e_clinic_dr/controllers/login_screen_controller.dart';
 import 'package:e_clinic_dr/controllers/main_screen_controller.dart';
 import 'package:e_clinic_dr/controllers/test_screen_controller.dart';
@@ -24,5 +25,6 @@ class ScreensBindings extends Bindings {
     Get.lazyPut(() => PaymentsController());
     Get.lazyPut(() => RatingsController());
     Get.lazyPut(() => SettingsController());
+    Get.lazyPut(() => AccountSettingsController());
   }
 }
