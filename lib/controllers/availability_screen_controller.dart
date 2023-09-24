@@ -1,50 +1,105 @@
-import 'dart:convert';
-
+import 'package:e_clinic_dr/utils/common_code.dart';
 import 'package:e_clinic_dr/utils/text_field_manager.dart';
 import 'package:e_clinic_dr/utils/text_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../models/availability_model.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class AvailabilityController extends GetxController {
-
-
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
-
 
   TextFieldManager timeSlotController = TextFieldManager('Time Slot Duration',
       length: 50, filter: TextFilter.none);
   TextFieldManager assignSessionController =
       TextFieldManager('Assign Session #', length: 50, filter: TextFilter.none);
 
-  RxList<AvailabilityModel> availabilityList = <AvailabilityModel>[].obs;
+  TimeOfDay selectedStartTime = TimeOfDay.now();
+  TimeOfDay selectedEndTime = TimeOfDay.now();
 
-  @override
-  Future<void> onInit() async {
-    super.onInit();
-    final jsonData = await _loadJsonData();
-    readJsonFile(jsonData);
-  }
+  RxInt selectedIndex = 0.obs;
 
-  Future<String> _loadJsonData() async {
-    return await rootBundle.loadString('assets/json/availability.json');
-  }
+  RxList<AvailabilityModel> availabilityList = <AvailabilityModel>[
+    AvailabilityModel(
+        day: 'monday',
+        startTime: '',
+        endTime: '',
+        isActive: false,
+        appointmentInterval: 0,
+        buffer: 0),
+    AvailabilityModel(
+        day: 'tuesday',
+        startTime: '',
+        endTime: '',
+        isActive: false,
+        appointmentInterval: 0,
+        buffer: 0),
+    AvailabilityModel(
+        day: 'wednesday',
+        startTime: '',
+        endTime: '',
+        isActive: false,
+        appointmentInterval: 0,
+        buffer: 0),
+    AvailabilityModel(
+        day: 'thursday',
+        startTime: '',
+        endTime: '',
+        isActive: false,
+        appointmentInterval: 0,
+        buffer: 0),
+    AvailabilityModel(
+        day: 'friday',
+        startTime: '',
+        endTime: '',
+        isActive: false,
+        appointmentInterval: 0,
+        buffer: 0),
+    AvailabilityModel(
+        day: 'saturday',
+        startTime: '',
+        endTime: '',
+        isActive: false,
+        appointmentInterval: 0,
+        buffer: 0),
+    AvailabilityModel(
+        day: 'sunday',
+        startTime: '',
+        endTime: '',
+        isActive: false,
+        appointmentInterval: 0,
+        buffer: 0),
+  ].obs;
 
-  void readJsonFile(String jsonData) {
-    List<dynamic> availabilityListData = jsonDecode(jsonData)['availability'];
-    for (var availabilityData in availabilityListData) {
-      AvailabilityModel availability = AvailabilityModel(
-        day: availabilityData['day'],
-        startTime: availabilityData['startTime'],
-        endTime: availabilityData['endTime'],
-        isActive: availabilityData['is_active'],
-        appointmentInterval: availabilityData['appointment_interval'],
-        buffer: availabilityData['buffer'],
+  Future<String> showTimestampPicker(BuildContext context, int index) async {
+    TimeOfDay? selectedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+        initialEntryMode: TimePickerEntryMode.input);
+    if (selectedTime != null) {
+      DateTime now = DateTime.now();
+      DateTime selectedDateTime = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        selectedTime.hour,
+        selectedTime.minute,
       );
-      availabilityList.add(availability);
+
+      if (index == 0) {
+        selectedStartTime = selectedTime;
+      }
+
+      String formattedTimestamp = DateFormat("yyyy-MM-ddTHH:mm:ss.SSSZ")
+          .format(selectedDateTime.toLocal());
+      return formattedTimestamp;
     }
+    return '';
+  }
+
+  void toggleStatus({required int index, required bool value}) {
+    availabilityList[index] = availabilityList[index].copyWith(isActive: value);
+    notifyChildrens();
   }
 }

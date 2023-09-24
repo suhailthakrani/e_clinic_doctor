@@ -1,10 +1,10 @@
 class AvailabilityModel {
-  final String day;
-  final String startTime;
-  final String endTime;
-  final bool isActive;
-  final int appointmentInterval;
-  final int buffer;
+  String day = '';
+  String startTime = '';
+  String endTime = '';
+  bool isActive = false;
+  int appointmentInterval = 0;
+  int buffer = 0;
 
   AvailabilityModel({
     required this.day,

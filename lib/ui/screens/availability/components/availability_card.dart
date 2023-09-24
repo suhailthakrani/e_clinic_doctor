@@ -1,14 +1,15 @@
-import 'package:e_clinic_dr/models/availability_model.dart';
+import 'package:e_clinic_dr/controllers/availability_screen_controller.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class SingleAvailabilityWidget extends StatelessWidget {
-  final Rx<AvailabilityModel> availability;
+class SingleAvailabilityWidget extends GetView<AvailabilityController> {
+  final int index;
 
-  const SingleAvailabilityWidget(this.availability);
+  const SingleAvailabilityWidget({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -22,70 +23,138 @@ class SingleAvailabilityWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Obx(
-                  () => Switch(
-                    value: availability.value.isActive,
-                    onChanged: (value) {
-                      availability.value.copyWith(isActive: value);
-                    },
-                  ),
+                Switch(
+                  value: controller.availabilityList[index].isActive,
+                  onChanged: (value) {
+                    print(value);
+                    controller.toggleStatus(index: index, value: value);
+                  },
                 ),
-                Text(availability.value.day.capitalizeFirst ?? ''),
+                Text(controller.availabilityList[index].day.capitalizeFirst ??
+                    ''),
               ],
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    initialValue: availability.value.startTime,
-                    decoration: const InputDecoration(labelText: 'Start Time'),
-                    onTap: () async {
-                      TimeOfDay? picked = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.fromDateTime(
-                          DateTime.parse(availability.value.startTime),
+            Visibility(
+              visible: controller.availabilityList[index].isActive,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          'Start Time',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      );
-                      if (picked != null) {
-                        availability.value
-                            .copyWith(startTime: picked.toString());
-                      }
-                    },
-                  ),
-                ),
-                const SizedBox(width: 16.0),
-                Expanded(
-                  child: TextFormField(
-                    initialValue: availability.value.endTime,
-                    decoration: const InputDecoration(
-                      labelText: 'End Time',
-                      labelStyle: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
+                        const SizedBox(height: 4.0),
+                        Obx(
+                          () => GestureDetector(
+                            onTap: () async {
+                              String value = await controller
+                                  .showTimestampPicker(context, 0);
+
+                              controller.availabilityList[index] = controller
+                                  .availabilityList[index]
+                                  .copyWith(startTime: value);
+                            },
+                            child: Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: kBlack45Color,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  controller.availabilityList[index].startTime
+                                          .isNotEmpty
+                                      ? "${DateTime.parse(controller.availabilityList[index].startTime).hour.toString().padLeft(2, '0')}:${DateTime.parse(controller.availabilityList[index].startTime).minute.toString().padLeft(2, '0')}"
+                                      : 'Select',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    onTap: () async {
-                      TimeOfDay? picked = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.fromDateTime(
-                          DateTime.parse(availability.value.endTime),
-                        ),
-                      );
-                      if (picked != null) {
-                        availability.value.copyWith(endTime: picked.toString());
-                      }
-                    },
                   ),
-                ),
-                const SizedBox(width: 16.0),
-                GestureDetector(
-                    onTap: () {},
-                    child: const Icon(
-                      CupertinoIcons.delete,
-                      color: kRequiredRedColor,
-                    )),
-              ],
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          'End Time',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 4.0),
+                        Obx(
+                          () => GestureDetector(
+                            onTap: () async {
+                              String value = await controller
+                                  .showTimestampPicker(context, 1);
+                              controller.availabilityList[index] = controller
+                                  .availabilityList[index]
+                                  .copyWith(endTime: value);
+                            },
+                            child: Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: kBlack45Color,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  controller.availabilityList[index].endTime
+                                          .isNotEmpty
+                                      ? "${DateTime.parse(controller.availabilityList[index].endTime).hour.toString().padLeft(2, '0')}:${DateTime.parse(controller.availabilityList[index].endTime).minute.toString().padLeft(2, '0')}"
+                                      : 'Select',
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  GestureDetector(
+                      onTap: () {},
+                      child: const Padding(
+                        padding: EdgeInsets.only(top: 16),
+                        child: Icon(
+                          CupertinoIcons.delete,
+                          color: kRequiredRedColor,
+                        ),
+                      )),
+                ],
+              ),
+            ),
+            Obx(
+              () => Visibility(
+                visible: !(controller.availabilityList[index].isActive),
+                child: const Text("Unavailable"),
+              ),
             ),
             const SizedBox(height: 8.0),
             Row(
@@ -106,37 +175,6 @@ class SingleAvailabilityWidget extends StatelessWidget {
                     )),
               ],
             ),
-            // const SizedBox(height: 8.0),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: TextFormField(
-            //         initialValue:
-            //             availability.value.appointmentInterval.toString(),
-            //         keyboardType: TextInputType.number,
-            //         decoration: const InputDecoration(
-            //             labelText: 'Appointment Interval (min)'),
-            //         onChanged: (value) {
-            //           availability.value.copyWith(
-            //               appointmentInterval: int.tryParse(value) ?? 0);
-            //         },
-            //       ),
-            //     ),
-            //     const SizedBox(width: 16.0),
-            //     Expanded(
-            //       child: TextFormField(
-            //         initialValue: availability.value.buffer.toString(),
-            //         keyboardType: TextInputType.number,
-            //         decoration:
-            //             const InputDecoration(labelText: 'Buffer (min)'),
-            //         onChanged: (value) {
-            //           availability.value
-            //               .copyWith(buffer: int.tryParse(value) ?? 0);
-            //         },
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ],
         ),
       ),

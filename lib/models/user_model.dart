@@ -2,20 +2,22 @@ import 'package:e_clinic_dr/models/base_model.dart';
 
 class UserModel extends BaseModel {
   String firstName = '';
-  String lastName ='';
-  String email ='';
-  String gender ='';
-  String specialization ='';
-  String degreeDocument  ='';
-  String hospitalClinicName ='';
-  String address ='';
-  String city ='';
-  String state ='';
-  // final String password;
+  String lastName = '';
+  String cnic = '';
+  String email = '';
+  String gender = '';
+  String specialization = '';
+  String degreeDocument = '';
+  String hospitalClinicName = '';
+  String address = '';
+  String city = '';
+  String state = '';
+  String password = '';
 
   UserModel({
     required this.firstName,
     required this.lastName,
+    required this.cnic,
     required this.email,
     required this.gender,
     required this.specialization,
@@ -24,23 +26,23 @@ class UserModel extends BaseModel {
     required this.address,
     required this.city,
     required this.state,
-    // required this.password,
+    required this.password,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      firstName: json['first_name'],
-      lastName: json['last_name'],
-      email: json['email'],
-      gender: json['gender'],
-      specialization: json['specialization'],
-      degreeDocument: json['degree_document'],
-      hospitalClinicName: json['hospital_clinic_name'],
-
-      address: json['address'],
-      city: json['city'],
-      state: json['state'],
-      // password: json['password'],
+      firstName: json['first_name'] ?? '',
+      lastName: json['last_name'] ?? '',
+      cnic: json['cnic'] ?? '',
+      email: json['email'] ?? '',
+      gender: json['gender'] ?? '',
+      specialization: json['specialization'] ?? '',
+      degreeDocument: json['degree_document'] ?? '',
+      hospitalClinicName: json['hospital_clinic_name'] ?? '',
+      address: json['address'] ?? '',
+      city: json['city'] ?? '',
+      state: json['state'] ?? '',
+      password: json['password'] ?? '',
     );
   }
 
@@ -48,18 +50,21 @@ class UserModel extends BaseModel {
       : firstName = '',
         lastName = '',
         email = '',
+        cnic = '',
         gender = '',
         specialization = '',
         degreeDocument = '',
         hospitalClinicName = '',
         address = '',
         city = '',
-        state = '';
+        state = '',
+        password = '';
 
   Map<String, String> toJson() {
     return {
       'first_name': firstName,
       'last_name': lastName,
+      // 'cnic':cnic,
       'email': email,
       'gender': gender,
       'specialization': specialization,
@@ -67,7 +72,7 @@ class UserModel extends BaseModel {
       'address': address,
       'city': city,
       'state': state,
-      // 'password': password,
+      'password': password,
     };
   }
 
