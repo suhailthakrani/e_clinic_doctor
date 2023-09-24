@@ -8,7 +8,7 @@ import '../ui/appointments/appointment_screen.dart';
 import '../ui/screens/availability/availability_screen.dart';
 import '../ui/screens/signin/login_screen.dart';
 import '../ui/screens/messages/messages_screen.dart';
-import '../ui/screens/my_ratings_screen.dart';
+import '../ui/screens/ratings/my_ratings_screen.dart';
 import '../ui/screens/payment_screen.dart';
 import '../ui/screens/settings/settigs_screen.dart';
 import '../ui/screens/splash_screen.dart';

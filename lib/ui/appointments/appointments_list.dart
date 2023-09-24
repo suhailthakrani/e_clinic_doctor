@@ -1,24 +1,40 @@
+import 'package:e_clinic_dr/ui/appointments/components/appointment_card.dart';
+import 'package:e_clinic_dr/utils/app_enum.dart';
+
 import 'components/previous_appointment_card.dart';
 import 'components/upcoming_appointment_card.dart';
 
-List<AppointementCard> upComingAppointments = [
-  const AppointementCard(
-    drName: "Dr Rebekka",
-    drDepartment: "Psychiatry",
+List<AppointmentCard> upComingAppointments = [
+  AppointmentCard(
+    drName: "Mary Freund",
+    category: "General Checkup",
     image: "assets/images/doctor.png",
+    status: AppointmentStatus.pending,
+  ),
+  AppointmentCard(
+    drName: "Kathy Pacheco",
+    category: "Pyscology",
+    image: "assets/images/doctor.png",
+    status: AppointmentStatus.pending,
   ),
 ];
-List<PreviousAppointementCard> previousAppointments = [
-  const PreviousAppointementCard(
-    drName: "Dr Rebekka",
-    drDepartment: "Psychiatry",
+List<AppointmentCard> previousAppointments = [
+  AppointmentCard(
+    drName: "Rhonda Rhodes",
+    category: "Emergency",
     image: "assets/images/doctor.png",
-    status: true,
+    status: AppointmentStatus.completed,
   ),
-  const PreviousAppointementCard(
-    drName: "Dr Rebekka",
-    drDepartment: "Psychiatry",
+  AppointmentCard(
+    drName: "Rodger Struck",
+    category: "Diet Plan",
     image: "assets/images/doctor.png",
-    status: false,
+    status: AppointmentStatus.pending,
+  ),
+  AppointmentCard(
+    drName: "Rodger Struck",
+    category: "Carminology",
+    image: "assets/images/doctor.png",
+    status: AppointmentStatus.completed,
   ),
 ];

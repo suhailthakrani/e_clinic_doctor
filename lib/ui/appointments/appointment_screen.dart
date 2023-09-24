@@ -15,7 +15,7 @@ class AppointmentsScreen extends GetView<AppointmentsController> {
     return CustomScaffold(
       scaffoldKey: controller.scaffoldKey,
       className: runtimeType.toString(),
-      screenName: 'Dashboard',
+      screenName: 'Appointments',
       body: ScreenUtilInit(
         designSize: Size(
           MediaQuery.of(context).size.width,
