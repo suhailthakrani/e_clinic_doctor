@@ -1,5 +1,6 @@
 import 'package:e_clinic_dr/utils/app_enum.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
+import 'package:e_clinic_dr/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,42 +77,10 @@ class AppointmentCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Chip(
-                  avatar: const Icon(
-                    Icons.check_circle,
-                    color: kGreenNormalColor,
-                  ),
-                  label: Text(
-                    PaymentStatus.paid.name.capitalizeFirst.toString(),
-                    style: const TextStyle(
-                      color: kGreenNormalColor,
-                      fontSize: 12,
-                    ),
-                  ),
-                  backgroundColor: kFieldBorderColor,
-                ),
-              ],
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "31 September 2020",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
                 if (status == AppointmentStatus.completed)
                   Chip(
                     avatar: const Icon(
-                      CupertinoIcons.check_mark_circled,
+                      CupertinoIcons.check_mark_circled_solid,
                       color: kGreenNormalColor,
                     ),
                     label: Text(
@@ -141,7 +110,7 @@ class AppointmentCard extends StatelessWidget {
                     ),
                     backgroundColor: Colors.redAccent,
                   )
-                else
+                else if (status == AppointmentStatus.pending)
                   Chip(
                     avatar: const Icon(
                       CupertinoIcons.time,
@@ -156,57 +125,111 @@ class AppointmentCard extends StatelessWidget {
                     ),
                     backgroundColor: kFieldBorderColor,
                   ),
-                SizedBox(width: 24.w),
-                Visibility(
-                  visible: (status == AppointmentStatus.pending),
-                  child: Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // TODO: Reject Appointment
-                          },
-                          child: const Chip(
-                            avatar: Icon(
-                              CupertinoIcons.multiply_circle,
-                              color: kWhiteColor,
-                            ),
-                            label: Text(
-                              "Cancel",
-                              style: TextStyle(
-                                color: kWhiteColor,
-                                fontSize: 12,
-                              ),
-                            ),
-                            backgroundColor: kRequiredRedColor,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            // TODO: Accept Appointment
-                          },
-                          child: const Chip(
-                            avatar: Icon(
-                              Icons.check_circle_outline,
-                              color: kWhiteColor,
-                            ),
-                            label: Text(
-                              "Accept",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
-                            backgroundColor: kGreenNormalColor,
-                          ),
-                        ),
-                      ],
-                    ),
+              ],
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "31 September 2020",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
-            )
+            ),
+            Visibility(
+              visible: (status == AppointmentStatus.pending),
+              child: Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // TODO: Reject Appointment
+                      },
+                      child: const Chip(
+                        avatar: Icon(
+                          CupertinoIcons.multiply_circle,
+                          color: kWhiteColor,
+                        ),
+                        label: Text(
+                          "Cancel",
+                          style: TextStyle(
+                            color: kWhiteColor,
+                            fontSize: 12,
+                          ),
+                        ),
+                        backgroundColor: kRequiredRedColor,
+                      ),
+                    ),
+                    SizedBox(width: 8.w),
+                    GestureDetector(
+                      onTap: () {
+                        // TODO: Accept Appointment
+                      },
+                      child: const Chip(
+                        avatar: Icon(
+                          Icons.check_circle_outline,
+                          color: kWhiteColor,
+                        ),
+                        label: Text(
+                          "Accept",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
+                        ),
+                        backgroundColor: kGreenNormalColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: (status == AppointmentStatus.completed),
+              child: Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(kPrescriptionScreenRoute);
+                      },
+                      child: Chip(
+                        label: const Text(
+                          "Prescribe",
+                          style: TextStyle(
+                            color: kWhiteColor,
+                            fontSize: 12,
+                          ),
+                        ),
+                        backgroundColor: kPrimaryColor,
+                      ),
+                    ),
+                    SizedBox(width: 8.w),
+                    GestureDetector(
+                      onTap: () {
+                        // TODO: Accept Appointment
+                      },
+                      child: Chip(
+                        label: const Text(
+                          "Write Report",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
+                        ),
+                        backgroundColor: kBlueColor.withOpacity(0.7),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

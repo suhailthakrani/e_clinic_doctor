@@ -15,6 +15,12 @@ class SettingsScreen extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        elevation: 0,
+        backgroundColor: kWhiteColor,
+        foregroundColor: kBlackColor,
+      ),
       body: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -23,7 +29,6 @@ class SettingsScreen extends GetView<SettingsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 50.h),
             Text(
               "Settings",
               style: TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold),
@@ -38,7 +43,7 @@ class SettingsScreen extends GetView<SettingsController> {
               decoration: BoxDecoration(
                   color: kWhiteColor,
                   borderRadius: BorderRadius.circular(8.r),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(color: kFieldShadowColor, offset: Offset(-1, -1)),
                     BoxShadow(color: kFieldShadowColor, offset: Offset(1, 1))
                   ]),
@@ -50,9 +55,13 @@ class SettingsScreen extends GetView<SettingsController> {
                       onTap: () {
                         Get.toNamed(kAccountSettingsScreenRoute);
                       }),
-                  Divider(),
-                  CustomTile(title: 'Notifications', onTap: () {}),
-                  Divider(),
+                  const Divider(),
+                  CustomTile(
+                      title: 'Notifications',
+                      onTap: () {
+                        Get.toNamed(kNotificationSettingsScreenRoute);
+                      }),
+                  const Divider(),
                   CustomTile(
                     title: 'Logout',
                     onTap: () {},

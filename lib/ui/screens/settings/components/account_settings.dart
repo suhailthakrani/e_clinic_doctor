@@ -2,6 +2,7 @@ import 'package:e_clinic_dr/controllers/settings/account_settings_screen_control
 import 'package:e_clinic_dr/ui/widgets/custom_scaffold.dart';
 import 'package:e_clinic_dr/ui/widgets/custom_tile.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
+import 'package:e_clinic_dr/utils/constants.dart';
 import 'package:e_clinic_dr/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +14,12 @@ class AccountSettingsScreen extends GetView<AccountSettingsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        elevation: 0,
+        backgroundColor: kWhiteColor,
+        foregroundColor: kBlackColor,
+      ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
@@ -24,9 +31,6 @@ class AccountSettingsScreen extends GetView<AccountSettingsController> {
           mainAxisSize: MainAxisSize.min,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 50.h,
-            ),
             Text(
               "Account Settings",
               style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
@@ -46,15 +50,35 @@ class AccountSettingsScreen extends GetView<AccountSettingsController> {
                 child: Column(
                   // mainAxisSize: MainAxisSize.max,
                   children: [
-                    CustomTile(title: 'Personal Info', onTap: () {}),
+                    CustomTile(
+                        title: 'Personal Info',
+                        onTap: () {
+                          Get.toNamed(kPersonalInfoSettingsScreenRoute);
+                        }),
                     Divider(),
-                    CustomTile(title: 'Professional Info', onTap: () {}),
+                    CustomTile(
+                        title: 'Professional Info',
+                        onTap: () {
+                          Get.toNamed(kPersonalInfoSettingsScreenRoute);
+                        }),
                     Divider(),
-                    CustomTile(title: 'Email', onTap: () {}),
+                    CustomTile(
+                        title: 'Email',
+                        onTap: () {
+                          Get.toNamed(kEmailSettingsScreenRoute);
+                        }),
                     Divider(),
-                    CustomTile(title: 'Phone Number', onTap: () {}),
+                    CustomTile(
+                        title: 'Phone Number',
+                        onTap: () {
+                          Get.toNamed(kPhoneNoSettingsScreenRoute);
+                        }),
                     Divider(),
-                    CustomTile(title: 'Password', onTap: () {}),
+                    CustomTile(
+                        title: 'Password',
+                        onTap: () {
+                          Get.toNamed(kPasswordSettingsScreenRoute);
+                        }),
                     Divider(),
                     ListTile(
                       dense: true,

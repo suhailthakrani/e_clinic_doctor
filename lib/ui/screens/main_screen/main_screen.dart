@@ -1,3 +1,4 @@
+import 'package:e_clinic_dr/ui/widgets/button1.dart';
 import 'package:e_clinic_dr/ui/widgets/custom_drawer.dart';
 import 'package:e_clinic_dr/ui/widgets/custom_scaffold.dart';
 import 'package:e_clinic_dr/ui/widgets/widget_svg.dart';
@@ -19,42 +20,88 @@ class MainScreen extends GetView<MainScreenController> {
       screenName: 'Dashboard',
       // appBar: AppBar(),
       // endDrawer: const CustomDrawer(),
-      body: const Padding(
+      body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Card(
-              child: ListTile(
-                title: Text('Total Payments'),
-                trailing: Text('\$1000'), // Replace with actual data
-              ),
-            ),
+                elevation: 8,
+                child: Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset('assets/images/card.png'),
+                      Text("Pending Payments",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          )),
+                      Text("\$9600",
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w600,
+                          ))
+                    ],
+                  ),
+                )),
             Card(
-              child: ListTile(
-                title: Text('Total Appointments'),
-                trailing: Text('50'), // Replace with actual data
-              ),
-            ),
+                elevation: 8,
+                child: Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset('assets/images/amount.png'),
+                      Text("Amount Required",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          )),
+                      Text("\$9600",
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w600,
+                          ))
+                    ],
+                  ),
+                )),
             Card(
-              child: ListTile(
-                title: Text('Total Income'),
-                trailing: Text('\$2000'), // Replace with actual data
-              ),
-            ),
-            Card(
-              child: ListTile(
-                title: Text("Today's Appointments"),
-                trailing: Text('10'), // Replace with actual data
-              ),
-            ),
-            Card(
-              child: ListTile(
-                title: Text('Patient Reviews'),
-                trailing: Text('4.8'), // Replace with actual data
-              ),
-            ),
-            // Add more cards/widgets for other metrics
+                elevation: 8,
+                child: Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset('assets/images/total.png'),
+                      Text("Total Amount",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          )),
+                      Text("\$9600",
+                          style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w600,
+                          ))
+                    ],
+                  ),
+                )),
+            SizedBox(height: 10.h),
+            Row(
+              children: [
+                SizedBox(
+                  width: 200,
+                  child: Button1(
+                      textStyle: TextStyle(color: kWhiteColor),
+                      buttonColor: kBlueColor,
+                      text: 'Withdraw',
+                      borderRadius: 12,
+                      onPress: () {}),
+                ),
+              ],
+            )
           ],
         ),
       ),

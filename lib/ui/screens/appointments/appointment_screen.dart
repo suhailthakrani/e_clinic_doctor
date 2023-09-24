@@ -1,10 +1,13 @@
-import 'package:e_clinic_dr/ui/appointments/components/appointment_type_widget.dart';
+import 'package:e_clinic_dr/ui/screens/appointments/components/appointment_type_widget.dart';
+import 'package:e_clinic_dr/ui/widgets/button1.dart';
+import 'package:e_clinic_dr/ui/widgets/button2.dart';
 import 'package:e_clinic_dr/ui/widgets/custom_scaffold.dart';
+import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/appointments/appointments_screen_cntroller.dart';
+import '../../../controllers/appointments/appointments_screen_cntroller.dart';
 import 'appointments_list.dart';
 
 class AppointmentsScreen extends GetView<AppointmentsController> {
@@ -37,6 +40,22 @@ class AppointmentsScreen extends GetView<AppointmentsController> {
                       )
                   ],
                 ),
+                SizedBox(height: 25.h),
+                if (controller.selectedAppointmentType.value == 1)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                          width: 150,
+                          child: TextButton(
+                            style: ElevatedButton.styleFrom(
+                                side: BorderSide(color: kBlack45Color)),
+                            onPressed: () {},
+                            child: Text('Date Filter'),
+                          )),
+                      SizedBox(width: 20.w),
+                    ],
+                  ),
                 SizedBox(height: 25.h),
                 if (controller.selectedAppointmentType.value == 0)
                   ...upComingAppointments

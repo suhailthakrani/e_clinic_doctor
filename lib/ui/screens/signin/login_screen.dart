@@ -1,5 +1,6 @@
 import 'package:e_clinic_dr/controllers/login_screen_controller.dart';
 import 'package:e_clinic_dr/ui/widgets/general_text_field.dart';
+import 'package:e_clinic_dr/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -99,6 +100,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                             fontWeight: FontWeight.w500, color: button2Color),
                       ),
                       onPressed: () {
+                        Get.toNamed(kForgotPasswordScreenRoute);
                         // Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
                       }),
                   // SizedBox(height: 20.h),
@@ -109,6 +111,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                       SizedBox(width: 14.w),
                       TextButton(
                         onPressed: () {
+                          Get.toNamed(kRegisterScreenRoute);
                           // Navigator.of(context)
                           //     .pushReplacementNamed(SignUpScreen.routeName);
                         },

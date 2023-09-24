@@ -1,4 +1,4 @@
-import 'package:e_clinic_dr/ui/appointments/components/appointment_card.dart';
+import 'package:e_clinic_dr/ui/screens/appointments/components/appointment_card.dart';
 import 'package:e_clinic_dr/utils/app_enum.dart';
 
 import 'components/previous_appointment_card.dart';
@@ -29,7 +29,7 @@ List<AppointmentCard> previousAppointments = [
     drName: "Rodger Struck",
     category: "Diet Plan",
     image: "assets/images/doctor.png",
-    status: AppointmentStatus.pending,
+    status: AppointmentStatus.completed,
   ),
   AppointmentCard(
     drName: "Rodger Struck",

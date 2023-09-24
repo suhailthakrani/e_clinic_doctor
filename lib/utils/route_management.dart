@@ -1,15 +1,21 @@
+import 'package:e_clinic_dr/ui/screens/forgot_password/forgot_password_screen.dart';
 import 'package:e_clinic_dr/ui/screens/main_screen/main_screen.dart';
+import 'package:e_clinic_dr/ui/screens/notification_screens.dart';
+import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_driver_screen.dart';
+import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_id_screen.dart';
+import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_passport_screen.dart';
+import 'package:e_clinic_dr/ui/screens/prescriptions/prescriptions.dart';
 import 'package:e_clinic_dr/ui/screens/settings/components/account_settings.dart';
 import 'package:e_clinic_dr/ui/screens/signup/signup_screen.dart';
 import 'package:e_clinic_dr/ui/screens/test_screen.dart';
 import 'package:get/get.dart';
 
-import '../ui/appointments/appointment_screen.dart';
+import '../ui/screens/appointments/appointment_screen.dart';
 import '../ui/screens/availability/availability_screen.dart';
 import '../ui/screens/signin/login_screen.dart';
 import '../ui/screens/messages/messages_screen.dart';
 import '../ui/screens/ratings/my_ratings_screen.dart';
-import '../ui/screens/payment_screen.dart';
+import '../ui/screens/payments/payment_screen.dart';
 import '../ui/screens/settings/settigs_screen.dart';
 import '../ui/screens/splash_screen.dart';
 import 'constants.dart';
@@ -78,6 +84,72 @@ class RouteManagement {
         page: () => const SignUpScreen(),
         binding: ScreensBindings(),
       ),
+      GetPage(
+    name: kForgotPasswordScreenRoute,
+    page: () => const ForgotPasswordScreen(),
+    binding: ScreensBindings(),
+  ),
+  // GetPage(
+  //   name: kPasswordResetMethodsScreenRoute,
+  //   page: () => const ForgotPasswordScreen(),
+  //   binding: ScreensBindings(),
+  // ),
+  // GetPage(
+  //   name: kResetPasswordBySMSScreenRoute,
+  //   page: () => const ResetPasswordBySMSScreen(),
+  //   binding: ScreensBindings(),
+  // ),
+  GetPage(
+    name: kVerificationIDScreenRoute,
+    page: () => const VerificationIdScreen(),
+    binding: ScreensBindings(),
+  ),
+  GetPage(
+    name: kVerificationDriverScreenRoute,
+    page: () => const VerificationDriverScreen(),
+    binding: ScreensBindings(),
+  ),
+  GetPage(
+    name: kVerificationPassportScreenRoute,
+    page: () => const VerificationPassportScreen(),
+    binding: ScreensBindings(),
+  ),
+  GetPage(
+    name: kNotificationSettingsScreenRoute,
+    page: () => const NotificationSettingsScreen(),
+    binding: ScreensBindings(),
+  ),
+  GetPage(
+    name: kPersonalInfoSettingsScreenRoute,
+    page: () => const PersonalInfoSettingsScreen(),
+    binding: ScreensBindings(),
+  ),
+  GetPage(
+    name: kEmailSettingsScreenRoute,
+    page: () => const EmailSettingsScreen(),
+    binding: ScreensBindings(),
+  ),
+  GetPage(
+    name: kPhoneNoSettingsScreenRoute,
+    page: () => const PhoneNoSettingsScreen(),
+    binding: ScreensBindings(),
+  ),
+  GetPage(
+    name: kPasswordSettingsScreenRoute,
+    page: () => const PasswordSettingsScreen(),
+    binding: ScreensBindings(),
+  ),
+  GetPage(
+    name: kProfessionalInfoSettingsScreenRoute,
+    page: () => const ProfessionalInfoSettingsScreen(),
+    binding: ScreensBindings(),
+  ),
+  GetPage(
+    name: kPrescriptionScreenRoute,
+    page: () => const PrescriptionsScreen(),
+    binding: ScreensBindings(),
+  ),
+  
       // GetPage(name: '/logout', page: () => LogoutScreen()),
     ];
   }
