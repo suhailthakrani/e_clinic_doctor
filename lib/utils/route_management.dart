@@ -12,6 +12,9 @@ import 'package:get/get.dart';
 
 import '../ui/screens/appointments/appointment_screen.dart';
 import '../ui/screens/availability/availability_screen.dart';
+import '../ui/screens/settings/components/notification_settings.dart';
+import '../ui/screens/settings/components/personal_info_settings.dart';
+import '../ui/screens/settings/components/professional_info_settings.dart';
 import '../ui/screens/signin/login_screen.dart';
 import '../ui/screens/messages/messages_screen.dart';
 import '../ui/screens/ratings/my_ratings_screen.dart';

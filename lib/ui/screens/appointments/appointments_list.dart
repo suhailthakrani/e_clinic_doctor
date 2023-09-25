@@ -17,6 +17,12 @@ List<AppointmentCard> upComingAppointments = [
     image: "assets/images/doctor.png",
     status: AppointmentStatus.pending,
   ),
+  AppointmentCard(
+    drName: "Rodger Struck",
+    category: "Carminology",
+    image: "assets/images/doctor.png",
+    status: AppointmentStatus.pending,
+  ),
 ];
 List<AppointmentCard> previousAppointments = [
   AppointmentCard(
@@ -37,4 +43,5 @@ List<AppointmentCard> previousAppointments = [
     image: "assets/images/doctor.png",
     status: AppointmentStatus.completed,
   ),
+  
 ];

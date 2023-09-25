@@ -25,9 +25,6 @@ class PaymentsController extends GetxController {
   ].obs;
 
   void selectPaymentMethod(int index) {
-    // for (var item in paymentMethods) {
-    //   item.selected = false;
-    // }
     selectedPaymentIndex.value = index;
     notifyChildrens();
   }

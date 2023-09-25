@@ -220,7 +220,7 @@ Future<Map<String, String>> _getHeaders() async {
     });
     return {};
   } else if (token.accessToken.isNotEmpty) {
-    return {'Authorization': 'Bearer ${token.accessToken}'};
+    return {'X-Auth-Token': token.accessToken};
   } else {
     return {};
   }
