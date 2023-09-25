@@ -14,7 +14,7 @@ class SplashScreen extends GetView<SplashScreenController> {
     var splashTextStyle = const TextStyle(
       color: Colors.white,
       fontFamily: "Poppins",
-      fontSize: 32.0,
+      fontSize: 28.0,
       fontWeight: FontWeight.w700,
       height: 0,
     );
@@ -24,7 +24,7 @@ class SplashScreen extends GetView<SplashScreenController> {
       child: ScreenUtilInit(
         designSize: const Size(428, 926),
         builder: (context, widget) => Scaffold(
-          backgroundColor: kPendingColor,
+          backgroundColor: kPrimaryColor,
           body: SingleChildScrollView(
             child: Container(
               margin: EdgeInsets.only(
@@ -46,8 +46,7 @@ class SplashScreen extends GetView<SplashScreenController> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("ADERIS", style: splashTextStyle),
-                          Text("HEALTH", style: splashTextStyle),
+                          Text("E-CLINIC", style: splashTextStyle),
                           Container(
                             margin: EdgeInsets.only(top: 100.h, bottom: 50.h),
                             child: Image.asset("assets/images/small-steth.png"),
