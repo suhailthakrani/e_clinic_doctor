@@ -1,12 +1,13 @@
 import 'package:e_clinic_dr/ui/widgets/button1.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
+import 'package:e_clinic_dr/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/forgot_password_controller.dart';
-import '../../../utils/text_styles.dart';
-import 'reset_by_sms_screen/reset_by_sms_screen.dart';
+import '../../../../controllers/forgot_password_controller.dart';
+import '../../../../utils/text_styles.dart';
+import 'reset_by_sms_screen.dart';
 
 class ForgotPasswordScreen extends GetView<ForgotPasswordScreenController> {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -76,10 +77,7 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordScreenController> {
                       borderRadius: 30,
                       onPress: controller.checkIfAllSelected()
                           ? () {
-                              Navigator.pushNamed(
-                                context,
-                                ResetBySmsScreen.routeName,
-                              );
+                            Get.toNamed(kResetPasswordBySMSScreenRoute);
                             }
                           : null,
                     ),

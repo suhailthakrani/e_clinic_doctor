@@ -45,7 +45,7 @@ class GeneralTextField extends StatelessWidget {
         children: [
           Text(
             tfManager.fieldName,
-            style: const TextStyle(color: kBlackColor, fontSize: 14),
+            style: const TextStyle(color: kBlackColor, fontSize: 14, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 6),
           Obx(

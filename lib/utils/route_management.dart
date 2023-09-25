@@ -1,4 +1,4 @@
-import 'package:e_clinic_dr/ui/screens/forgot_password/forgot_password_screen.dart';
+import 'package:e_clinic_dr/ui/screens/signin/components/forgot_password_screen.dart';
 import 'package:e_clinic_dr/ui/screens/main_screen/main_screen.dart';
 import 'package:e_clinic_dr/ui/screens/notification_screens.dart';
 import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_driver_screen.dart';

@@ -31,7 +31,7 @@ class SingleAvailabilityWidget extends GetView<AvailabilityController> {
                   },
                 ),
                 Text(controller.availabilityList[index].day.capitalizeFirst ??
-                    ''),
+                    '', style: const TextStyle(fontWeight: FontWeight.w600,),),
               ],
             ),
             Visibility(

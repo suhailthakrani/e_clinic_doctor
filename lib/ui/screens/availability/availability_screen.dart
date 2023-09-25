@@ -18,7 +18,7 @@ class AvailabilityScreen extends GetView<AvailabilityController> {
       className: runtimeType.toString(),
       screenName: 'Schedule Timings',
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -32,6 +32,7 @@ class AvailabilityScreen extends GetView<AvailabilityController> {
               "Schedule Your Availability",
               style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),
             ),
+             SizedBox(height: 20.h),
             Container(
               child: Column(
                 // mainAxisSize: MainAxisSize.min,
@@ -42,6 +43,7 @@ class AvailabilityScreen extends GetView<AvailabilityController> {
                         child: GeneralTextField.withShadow(
                             tfManager: controller.timeSlotController),
                       ),
+                       SizedBox(width: 10.h),
                       Flexible(
                         child: GeneralTextField.withShadow(
                             tfManager: controller.assignSessionController),

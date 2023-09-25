@@ -19,9 +19,13 @@ class AccountSettingsScreen extends GetView<AccountSettingsController> {
         elevation: 0,
         backgroundColor: kWhiteColor,
         foregroundColor: kBlackColor,
+        title:  Text(
+              "Account Settings",
+              style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
+            ),
       ),
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(12.r),
@@ -31,17 +35,17 @@ class AccountSettingsScreen extends GetView<AccountSettingsController> {
           mainAxisSize: MainAxisSize.min,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Account Settings",
-              style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
-            ),
+            // Text(
+            //   "Account Settings",
+            //   style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
+            // ),
             SizedBox(height: 20.h),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
                     color: kWhiteColor,
                     borderRadius: BorderRadius.circular(8.r),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                           color: kFieldShadowColor, offset: Offset(-1, -1)),
                       BoxShadow(color: kFieldShadowColor, offset: Offset(1, 1))
@@ -55,31 +59,31 @@ class AccountSettingsScreen extends GetView<AccountSettingsController> {
                         onTap: () {
                           Get.toNamed(kPersonalInfoSettingsScreenRoute);
                         }),
-                    Divider(),
+                    const Divider(),
                     CustomTile(
                         title: 'Professional Info',
                         onTap: () {
                           Get.toNamed(kPersonalInfoSettingsScreenRoute);
                         }),
-                    Divider(),
+                    const Divider(),
                     CustomTile(
                         title: 'Email',
                         onTap: () {
                           Get.toNamed(kEmailSettingsScreenRoute);
                         }),
-                    Divider(),
+                    const Divider(),
                     CustomTile(
                         title: 'Phone Number',
                         onTap: () {
                           Get.toNamed(kPhoneNoSettingsScreenRoute);
                         }),
-                    Divider(),
+                    const Divider(),
                     CustomTile(
                         title: 'Password',
                         onTap: () {
                           Get.toNamed(kPasswordSettingsScreenRoute);
                         }),
-                    Divider(),
+                    const Divider(),
                     ListTile(
                       dense: true,
                       // contentPadding: EdgeInsets.zero,
@@ -89,7 +93,7 @@ class AccountSettingsScreen extends GetView<AccountSettingsController> {
                           fontWeight: FontWeight.bold,
                           color: kRequiredRedColor),
                       splashColor: kFieldBorderColor,
-                      title: Text('Deactivate Account'),
+                      title: const Text('Deactivate Account'),
                       onTap: () {},
                     ),
                   ],

@@ -20,57 +20,64 @@ class SettingsScreen extends GetView<SettingsController> {
         elevation: 0,
         backgroundColor: kWhiteColor,
         foregroundColor: kBlackColor,
+        title:  Text(
+              "Account Settings",
+              style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
+            ),
       ),
       body: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         height: Get.height,
         width: Get.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Settings",
-              style: TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8.h),
-            Text(
-              "Personalize Your Account Settings",
-              style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: 40.h),
-            Container(
-              decoration: BoxDecoration(
-                  color: kWhiteColor,
-                  borderRadius: BorderRadius.circular(8.r),
-                  boxShadow: const [
-                    BoxShadow(color: kFieldShadowColor, offset: Offset(-1, -1)),
-                    BoxShadow(color: kFieldShadowColor, offset: Offset(1, 1))
-                  ]),
-              padding: EdgeInsets.symmetric(vertical: 8.h),
-              child: Column(
-                children: [
-                  CustomTile(
-                      title: 'Account Settings',
-                      onTap: () {
-                        Get.toNamed(kAccountSettingsScreenRoute);
-                      }),
-                  const Divider(),
-                  CustomTile(
-                      title: 'Notifications',
-                      onTap: () {
-                        Get.toNamed(kNotificationSettingsScreenRoute);
-                      }),
-                  const Divider(),
-                  CustomTile(
-                    title: 'Logout',
-                    onTap: () {},
-                    icon: const SizedBox(),
-                  ),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Text(
+              //   "Settings",
+              //   style: TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold),
+              // ),
+              SizedBox(height: 8.h),
+              Text(
+                "Personalize Your Account Settings",
+                style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),
               ),
-            ),
-          ],
+              SizedBox(height: 40.h),
+              Container(
+                height: Get.height * 0.7,
+                decoration: BoxDecoration(
+                    color: kWhiteColor,
+                    borderRadius: BorderRadius.circular(8.r),
+                    boxShadow: const [
+                      BoxShadow(color: kFieldShadowColor, offset: Offset(-1, -1)),
+                      BoxShadow(color: kFieldShadowColor, offset: Offset(1, 1))
+                    ]),
+                padding: EdgeInsets.symmetric(vertical: 8.h),
+                child: Column(
+                  children: [
+                    CustomTile(
+                        title: 'Account Settings',
+                        onTap: () {
+                          Get.toNamed(kAccountSettingsScreenRoute);
+                        }),
+                    const Divider(),
+                    CustomTile(
+                        title: 'Notifications',
+                        onTap: () {
+                          Get.toNamed(kNotificationSettingsScreenRoute);
+                        }),
+                    const Divider(),
+                    CustomTile(
+                      title: 'Logout',
+                      onTap: () {},
+                      icon: const SizedBox(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

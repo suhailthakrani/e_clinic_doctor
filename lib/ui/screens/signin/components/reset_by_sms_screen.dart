@@ -6,12 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'components/sms_code_widget.dart';
+import 'sms_code_widget.dart';
 
 class ResetBySmsScreen extends GetView<ForgotPasswordScreenController> {
   const ResetBySmsScreen({Key? key}) : super(key: key);
 
-  static const routeName = "reset_by_sms_screen";
 
   @override
   Widget build(BuildContext context) {
