@@ -3,6 +3,7 @@ import 'package:e_clinic_dr/ui/widgets/custom_tile.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:e_clinic_dr/utils/constants.dart';
 import 'package:e_clinic_dr/utils/text_styles.dart';
+import 'package:e_clinic_dr/utils/user_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -70,7 +71,9 @@ class SettingsScreen extends GetView<SettingsController> {
                     const Divider(),
                     CustomTile(
                       title: 'Logout',
-                      onTap: () {},
+                      onTap: () {
+                        UserSession().logout();
+                      },
                       icon: const SizedBox(),
                     ),
                   ],
