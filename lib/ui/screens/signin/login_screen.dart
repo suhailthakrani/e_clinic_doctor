@@ -93,6 +93,33 @@ class LoginScreen extends GetView<LoginScreenController> {
                     ),
                   ),
                   SizedBox(height: 16.h),
+                  Container(
+                    height: 51.h,
+                    width: 390.w,
+                    decoration: BoxDecoration(
+                      // apply shadow to the container
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 10,
+                          // shadow on botom and right
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: Button1(
+                      textStyle: textTheme.labelLarge!,
+                      buttonColor: button2Color,
+                      text: "Continue As Guest",
+                      borderRadius: 30,
+                      onPress: () {
+                        Get.toNamed(kMainScreenRoute);
+                        // Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 16.h),
                   TextButton(
                       child: Text(
                         "Forgot Your Password",
