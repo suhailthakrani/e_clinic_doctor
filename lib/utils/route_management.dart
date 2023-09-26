@@ -1,6 +1,6 @@
+import 'package:e_clinic_dr/ui/screens/appointments/components/write_report_screen.dart';
 import 'package:e_clinic_dr/ui/screens/signin/components/forgot_password_screen.dart';
 import 'package:e_clinic_dr/ui/screens/main_screen/main_screen.dart';
-import 'package:e_clinic_dr/ui/screens/notification_screens.dart';
 import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_driver_screen.dart';
 import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_id_screen.dart';
 import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_passport_screen.dart';
@@ -12,8 +12,11 @@ import 'package:get/get.dart';
 
 import '../ui/screens/appointments/appointment_screen.dart';
 import '../ui/screens/availability/availability_screen.dart';
-import '../ui/screens/settings/components/notification_settings.dart';
+import '../ui/screens/settings/components/email_settings.dart';
+import '../ui/screens/settings/components/notification_settings_screen.dart';
+import '../ui/screens/settings/components/password_reset_settings.dart';
 import '../ui/screens/settings/components/personal_info_settings.dart';
+import '../ui/screens/settings/components/phone_settings.dart';
 import '../ui/screens/settings/components/professional_info_settings.dart';
 import '../ui/screens/signin/login_screen.dart';
 import '../ui/screens/messages/messages_screen.dart';
@@ -55,6 +58,11 @@ class RouteManagement {
       GetPage(
         name: kAvailabilityScreenRoute,
         page: () => const AvailabilityScreen(),
+        binding: ScreensBindings(),
+      ),
+      GetPage(
+        name: kWriteReportScreenRoute,
+        page: () => const WriteReportScreen(),
         binding: ScreensBindings(),
       ),
       GetPage(
@@ -119,7 +127,7 @@ class RouteManagement {
   ),
   GetPage(
     name: kNotificationSettingsScreenRoute,
-    page: () => const NotificationSettingsScreen(),
+    page: () => const NotificationsSettingsScreen(),
     binding: ScreensBindings(),
   ),
   GetPage(

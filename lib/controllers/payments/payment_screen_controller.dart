@@ -18,7 +18,7 @@ class PaymentsController extends GetxController {
     ),
     
     PaymentMethodTypeModel(
-      title: "Credit Card",
+      title: "Apple Pay",
       icon: Icons.credit_card,
       
     ),

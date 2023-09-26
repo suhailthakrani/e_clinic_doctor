@@ -10,6 +10,7 @@ const String kRegisterScreenRoute = "/register";
 const String kMainScreenRoute = "/main_screen";
 const String kMessagesScreenRoute = "/messages";
 const String kAppointmentsScreenRoute = '/appointments';
+const String kWriteReportScreenRoute = "/write_report_screen";
 const String kAvailabilityScreenRoute = '/availability';
 const String kPaymentScreenRoute = '/payments';
 const String kRatingsScreenRoute = '/ratings';

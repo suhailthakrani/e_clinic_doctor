@@ -1,3 +1,4 @@
+import 'package:e_clinic_dr/controllers/appointments/write_report_controller.dart';
 import 'package:e_clinic_dr/controllers/prescription_screen_controller.dart';
 import 'package:e_clinic_dr/controllers/register_screen_controller.dart';
 import 'package:e_clinic_dr/controllers/settings/account_settings_screen_controller.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 import '../controllers/appointments/appointments_screen_cntroller.dart';
 import '../controllers/availability_screen_controller.dart';
 import '../controllers/forgot_password_controller.dart';
+import '../controllers/general_controllers.dart';
 import '../controllers/messages_screen_controler.dart';
 import '../controllers/my_ratings_screen_controller.dart';
 import '../controllers/payments/payment_screen_controller.dart';
@@ -39,7 +41,7 @@ class ScreensBindings extends Bindings {
     Get.lazyPut(() => PersonalInfoSettingsController());
     Get.lazyPut(() => ProfessionalInfoSettingsController());
     Get.lazyPut(() => PrescriptionScreenController());
-
+    Get.lazyPut(() => WriteReportScreenController());
     Get.lazyPut(() => EmailSettingsController());
     Get.lazyPut(() => PhoneNoSettingsController());
     Get.lazyPut(() => PasswordSettingsController());

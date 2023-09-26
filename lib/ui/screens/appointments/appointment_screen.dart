@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/appointments/appointments_screen_cntroller.dart';
+import '../../widgets/general_date_picker_field.dart';
 import 'appointments_list.dart';
 
 class AppointmentsScreen extends GetView<AppointmentsController> {
@@ -25,45 +26,50 @@ class AppointmentsScreen extends GetView<AppointmentsController> {
           MediaQuery.of(context).size.height,
         ),
         builder: (context, w) => Center(
-          child: Obx(
-            () => Column(
-              children: [
-                SizedBox(height: 20.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    for (int i = 0; i < controller.appointmentTypes.length; i++)
-                      AppointmentType(
-                        title: controller.appointmentTypes[i],
-                        index: i,
-                        controller: controller,
-                      )
-                  ],
-                ),
-                SizedBox(height: 25.h),
-                if (controller.selectedAppointmentType.value == 1)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                          width: 150,
-                          child: TextButton(
-                            style: ElevatedButton.styleFrom(
-                                side: BorderSide(color: kBlack45Color)),
-                            onPressed: () {},
-                            child: Text('Date Filter'),
-                          )),
-                      SizedBox(width: 20.w),
-                    ],
+          child: Obx(() => CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    backgroundColor: kWhiteColor,
+                    pinned: true,
+                    automaticallyImplyLeading: false,
+                    toolbarHeight: 10,
+                    bottom: PreferredSize(
+                      preferredSize: const Size.fromHeight(50),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            for (int i = 0;
+                                i < controller.appointmentTypes.length;
+                                i++)
+                              AppointmentType(
+                                title: controller.appointmentTypes[i],
+                                index: i,
+                                controller: controller,
+                              )
+                          ],
+                        ),
+                      ),
+                    ),
+                    actions: [],
                   ),
-                SizedBox(height: 25.h),
-                if (controller.selectedAppointmentType.value == 0)
-                  ...upComingAppointments
-                else
-                  ...previousAppointments
-              ],
-            ),
-          ),
+                  
+                  SliverToBoxAdapter(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                      
+                        SizedBox(height: 25.h),
+                        if (controller.selectedAppointmentType.value == 0)
+                          ...upComingAppointments
+                        else
+                          ...previousAppointments
+                      ],
+                    ),
+                  )
+                ],
+              )),
         ),
       ),
     );

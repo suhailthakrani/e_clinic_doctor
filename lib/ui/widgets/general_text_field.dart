@@ -53,7 +53,7 @@ class GeneralTextField extends StatelessWidget {
               width: Get.width,
               padding: const EdgeInsets.only(left: 8, right: 2),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(8),
                   border: _withShadow.isTrue
                       ? null
                       : Border.all(

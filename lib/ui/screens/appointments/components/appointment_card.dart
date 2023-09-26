@@ -213,7 +213,7 @@ class AppointmentCard extends StatelessWidget {
                     SizedBox(width: 8.w),
                     GestureDetector(
                       onTap: () {
-                        // TODO: Accept Appointment
+                        Get.toNamed(kWriteReportScreenRoute);
                       },
                       child: Chip(
                         label: const Text(

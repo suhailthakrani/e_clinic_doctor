@@ -1,27 +1,24 @@
+import 'package:e_clinic_dr/controllers/forgot_password_controller.dart';
+import 'package:e_clinic_dr/ui/widgets/button1.dart';
 import 'package:e_clinic_dr/ui/widgets/button2.dart';
+import 'package:e_clinic_dr/ui/widgets/general_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../controllers/general_controllers.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/text_field_manager.dart';
 import '../../../../utils/text_filter.dart';
+import '../../../widgets/general_date_picker_field.dart';
 import '../../../widgets/general_text_field.dart';
 
-class PersonalInfoSettingsScreen extends StatelessWidget {
+class PersonalInfoSettingsScreen
+    extends GetView<PersonalInfoSettingsController> {
   const PersonalInfoSettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
-  TextFieldManager firstNameController =
-      TextFieldManager('First Name', length: 50, filter: TextFilter.name);
-  TextFieldManager lastNameController =
-      TextFieldManager('Last Name', length: 50, filter: TextFilter.name);
-  TextFieldManager emailController =
-      TextFieldManager('Email', length: 50, filter: TextFilter.email);
-  TextFieldManager passwordController =
-      TextFieldManager('Password', length: 50, filter: TextFilter.none);
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -34,19 +31,18 @@ class PersonalInfoSettingsScreen extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Container(
-              height: Get.height * 0.8,
-              width: Get.width,
-              decoration: BoxDecoration(
-                  color: kWhiteColor,
-                  borderRadius: BorderRadius.circular(8.r),
-                  boxShadow: const [
-                    BoxShadow(color: kFieldShadowColor, offset: Offset(-1, -1)),
-                    BoxShadow(color: kFieldShadowColor, offset: Offset(1, 1))
-                  ]),
-              padding: EdgeInsets.all(16.w),
+          child: Container(
+            height: Get.height,
+            width: Get.width,
+            decoration: BoxDecoration(
+                color: kWhiteColor,
+                borderRadius: BorderRadius.circular(8.r),
+                boxShadow: const [
+                  BoxShadow(color: kFieldShadowColor, offset: Offset(-1, -1)),
+                  BoxShadow(color: kFieldShadowColor, offset: Offset(1, 1))
+                ]),
+            padding: EdgeInsets.all(16.w),
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -118,37 +114,74 @@ class PersonalInfoSettingsScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                       GeneralTextField.withBorder(
-                    tfManager: firstNameController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 8,
-                  ),
-                  GeneralTextField.withBorder(
-                    tfManager: lastNameController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 8,
-                  ),
-                  // GeneralTextField.withBorder(
-                  //   tfManager: cnicController,
-                  //   paddingVertical: 0,
-                  //   paddingHorizontal: 8,
-                  // ),
-                  GeneralTextField.withBorder(
-                    tfManager: emailController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 8,
-                  ),
-                
+                      const SizedBox(height: 20),
+                      GeneralTextField.withBorder(
+                        tfManager: controller.firstNameController,
+                        paddingVertical: 0,
+                        paddingHorizontal: 4,
+                      ),
+                      GeneralTextField.withBorder(
+                        tfManager: controller.lastNameController,
+                        paddingVertical: 0,
+                        paddingHorizontal: 4,
+                      ),
+                      GeneralDropdown.withBorder(
+                          controller: controller.genderDDController),
+                      GeneralDatePickerField.withShadow(
+                        dateManager: controller.dateOfBirthController,
+                      ),
+                      GeneralTextField.withBorder(
+                        tfManager: controller.cniController,
+                        paddingVertical: 0,
+                        paddingHorizontal: 4,
+                      ),
                       const SizedBox(height: 8),
-                      Button2(text: 'Save Changes', onPress: (){},),
+                      Center(
+                        child: SizedBox(
+                          width: Get.width * 0.9,
+                          height: 50,
+                          child: TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  side: const BorderSide(color: kBlueColor)),
+                              foregroundColor: kWhiteColor,
+                              backgroundColor: kPrimaryColor,
+                            ),
+                            child: const Text(
+                              "Save Changes",
+                            ),
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 8),
-                       Button2(text: 'Cancel', onPress: (){},)
+                      Center(
+                        child: SizedBox(
+                          width: Get.width * 0.9,
+                          height: 50,
+                          child: TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  side: BorderSide(color: kPrimaryColor)),
+                              backgroundColor: kWhiteColor,
+                              foregroundColor: kPrimaryColor,
+                            ),
+                            child: const Text(
+                              "Cancel",
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   )
                 ],
               ),
             ),
           ),
-        ));
+        ),
+        );
   }
 }

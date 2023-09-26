@@ -63,7 +63,7 @@ class AccountSettingsScreen extends GetView<AccountSettingsController> {
                     CustomTile(
                         title: 'Professional Info',
                         onTap: () {
-                          Get.toNamed(kPersonalInfoSettingsScreenRoute);
+                          Get.toNamed(kProfessionalInfoSettingsScreenRoute);
                         }),
                     const Divider(),
                     CustomTile(
