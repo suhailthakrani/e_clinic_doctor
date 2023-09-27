@@ -16,27 +16,26 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordScreenController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+         appBar: AppBar(
+        automaticallyImplyLeading: true,
+        elevation: 0,
+        backgroundColor: kWhiteColor,
+        foregroundColor: kBlackColor,
+        title: Text(
+          'Forgot Password',
+          style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
+        ),
+      ),
         body: SingleChildScrollView(
           child: ScreenUtilInit(
-            designSize: const Size(428, 926),
+            designSize:  Size(Get.width, Get.height),
             builder: (context, widget) => Container(
               margin: EdgeInsets.all(20.w),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      SizedBox(width: 0.w),
-                      Text("Forgot Password", style: textTheme.headline1),
-                    ],
-                  ),
+                 
                   SizedBox(height: 50.h),
-                  Image.asset("assets/images/forgot-pass.png"),
+                  Image.asset("assets/images/forgot-pass.png", height: Get.height * 0.2,),
                   const Text(
                     "Select which contact details should we use to reset your password",
                     style: TextStyle(
@@ -67,17 +66,13 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordScreenController> {
                       ],
                     ),
                     child: Button1(
-                      textStyle: textTheme.button!,
-                      buttonColor: controller.checkIfAllSelected()
-                          ? button2Color
-                          : Colors.grey,
+                      textStyle: textTheme.labelLarge!,
+                      buttonColor: button2Color,
                       text: "Continue",
                       borderRadius: 30,
-                      onPress: controller.checkIfAllSelected()
-                          ? () {
-                            Get.toNamed(kResetPasswordBySMSScreenRoute);
-                            }
-                          : null,
+                      onPress: () {
+                        Get.to(ResetBySmsScreen());
+                      },
                     ),
                   ),
                 ],

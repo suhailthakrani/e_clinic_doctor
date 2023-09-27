@@ -16,6 +16,16 @@ class ResetBySmsScreen extends GetView<ForgotPasswordScreenController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+        automaticallyImplyLeading: true,
+        elevation: 0,
+        backgroundColor: kWhiteColor,
+        foregroundColor: kBlackColor,
+        title: Text(
+          'Forgot Password',
+          style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
+        ),
+      ),
         body: SingleChildScrollView(
           child: ScreenUtilInit(
             designSize: const Size(428, 926),
@@ -23,19 +33,8 @@ class ResetBySmsScreen extends GetView<ForgotPasswordScreenController> {
               margin: EdgeInsets.all(20.w),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      SizedBox(width: 0.w),
-                      Text("Forgot Password", style: textTheme.headline1),
-                    ],
-                  ),
-                  SizedBox(height: 50.h),
+                
+                   SizedBox(height: 90.h),
                   const Text(
                     "Code has been sent on +11100****119",
                     style: TextStyle(
@@ -68,7 +67,7 @@ class ResetBySmsScreen extends GetView<ForgotPasswordScreenController> {
                       fontFamily: "Poppins",
                     ),
                   ),
-                  SizedBox(height: 300.h),
+                  SizedBox(height: 150.h),
                   Container(
                     height: 51.h,
                     width: 390.w,

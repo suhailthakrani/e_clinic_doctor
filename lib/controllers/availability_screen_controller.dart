@@ -6,17 +6,33 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../models/availability_model.dart';
+import '../utils/dropdown_controller.dart';
 
 class AvailabilityController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextFieldManager timeSlotController = TextFieldManager('Time Slot Duration',
-      length: 50, filter: TextFilter.none);
+      length: 50, filter: TextFilter.none, hint: 'Enter');
   TextFieldManager assignSessionController =
-      TextFieldManager('Assign Session #', length: 50, filter: TextFilter.none);
+      TextFieldManager('Assign Session #', length: 50, filter: TextFilter.none, hint: 'Enter');
 
   TimeOfDay selectedStartTime = TimeOfDay.now();
   TimeOfDay selectedEndTime = TimeOfDay.now();
+
+  DropdownController timeSlotDDController = DropdownController(
+    title: "Exprience",
+    items: [
+      '10',
+      '15',
+      '20',
+      '25',
+      '30',
+      '40',
+      '1.5 Hour'
+      '1 Hour'
+      '2 Hour'
+    ].obs,
+  );
 
   RxInt selectedIndex = 0.obs;
 

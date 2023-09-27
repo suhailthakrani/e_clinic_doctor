@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../utils/date_time_manager.dart';
 import '../utils/dropdown_controller.dart';
@@ -34,6 +35,19 @@ class ProfessionalInfoSettingsController extends GetxController {
       TextFieldManager('City', length: 50, filter: TextFilter.name);
   TextFieldManager stateController =
       TextFieldManager('State', length: 50, filter: TextFilter.name);
+
+  RxBool freeOfCost = false.obs;
+  RxBool customCost = false.obs;
+
+  void selectCheckBox1() {
+    freeOfCost.value = true;
+    customCost.value = false;
+  }
+
+  void selectCheckBox2() {
+    freeOfCost.value = false;
+    customCost.value = true;
+  }
 }
 
 class PasswordResetMethodsController extends GetxController {
@@ -71,6 +85,19 @@ class PersonalInfoSettingsController extends GetxController {
     title: "Gender",
     items: ["MALE", "FEMALE"].obs,
   );
+  RxString profileUrl = RxString('');
+
+   Future<void> pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      profileUrl.value = image.path;
+    } else {
+      print('---------------------- [Unable to Pick Image!]');
+    }
+  }
+  
   
   DateTimeManager dateOfBirthController = DateTimeManager("Date of Birth",
       firstDate: DateTime(DateTime.now().year - 80),

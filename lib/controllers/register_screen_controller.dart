@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:e_clinic_dr/models/general_models.dart';
 import 'package:e_clinic_dr/utils/common_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import '../services/user_service.dart';
 import '../ui/widgets/custom_dialogs.dart';
 import '../ui/widgets/custom_progress_dialog.dart';
 import '../utils/constants.dart';
+import '../utils/dropdown_controller.dart';
 import '../utils/text_field_manager.dart';
 import '../utils/text_filter.dart';
 import '../utils/user_session.dart';
@@ -27,27 +29,25 @@ class RegisterScreenController extends GetxController {
       TextFieldManager('Email', length: 50, filter: TextFilter.email);
   TextFieldManager passwordController =
       TextFieldManager('Password', length: 50, filter: TextFilter.none);
-  Rx<String> selectedGeder = 'SELECT'.obs;
-
-  List<String> genderList = [
-    'SELECT',
-    'MALE',
-    'FEMALE',
-  ];
-
-  Rx<String> selectedExperience = ''.obs;
-
-  List<String> experienceList = [
-    'SELECT',
-    '6 Months'
-        '1 Year',
-    '2 Years',
-    '3 Years',
-    '4 Years',
-    '5 Years',
-    '6 Years',
-    'Or More'
-  ];
+  
+  DropdownController genderDDController = DropdownController(
+    title: "Gender",
+    items: ["MALE", "FEMALE"].obs,
+  );
+  DropdownController experienceDDController = DropdownController(
+    title: "Exprience",
+    items: [
+      'SELECT',
+      '6 Months'
+          '1 Year',
+      '2 Years',
+      '3 Years',
+      '4 Years',
+      '5 Years',
+      '6 Years',
+      'Or More'
+    ].obs,
+  );
 
   TextFieldManager phoneNoController =
       TextFieldManager('Phone Number', length: 50, filter: TextFilter.number);
@@ -72,7 +72,6 @@ class RegisterScreenController extends GetxController {
 
   @override
   void onInit() {
-    selectedExperience.value = experienceList.first;
     super.onInit();
   }
 
@@ -85,8 +84,8 @@ class RegisterScreenController extends GetxController {
   }
 
   Future<void> pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
       degreeDocument.value = image.path;
@@ -96,29 +95,20 @@ class RegisterScreenController extends GetxController {
   }
 
   bool validateAllData() {
-    print('''
-     a ${firstNameController.validate()} &
-      2  ${lastNameController.validate()} &
-        3${(selectedGeder.value.isNotEmpty && selectedGeder.value != genderList.first)} &
-  4      ${emailController.validate()} &
-   5     ${passwordController.validate()} &
-    6    ${phoneNoController.validate()} &
-     7   ${(selectedExperience.value.isNotEmpty && selectedExperience.value != experienceList.first)} &
-      8  ${specializationController.validate()} &
-       9 ${cnicController.validate()}
-
-''');
+    
     bool valid = true;
     return valid &
         firstNameController.validate() &
         lastNameController.validate() &
-        (selectedGeder.value.isNotEmpty &&
-            selectedGeder.value != genderList.first) &
+       genderDDController.validate() &
         emailController.validate() &
         passwordController.validate() &
         phoneNoController.validate() &
-        (selectedExperience.value.isNotEmpty &&
-            selectedExperience.value != experienceList.first) &
+        hospitalController.validate() &
+        cityController.validate() &
+        addressController.validate() &
+        stateController.validate() &
+        experienceDDController.validate() &
         specializationController.validate() &
         cnicController.validate();
   }
@@ -132,7 +122,7 @@ class RegisterScreenController extends GetxController {
         lastName: lastNameController.text,
         cnic: cnicController.text,
         email: emailController.text,
-        gender: selectedGeder.value,
+        gender: genderDDController.selectedItem.value,
         specialization: specializationController.text,
         degreeDocument: degreeDocument.value,
         hospitalClinicName: hospitalController.text,
@@ -140,6 +130,7 @@ class RegisterScreenController extends GetxController {
         state: stateController.text,
         address: addressController.text,
         password: passwordController.text,
+        experience: experienceDDController.selectedItem.value
       );
       print('-------------------- ${userModel.toJson()}');
       ProgressDialog pd = ProgressDialog()..showDialog();

@@ -2,13 +2,14 @@ import 'package:e_clinic_dr/controllers/register_screen_controller.dart';
 import 'package:e_clinic_dr/ui/widgets/general_text_field.dart';
 import 'package:e_clinic_dr/ui/widgets/widget_svg.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
+import 'package:e_clinic_dr/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/text_styles.dart';
 import '../../widgets/button2.dart';
-import '../../widgets/input_field.dart';
+import '../../widgets/general_dropdown.dart';
 import '../../widgets/checkbox.dart';
 import '../signin/login_screen.dart';
 
@@ -22,10 +23,11 @@ class SignUpScreen extends GetView<RegisterScreenController> {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
           child: ScreenUtilInit(
             designSize: Size(Get.width, Get.height),
             builder: (context, widget) => Container(
-              margin: EdgeInsets.all(8.w),
+              // margin: EdgeInsets.all(8.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -45,8 +47,9 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                           style: textTheme.headlineMedium),
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed(LoginScreen.routeName);
+                          Get.toNamed(kLoginScreenRoute);
+                          // Navigator.of(context)
+                          //     .pushReplacementNamed(LoginScreen.routeName);
                         },
                         child: const Text(
                           "Login",
@@ -94,100 +97,41 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    height: 30.h,
-                    width: Get.width - 20,
-                    child: const Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Text('Gender'),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Text("Experience"),
-                        ),
-                      ],
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Row(
                       children: [
                         Expanded(
                           flex: 1,
-                          child: Obx(
-                            () => DropdownButton(
-                                value: controller.selectedGeder.value,
-                                borderRadius: BorderRadius.circular(12),
-                                underline: const SizedBox(),
-                                items: controller.genderList
-                                    .map((e) => DropdownMenuItem(
-                                          child: Text(e),
-                                          value: e,
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  // controller.selectedGeder.value = '';
-                                  controller.selectedGeder.value = value!;
-                                }),
-                          ),
+                          child: GeneralDropdown.withBorder(
+                              controller: controller.genderDDController),
                         ),
-
+                        const SizedBox(width: 10),
                         Expanded(
                           flex: 1,
-                          child: Obx(
-                            () => DropdownButton(
-                                underline: const SizedBox(),
-                                value: controller.selectedExperience.value,
-                                items: controller.experienceList
-                                    .map((e) => DropdownMenuItem(
-                                          child: Text(e),
-                                          value: e,
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  // controller.selectedGeder.value = '';
-                                  controller.selectedExperience.value = value!;
-                                }),
-                          ),
+                          child: GeneralDropdown.withBorder(
+                              controller: controller.experienceDDController),
                         ),
-                        // Expanded(
-                        //   flex: 1,
-                        //   child: Obx(
-                        //     () => DropdownButton(
-                        //         value: controller.selectedExperience.value,
-                        //         items: controller.experienceList
-                        //             .map((e) => DropdownMenuItem(
-                        //                   child: Text(e),
-                        //                   value: e,
-                        //                 ))
-                        //             .toList(),
-                        //         onChanged: (value) {
-                        //           // controller.selectedGeder.value = '';
-                        //           controller.selectedExperience.value = value!;
-                        //         }),
-                        //   ),
-                        // )
                       ],
                     ),
                   ),
-                  GeneralTextField.withBorder(
+                   GeneralTextField.withBorder(
                     tfManager: controller.hospitalController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
+                   GeneralTextField.withBorder(
+                    tfManager: controller.stateController,
+                    paddingVertical: 0,
+                    paddingHorizontal: 8,
+                  ),
+                 
                   GeneralTextField.withBorder(
                     tfManager: controller.cityController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                  GeneralTextField.withBorder(
-                    tfManager: controller.stateController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 8,
-                  ),
+                 
                   GeneralTextField.withBorder(
                     tfManager: controller.addressController,
                     paddingVertical: 0,
@@ -217,7 +161,7 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                                     color: controller
                                             .degreeDocument.value.isNotEmpty
                                         ? kGreenNormalColor
-                                        : kBlueColor),
+                                        : kPrimaryColor),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
@@ -227,15 +171,31 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                             child: Text(
                               'Browse',
                               style: TextStyle(
-                                  color:
-                                      controller.degreeDocument.value.isNotEmpty
-                                          ? kGreenNormalColor
-                                          : kBlueColor),
+                                color:
+                                    controller.degreeDocument.value.isNotEmpty
+                                        ? kGreenNormalColor
+                                        : kPrimaryColor,
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Obx(
+                        ()=> Text(
+                         controller.degreeDocument.value.isNotEmpty? controller.degreeDocument.value.split('/').last:'',
+                          style: const TextStyle(
+                            color: kBlack90Color,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 10
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 20.h,

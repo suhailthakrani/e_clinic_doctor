@@ -64,7 +64,7 @@ class GeneralTextField extends StatelessWidget {
                       ? kFieldGreyColor
                       : _withShadow.isTrue
                           ? kWhiteColor
-                          : kFieldGreyColor,
+                          : kFieldGreyColor.withOpacity(0.5),
                   boxShadow: _withShadow.isTrue
                       ? [
                           const BoxShadow(

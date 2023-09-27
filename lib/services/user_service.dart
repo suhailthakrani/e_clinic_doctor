@@ -1,5 +1,8 @@
 /*Created By: Suhail Thakrani on 23-Sept-2023*/
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:e_clinic_dr/models/user_login_model.dart';
 import 'package:e_clinic_dr/services/service_urls.dart';
 
@@ -19,15 +22,27 @@ class UserService {
   late HTTPClient _httpClient;
 
   Future<UserModel> registerUser({required UserModel userModel}) async {
-    Map<String, String> files = {
-      'degree_document': userModel.degreeDocument,
-    };
+    File imageFile = File(userModel.degreeDocument);
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
 
+    Map<String, String> files = {
+      'image': userModel.degreeDocument,
+    };
+    userModel.degreeDocument = base64Image;
+
+    // ResponseModel responseModel = await _httpClient.postRequest(
+    //   url:kRegisterURL,
+    //   requestBody : userModel.toJson(),
+    //   requireToken: true
+    // );
+    
     ResponseModel responseModel = await _httpClient.postMultipartRequest(
-      url: kRegisterURL,
-      files: files,
-      fields: userModel.toJson(),
+      url:kRegisterURL,
+      fields : userModel.toJson(),
+      files: files
     );
+
     if (responseModel.message == "Success" &&
         responseModel.data != null &&
         responseModel.data['token'] != null) {

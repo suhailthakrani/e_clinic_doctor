@@ -45,14 +45,14 @@ class LoginScreenController extends GetxController {
       UserModel userModel = await UserService().loginUser(
           username: usernameManager.text, password: passwordManager.text);
       pd.dismissDialog();
-      if (userModel.responseMessage == 'Login successful') {
-        await UserSession().createSession(user: userModel);
-        Get.offAllNamed(kMainScreenRoute);
-      } else {
-        pd.dismissDialog();
-        CustomDialogs()
-            .showDialog("Alert", userModel.responseMessage, DialogType.error);
-      }
+      // if (userModel.responseMessage == 'Login successful') {
+      //   await UserSession().createSession(user: userModel);
+      //   Get.offAllNamed(kMainScreenRoute);
+      // } else {
+      //   pd.dismissDialog();
+      //   CustomDialogs()
+      //       .showDialog("Alert", userModel.responseMessage, DialogType.error);
+      // }
     }
   }
 }

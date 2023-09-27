@@ -1,109 +1,15 @@
-class User {
-  String id = '';
-  String first_name = '';
-  String last_name = '';
-  String email = '';
-  String? phone;
-  String gender = '';
-  String? image;
-  bool email_verified = false;
-  bool phone_verified = false;
-  bool profile_setup = false;
-  String role = 'PATIENT';
-  String password = '';
-  DateTime created_at = DateTime.now();
-  DateTime updated_at = DateTime.now();
-  Patient? patient;
-  Doctor? doctor;
 
-  User({
-    this.id = '',
-    this.first_name = '',
-    this.last_name = '',
-    this.email = '',
-    this.phone,
-    this.gender = '',
-    this.image,
-    this.email_verified = false,
-    this.phone_verified = false,
-    this.profile_setup = false,
-    this.role = 'PATIENT',
-    this.password = '',
-    required this.created_at,
-    required this.updated_at,
-    this.patient,
-    this.doctor,
-  });
-  User.empty()
-      : id = '',
-        first_name = '',
-        last_name = '',
-        email = '',
-        phone = '',
-        gender = '',
-        image = '',
-        email_verified = false,
-        phone_verified = false,
-        profile_setup = false,
-        role = 'PATIENT',
-        password = '',
-        created_at = DateTime.now(),
-        updated_at = DateTime.now(),
-        patient = null,
-        doctor = null;
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id'] ?? '',
-      first_name: json['first_name'] ?? '',
-      last_name: json['last_name'] ?? '',
-      email: json['email'] ?? '',
-      phone: json['phone'],
-      gender: json['gender'] ?? '',
-      image: json['image'],
-      email_verified: json['email_verified'] ?? false,
-      phone_verified: json['phone_verified'] ?? false,
-      profile_setup: json['profile_setup'] ?? false,
-      role: json['role'] ?? 'PATIENT',
-      password: json['password'] ?? '',
-      created_at: DateTime.parse(json['created_at'] ?? ''),
-      updated_at: DateTime.parse(json['updated_at'] ?? ''),
-      patient: json['patient'] != null ? Patient.fromJson(json['patient']) : null,
-      doctor: json['doctor'] != null ? Doctor.fromJson(json['doctor']) : null,
-    );
-
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'first_name': first_name,
-      'last_name': last_name,
-      'email': email,
-      'phone': phone,
-      'gender': gender,
-      'image': image,
-      'email_verified': email_verified,
-      'phone_verified': phone_verified,
-      'profile_setup': profile_setup,
-      'role': role,
-      'password': password,
-      'created_at': created_at.toIso8601String(),
-      'updated_at': updated_at.toIso8601String(),
-      'patient': patient?.toJson(),
-      'doctor': doctor?.toJson(),
-    };
-  }
-}
+import 'package:e_clinic_dr/models/user_model.dart';
 
 class Patient {
   String id = '';
   DateTime birthdate = DateTime.now();
-  late User user;
+  UserModel user = UserModel.empty();
   String userId = '';
-  late List<Appointment> appointment;
-  late List<Review> Reviews;
-  late List<Transactions> transactions;
+  List<Appointment> appointment = [];
+  List<Review> reviews = [];
+  List<Transactions> transactions = [];
 
   Patient({
     this.id = '',
@@ -111,32 +17,32 @@ class Patient {
     required this.user,
     this.userId = '',
     List<Appointment>? appointment,
-    List<Review>? Reviews,
+    List<Review>? reviews,
     List<Transactions>? transactions,
   })  : appointment = appointment ?? [],
-        Reviews = Reviews ?? [],
+        reviews = reviews ?? [],
         transactions = transactions ?? [];
 
         Patient.empty()
       : id = '',
         birthdate = DateTime.now(),
-        user = User.empty(),
+        user = UserModel.empty(),
         userId = '',
         appointment = [],
-        Reviews = [],
+        reviews = [],
         transactions = [];
 
   factory Patient.fromJson(Map<String, dynamic> json) {
     return Patient(
       id: json['id'] ?? '',
       birthdate: DateTime.parse(json['birthdate'] ?? ''),
-      user: User.fromJson(json['user']),
+      user: UserModel.fromJson(json['user']),
       userId: json['userId'] ?? '',
       appointment: (json['Appointment'] as List<dynamic>?)
           ?.map((e) => Appointment.fromJson(e))
           .toList() ??
           [],
-      Reviews: (json['Reviews'] as List<dynamic>?)
+      reviews: (json['Reviews'] as List<dynamic>?)
           ?.map((e) => Review.fromJson(e))
           .toList() ??
           [],
@@ -154,7 +60,7 @@ class Patient {
       'user': user.toJson(),
       'userId': userId,
       'Appointment': appointment.map((e) => e.toJson()).toList(),
-      'Reviews': Reviews.map((e) => e.toJson()).toList(),
+      'Reviews': reviews.map((e) => e.toJson()).toList(),
       'Transactions': transactions.map((e) => e.toJson()).toList(),
     };
   }
@@ -165,41 +71,33 @@ class Doctor {
   String specialization = '';
   String hospital_clinic_name = '';
   String verification = 'PENDING';
-  String? about;
-  late Location location;
-  late User user;
+  String about = '';
+  Location location = Location.empty();
+  UserModel user = UserModel.empty();
   List<String> appointment_types_allowed = ['PHYSICAL'];
-  late List<Document> degree;
-  late List<Schedule> schedule;
-  late List<Charges> charges;
-  late List<Appointment> appointment;
-  late List<Review> reviews;
-  late List<Transactions> transactions;
+  List<Document> degree = [];
+  List<Schedule> schedule = [];
+  List<Charges> charges = [];
+  List<Appointment> appointment = [];
+  List<Review> reviews = [];
+  List<Transactions> transactions = [];
 
   Doctor({
     this.id = '',
     this.specialization = '',
     this.hospital_clinic_name = '',
     this.verification = 'PENDING',
-    this.about,
+    required this.about,
     required this.location,
     required this.user,
-    List<String>? appointment_types_allowed,
-    List<Document>? degree,
-    List<Schedule>? schedule,
-    List<Charges>? charges,
-    List<Appointment>? appointment,
-    List<Review>? reviews,
-    List<Transactions>? transactions,
-  }) {
-    this.appointment_types_allowed = appointment_types_allowed ?? ['PHYSICAL'];
-    this.degree = degree ?? [];
-    this.schedule = schedule ?? [];
-    this.charges = charges ?? [];
-    this.appointment = appointment ?? [];
-    this.reviews = reviews ?? [];
-    this.transactions = transactions ?? [];
-  }
+    required this.appointment_types_allowed,
+    required this.degree,
+    required this.schedule,
+    required this.charges ,
+    required this.appointment,
+    required this.reviews ,
+    required this.transactions,
+  });
 
   Doctor.empty()
       : id = '',
@@ -208,7 +106,7 @@ class Doctor {
         verification = 'PENDING',
         about = '',
         location = Location.empty(),
-        user = User.empty(),
+        user = UserModel.empty(),
         appointment_types_allowed = ['PHYSICAL'],
         degree = [],
         schedule = [],
@@ -225,7 +123,7 @@ class Doctor {
       verification: json['verification'] ?? 'PENDING',
       about: json['about'],
       location: Location.fromJson(json['location']),
-      user: User.fromJson(json['user']),
+      user: UserModel.fromJson(json['user']),
       appointment_types_allowed: (json['appointment_types_allowed'] as List<dynamic>?)
           ?.map((e) => e.toString())
           .toList() ??

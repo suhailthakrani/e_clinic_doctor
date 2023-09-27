@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class PasswordResetMethod extends GetView<ForgotPasswordScreenController> {
-  PasswordResetMethod({
+class PasswordResetMethodWidget extends GetView<ForgotPasswordScreenController> {
+  PasswordResetMethodWidget({
     Key? key,
     required this.image,
     required this.title,
     required this.subtitle,
-    required this.selected,
+    required this.index,
   }) : super(key: key);
 
   final String image;
   final String title;
   final String subtitle;
-  bool selected;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -26,41 +26,43 @@ class PasswordResetMethod extends GetView<ForgotPasswordScreenController> {
       builder: (context, w) => Material(
         borderRadius: BorderRadius.circular(20),
         elevation: 10,
-        child: Container(
-          alignment: Alignment.center,
-          height: 130.h,
-          width: 370.w,
-          decoration: BoxDecoration(
-            color: selected ? greyishColor : Colors.transparent,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: Colors.grey,
-              width: 1,
-            ),
-          ),
-          child: InkWell(
-            customBorder: RoundedRectangleBorder(
+        child: Obx(
+          ()=> Container(
+            alignment: Alignment.center,
+            height: 130.h,
+            width: 370.w,
+            decoration: BoxDecoration(
+              color: index == controller.selectedIndex.value ? kPrimaryColor : Colors.transparent,
               borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Colors.grey,
+                width: 1,
+              ),
             ),
-            onTap: () {
-              controller.selectMethod(
-                controller.selectedIndex.value,
-              );
-            },
-            // splashColor: const Color.fromARGB(248, 157, 162, 197),
-            child: ListTile(
-              contentPadding: const EdgeInsets.all(20),
-              leading: CircleAvatar(
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
+            child: InkWell(
+              customBorder: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              onTap: () {
+                controller.selectMethod(
+                  index,
+                );
+              },
+              // splashColor: const Color.fromARGB(248, 157, 162, 197),
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(20),
+                leading: CircleAvatar(
+                  child: Image.asset(
+                    image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
+                title: Text(
+                  title,
+                  style: titleStyle,
+                ),
+                subtitle: Text(subtitle, style: subtitleStyle),
               ),
-              title: Text(
-                title,
-                style: titleStyle,
-              ),
-              subtitle: Text(subtitle, style: subtitleStyle),
             ),
           ),
         ),

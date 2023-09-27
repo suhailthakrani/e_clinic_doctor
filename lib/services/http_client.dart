@@ -39,7 +39,7 @@ class HTTPClient extends GetConnect {
         url,
         requestBody != null ? FormData(requestBody) : null,
         headers: requireToken
-            ? /*url.endsWith('login') ? {"Authorization":UserSession.O_TOKEN} :*/ await _getHeaders()
+            ? await _getHeaders()
             : null,
       ).timeout(const Duration(seconds: _requestTimeOut));
 
@@ -220,7 +220,8 @@ Future<Map<String, String>> _getHeaders() async {
     });
     return {};
   } else if (token.accessToken.isNotEmpty) {
-    return {'X-Auth-Token': token.accessToken};
+    // return {'X-Auth-Token': token.accessToken};
+    return {'Authorization': 'Bearer ${token.accessToken}'};
   } else {
     return {};
   }

@@ -86,7 +86,7 @@ class PasswordSettingsScreen extends GetView<PasswordSettingsController> {
                             borderRadius: BorderRadius.circular(8),
                             side: const BorderSide(color: kBlueColor)),
                         foregroundColor: kWhiteColor,
-                        backgroundColor: kPrimaryColor,
+                        backgroundColor: kBlueColor,
                       ),
                       child: const Text(
                         "Save Changes",
@@ -104,9 +104,9 @@ class PasswordSettingsScreen extends GetView<PasswordSettingsController> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side: BorderSide(color: kPrimaryColor)),
+                            side: BorderSide(color: kBlueColor)),
                         backgroundColor: kWhiteColor,
-                        foregroundColor: kPrimaryColor,
+                        foregroundColor: kBlueColor,
                       ),
                       child: const Text(
                         "Cancel",

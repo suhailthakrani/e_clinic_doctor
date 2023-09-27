@@ -18,7 +18,7 @@ class CustomDrawer extends Drawer {
             margin: const EdgeInsets.only(bottom: 30, top: 8),
             padding: EdgeInsets.zero,
             child: Container(
-              // color: kPrimaryColor,
+              // color: kBlueColor,
               child: Image.asset('assets/images/dr_illus.png'),
             ),
           ),
@@ -29,7 +29,7 @@ class CustomDrawer extends Drawer {
               child: Image.asset(
                 'assets/images/dashboard.png',
                 scale: 0.1,
-                color: kPrimaryColor,
+                color: kBlueColor,
               ),
             ),
             // titleFontSize: 18,
@@ -45,7 +45,7 @@ class CustomDrawer extends Drawer {
               child: Image.asset(
                 'assets/images/messages.png',
                 scale: 0.1,
-                color: kPrimaryColor,
+                color: kBlueColor,
               ),
             ),
             // titleFontSize: 18,
@@ -59,7 +59,7 @@ class CustomDrawer extends Drawer {
               padding: const EdgeInsets.all(12),
               child: Image.asset(
                 'assets/images/appointments.png',
-                color: kPrimaryColor,
+                color: kBlueColor,
               ),
             ),
             title: const Text('Appointments'),
@@ -74,7 +74,7 @@ class CustomDrawer extends Drawer {
               child: Image.asset(
                 'assets/images/availability.png',
                 scale: 0.1,
-                color: kPrimaryColor,
+                color: kBlueColor,
               ),
             ),
             title: const Text('Availability'),
@@ -89,7 +89,7 @@ class CustomDrawer extends Drawer {
               child: Image.asset(
                 'assets/images/payments.png',
                 scale: 0.1,
-                color: kPrimaryColor,
+                color: kBlueColor,
               ),
             ),
             title: const Text('Payments'),
@@ -104,7 +104,7 @@ class CustomDrawer extends Drawer {
               child: Image.asset(
                 'assets/images/ratings.png',
                 scale: 0.1,
-                color: kPrimaryColor,
+                color: kBlueColor,
               ),
             ),
             title: const Text('Ratings'),
@@ -119,7 +119,7 @@ class CustomDrawer extends Drawer {
               child: Image.asset(
                 'assets/images/settings.png',
                 scale: 0.1,
-                color: kPrimaryColor,
+                color: kBlueColor,
               ),
             ),
             title: const Text('Settings'),
@@ -128,20 +128,20 @@ class CustomDrawer extends Drawer {
                   predicate: ((route) => route.isFirst));
             },
           ),
-          ListTile(
-            leading: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Image.asset(
-                'assets/images/logout.png',
-                scale: 0.1,
-                color: kPrimaryColor,
-              ),
-            ),
-            title: const Text('Logout'),
-            onTap: () {
-              // Get.offNamed(kSettingsScreenRoute, predicate: ((route) => route.isFirst));
-            },
-          ),
+          // ListTile(
+          //   leading: Padding(
+          //     padding: const EdgeInsets.all(12),
+          //     child: Image.asset(
+          //       'assets/images/logout.png',
+          //       scale: 0.1,
+          //       color: kBlueColor,
+          //     ),
+          //   ),
+          //   title: const Text('Logout'),
+          //   onTap: () {
+          //     // Get.offNamed(kSettingsScreenRoute, predicate: ((route) => route.isFirst));
+          //   },
+          // ),
         ],
       ),
     );

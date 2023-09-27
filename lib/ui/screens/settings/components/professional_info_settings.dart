@@ -1,4 +1,5 @@
 import 'package:e_clinic_dr/controllers/forgot_password_controller.dart';
+import 'package:e_clinic_dr/ui/widgets/checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -95,6 +96,39 @@ class ProfessionalInfoSettingsScreen
                   paddingHorizontal: 4,
                 ),
                 const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Obx(
+                      () => Checkbox(
+                        value: controller.freeOfCost.value,
+                        onChanged: (bool? value) {
+                          if (value != null && value) {
+                            controller.selectCheckBox1();
+                          }
+                        },
+                        shape: CircleBorder(),
+                      ),
+                    ),
+                    Text('Free'),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Obx(
+                      () => Checkbox(
+                        value: controller.customCost.value,
+                        onChanged: (bool? value) {
+                          if (value != null && value) {
+                            controller.selectCheckBox2();
+                          }
+                        },
+                        shape: const CircleBorder(),
+                      ),
+                    ),
+                    Text('Custom Cost (Per Hour)'),
+                  ],
+                ),
+                const SizedBox(height: 8),
                 Center(
                   child: SizedBox(
                     width: Get.width * 0.9,
@@ -106,7 +140,7 @@ class ProfessionalInfoSettingsScreen
                             borderRadius: BorderRadius.circular(8),
                             side: const BorderSide(color: kBlueColor)),
                         foregroundColor: kWhiteColor,
-                        backgroundColor: kPrimaryColor,
+                        backgroundColor: kBlueColor,
                       ),
                       child: const Text(
                         "Save Changes",
