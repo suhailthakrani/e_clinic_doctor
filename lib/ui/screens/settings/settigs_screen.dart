@@ -71,8 +71,11 @@ class SettingsScreen extends GetView<SettingsController> {
                     const Divider(),
                     CustomTile(
                       title: 'Logout',
-                      onTap: () {
-                        UserSession().logout();
+                      onTap: () async {
+                       bool logout = await  UserSession().logout();
+                       if(logout) {
+                        Get.toNamed(kLoginScreenRoute);
+                       }
                       },
                       icon: const SizedBox(),
                     ),
