@@ -1,4 +1,5 @@
 import 'package:e_clinic_dr/ui/screens/appointments/components/write_report_screen.dart';
+import 'package:e_clinic_dr/ui/screens/payments/components/request_payment_screen.dart';
 import 'package:e_clinic_dr/ui/screens/signin/components/forgot_password_screen.dart';
 import 'package:e_clinic_dr/ui/screens/main_screen/main_screen.dart';
 import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_driver_screen.dart';
@@ -70,6 +71,12 @@ class RouteManagement {
         page: () => const PaymentsScreen(),
         binding: ScreensBindings(),
       ),
+       GetPage(
+        name: kRequestPaymentScreenRoute,
+        page: () => const RequestPaymentScreen(),
+        binding: ScreensBindings(),
+      ),
+      
       GetPage(
         name: kRatingsScreenRoute,
         page: () => const RatingsScreen(),

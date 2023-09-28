@@ -6,27 +6,11 @@ import '../../utils/dropdown_controller.dart';
 import '../../utils/text_field_manager.dart';
 import '../../utils/text_filter.dart';
 
-class PaymentsController extends GetxController {
+class RequestPaymentController extends GetxController {
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   
-  RxInt selectedPaymentIndex = 0.obs;
   
-  RxList<PaymentMethodTypeModel> paymentMethods = [
-    
-    PaymentMethodTypeModel(
-      title: "Credit Card",
-      icon: Icons.credit_card,
-      
-    ),
-    
-    PaymentMethodTypeModel(
-      title: "Apple Pay",
-      icon: Icons.credit_card,
-      
-    ),
-  ].obs;
-
   TextFieldManager requestAmountController = TextFieldManager('Request Payment', length: 50, filter: TextFilter.email);
   TextFieldManager descriptionController = TextFieldManager('Description', length: 50, filter: TextFilter.none);
   
@@ -34,16 +18,4 @@ class PaymentsController extends GetxController {
     title: "Choose Card",
     items: ["6011 **** **** 2239", "3011 **** **** 2139"].obs,
   );
-
-  void selectPaymentMethod(int index) {
-    selectedPaymentIndex.value = index;
-    notifyChildrens();
-  }
-}
-
-class PaymentMethodTypeModel {
-  final String title;
-  final IconData icon;
-
-  PaymentMethodTypeModel({required this.title, required this.icon});
 }

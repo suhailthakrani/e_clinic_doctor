@@ -13,6 +13,7 @@ const String kAppointmentsScreenRoute = '/appointments';
 const String kWriteReportScreenRoute = "/write_report_screen";
 const String kAvailabilityScreenRoute = '/availability';
 const String kPaymentScreenRoute = '/payments';
+const String kRequestPaymentScreenRoute = '/request_payments';
 const String kRatingsScreenRoute = '/ratings';
 const String kSettingsScreenRoute = '/settings';
 const String kAccountSettingsScreenRoute = "/account_settings";

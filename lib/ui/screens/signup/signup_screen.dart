@@ -97,6 +97,7 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
+                  
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Row(

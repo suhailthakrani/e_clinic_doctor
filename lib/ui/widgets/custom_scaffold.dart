@@ -38,7 +38,7 @@ class CustomScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: (){
-          if(className == "HomeScreen"){
+          if(className == "MainScreen"){
             if(scaffoldKey.currentState!.isDrawerOpen){
               Get.back();
             }else {

@@ -1,9 +1,11 @@
+import 'package:e_clinic_dr/ui/screens/payments/components/request_payment_screen.dart';
 import 'package:e_clinic_dr/ui/widgets/button1.dart';
 import 'package:e_clinic_dr/ui/widgets/custom_drawer.dart';
 import 'package:e_clinic_dr/ui/widgets/custom_scaffold.dart';
 import 'package:e_clinic_dr/ui/widgets/general_button.dart';
 import 'package:e_clinic_dr/ui/widgets/widget_svg.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
+import 'package:e_clinic_dr/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,7 +21,7 @@ class MainScreen extends GetView<MainScreenController> {
     return CustomScaffold(
       scaffoldKey: controller.scaffoldKey,
       className: runtimeType.toString(),
-      screenName: 'Dashboard',
+      screenName: 'MainScreen',
       // appBar: AppBar(),
       // endDrawer: const CustomDrawer(),
       body: SingleChildScrollView(
@@ -101,7 +103,9 @@ class MainScreen extends GetView<MainScreenController> {
                     buttonColor: kBlueColor,
                     text: 'Withdraw Amount',
                     borderRadius: 12,
-                    onPress: () {},
+                    onPress: () {
+                      Get.toNamed(kRequestPaymentScreenRoute);
+                    },
                   ),
                 ),
               ],
