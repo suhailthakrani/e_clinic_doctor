@@ -145,14 +145,13 @@ class AvailabilityController extends GetxController {
       }
       ProgressDialog pd = ProgressDialog()..showDialog();
       String response = await AvailabilityService().addShedule(drID: '', availabilityList:  availabilityList);
-      if (response == "Success") {
-      
-     CustomDialogs() .showDialog("Success", response, DialogType.success);
-    } else {
-      CustomDialogs()
-            .showDialog("Alert", response, DialogType.error);
-    }
       pd.dismissDialog();
+      if (response == "Success") {
+      CustomDialogs() .showDialog("Success", response, DialogType.success);
+      } else {
+        CustomDialogs().showDialog("Alert", response, DialogType.error);
+      }
+        
     } else{
       CommonCode().showToast(message: "Please enter valid data!");
     }
