@@ -37,49 +37,47 @@ class AvailabilityScreen extends GetView<AvailabilityController> {
                   style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),
                 ),
                  SizedBox(height: 20.h),
-                Container(
-                  child: Column(
-                    // mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
+                Column(
+                  // mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Flexible(
+                          child: GeneralTextField.withShadow(
+                              tfManager: controller.timeSlotController),
+                        ),
+                         SizedBox(width: 10.h),
+                        Flexible(
+                          child: GeneralTextField.withShadow(
+                              tfManager: controller.assignSessionController),
+                        ),
+                      ],
+                    ),
+                    Obx(
+                      () => Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Flexible(
-                            child: GeneralTextField.withShadow(
-                                tfManager: controller.timeSlotController),
-                          ),
-                           SizedBox(width: 10.h),
-                          Flexible(
-                            child: GeneralTextField.withShadow(
-                                tfManager: controller.assignSessionController),
-                          ),
+                          if (controller.availabilityList.isEmpty)
+                            const Text("List is Empty!"),
+                          for (int index = 0;
+                              index < controller.availabilityList.length;
+                              index++)
+                            SingleAvailabilityWidget(
+                              index: index,
+                            ),
                         ],
                       ),
-                      Obx(
-                        () => Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (controller.availabilityList.isEmpty)
-                              const Text("List is Empty!"),
-                            for (int index = 0;
-                                index < controller.availabilityList.length;
-                                index++)
-                              SingleAvailabilityWidget(
-                                index: index,
-                              ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20.h),
-                      SizedBox(
-                        width: Get.width,
-                        child: Button2(
-                            text: "Save Changes",
-                            onPress: () {
-                              //
-                            }),
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 20.h),
+                    SizedBox(
+                      width: Get.width,
+                      child: Button2(
+                          text: "Save Changes",
+                          onPress: () {
+                            controller.submitAvailability();
+                          }),
+                    ),
+                  ],
                 )
               ],
             ),

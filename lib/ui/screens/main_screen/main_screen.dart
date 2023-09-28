@@ -110,56 +110,72 @@ class MainScreen extends GetView<MainScreenController> {
             Card(
               elevation: 8,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Account",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Account",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                    Image.asset(
-                      'assets/images/edit_icon.png',
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(height: 10.h),
-                    GeneralTextField.withBorder(
-                      tfManager: controller.bankNameController,
-                      paddingVertical: 0,
-                      paddingHorizontal: 8,
-                    ),
-                    GeneralTextField.withBorder(
-                      tfManager: controller.branchNameController,
-                      paddingVertical: 0,
-                      paddingHorizontal: 8,
-                    ),
-                    GeneralTextField.withBorder(
-                      tfManager: controller.accountController,
-                      paddingVertical: 0,
-                      paddingHorizontal: 8,
-                    ),
-                    GeneralTextField.withBorder(
-                      tfManager: controller.accountHolderController,
-                      paddingVertical: 0,
-                      paddingHorizontal: 8,
-                    ),
-                    GeneralButton(
-                      onPressed: () {},
-                      text: 'Save Account Details',
-                      color: kBlueColor,
-                      margin: 0,
-                      height: 50,
-                      radius: 16,
-                    ),
-                    
-                  ],
+                      GestureDetector(
+                          onTap: (){
+                           controller.changeEditMode(false);
+                          },
+                          child: Image.asset(
+                            'assets/images/edit_icon.png',
+                            height: 24,
+                            width: 24,
+                          ),
+                        ),
+                      
+                      SizedBox(height: 10.h),
+                      Obx(()=> GeneralTextField.withBorder(
+                          tfManager: controller.bankNameController,
+                          paddingVertical: 0,
+                          paddingHorizontal: 8,
+                          readOnly: controller.disableEditAcountEdtals.value,
+                        ),
+                      ),
+                      Obx(()=> GeneralTextField.withBorder(
+                          tfManager: controller.branchNameController,
+                          paddingVertical: 0,
+                          paddingHorizontal: 8,
+                          readOnly: controller.disableEditAcountEdtals.value,
+                        ),
+                      ),
+                      Obx(()=> GeneralTextField.withBorder(
+                          tfManager: controller.accountController,
+                          paddingVertical: 0,
+                          paddingHorizontal: 8,
+                          readOnly: controller.disableEditAcountEdtals.value,
+                        ),
+                      ),
+                      Obx(()=> GeneralTextField.withBorder(
+                          tfManager: controller.accountHolderController,
+                          paddingVertical: 0,
+                          paddingHorizontal: 8,
+                          readOnly: controller.disableEditAcountEdtals.value,
+                        ),
+                      ),
+                       GeneralButton(
+                          onPressed: () {
+                            controller.changeEditMode(true);
+                          },
+                          text: 'Save Account Details',
+                          color: kBlueColor,
+                          margin: 0,
+                          height: 50,
+                          radius: 16,
+                        ),                
+                    ],
+                  ),
                 ),
               ),
-            ),
+            
             SizedBox(height: 100.h)
           ],
         ),

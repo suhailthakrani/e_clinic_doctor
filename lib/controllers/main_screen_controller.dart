@@ -10,10 +10,16 @@ class MainScreenController extends GetxController {
 
   
   final RxInt selectedScreenIndex = 0.obs;
+  RxBool disableEditAcountEdtals = true.obs;
 
   void selectScreen(int index) {
     selectedScreenIndex.value = index;
     Get.back(); 
+  }
+
+  void changeEditMode(bool enableEditMode) {
+    disableEditAcountEdtals.value = enableEditMode;
+    notifyChildrens(); 
   }
 
   TextFieldManager bankNameController =

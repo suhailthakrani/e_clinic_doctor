@@ -59,12 +59,13 @@ class GeneralTextField extends StatelessWidget {
                       : Border.all(
                           color: tfManager.errorMessage.isEmpty
                               ? kFieldBorderColor
-                              : kRequiredRedColor),
+                              : kRequiredRedColor,
+                              ),
                   color: readOnly
                       ? kFieldGreyColor
                       : _withShadow.isTrue
                           ? kWhiteColor
-                          : kFieldGreyColor.withOpacity(0.5),
+                          : kFieldGreyColor.withOpacity(0.2),
                   boxShadow: _withShadow.isTrue
                       ? [
                           const BoxShadow(

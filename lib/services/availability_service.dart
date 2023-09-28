@@ -1,13 +1,10 @@
 /*Created By: Suhail Thakrani on 23-Sept-2023*/
 
-import 'package:e_clinic_dr/models/user_login_model.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:e_clinic_dr/models/availability_model.dart';
 import 'package:e_clinic_dr/services/service_urls.dart';
-
 import '../models/response_model.dart';
-import '../models/token_model.dart';
-import '../models/user_model.dart';
-import '../utils/common_code.dart';
-import '../utils/user_session.dart';
+import '../ui/widgets/custom_dialogs.dart';
 import 'http_client.dart';
 
 class AvailabilityService {
@@ -19,18 +16,15 @@ class AvailabilityService {
 
   late HTTPClient _httpClient;
 
-  Future addShedule({required String appointmentId}) async {
+  Future<String> addShedule({required String drID, required List<AvailabilityModel> availabilityList}) async {
+
+    List<Map<String, dynamic>> availability = availabilityList.map((e) => e.toJson()).toList();
     
     ResponseModel responseModel = await _httpClient.postRequest(
         url: kAddChargesURL,
-        requestBody: /*TODO: */{},
-        requireToken: false,);
-    if (responseModel.message == "Success" && responseModel.data != null) {
-     //
-    } else {
-      // user.responseMessage = responseModel.message;
-    }
-    // return user;
+        requestBody: availability,
+        requireToken: true,);
+    return responseModel.message;
   }
 
 //TODO: Model Pass
@@ -39,7 +33,7 @@ class AvailabilityService {
     ResponseModel responseModel = await _httpClient.postRequest(
         url: kUpdateChargesURL,
         requestBody: /*TODO: */{},
-        requireToken: false,);
+        requireToken: true,);
     if (responseModel.message == "Success" && responseModel.data != null) {
      //
     } else {

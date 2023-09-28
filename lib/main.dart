@@ -1,3 +1,4 @@
+import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:e_clinic_dr/utils/route_management.dart';
 import 'package:e_clinic_dr/utils/screen_bindings.dart';
 import 'package:flutter/material.dart';

@@ -14,7 +14,9 @@ class SingleAvailabilityWidget extends GetView<AvailabilityController> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 8,
       margin: const EdgeInsets.all(8.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -139,14 +141,17 @@ class SingleAvailabilityWidget extends GetView<AvailabilityController> {
                   ),
                   const SizedBox(width: 16.0),
                   GestureDetector(
-                      onTap: () {},
-                      child: const Padding(
-                        padding: EdgeInsets.only(top: 16),
-                        child: Icon(
-                          CupertinoIcons.delete,
-                          color: kRequiredRedColor,
-                        ),
-                      )),
+                        onTap: () {
+                          controller.deleteTime(index: index);
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.only(top: 16),
+                          child: Icon(
+                            CupertinoIcons.delete,
+                            color: kRequiredRedColor,
+                          ),
+                        )),
+                  
                 ],
               ),
             ),

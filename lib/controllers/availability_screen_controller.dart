@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:e_clinic_dr/utils/common_code.dart';
 import 'package:e_clinic_dr/utils/text_field_manager.dart';
 import 'package:e_clinic_dr/utils/text_filter.dart';
@@ -6,15 +7,18 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../models/availability_model.dart';
+import '../services/availability_service.dart';
+import '../ui/widgets/custom_dialogs.dart';
+import '../ui/widgets/custom_progress_dialog.dart';
 import '../utils/dropdown_controller.dart';
 
 class AvailabilityController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextFieldManager timeSlotController = TextFieldManager('Time Slot Duration',
-      length: 50, filter: TextFilter.none, hint: 'Enter');
+      length: 50, filter: TextFilter.number, hint: 'Enter Time');
   TextFieldManager assignSessionController =
-      TextFieldManager('Assign Session #', length: 50, filter: TextFilter.none, hint: 'Enter');
+      TextFieldManager('Assign Session #', length: 50, filter: TextFilter.number, hint: 'Enter Session');
 
   TimeOfDay selectedStartTime = TimeOfDay.now();
   TimeOfDay selectedEndTime = TimeOfDay.now();
@@ -117,5 +121,40 @@ class AvailabilityController extends GetxController {
   void toggleStatus({required int index, required bool value}) {
     availabilityList[index] = availabilityList[index].copyWith(isActive: value);
     notifyChildrens();
+  }
+   void deleteTime({required int index}) {
+    availabilityList[index] = availabilityList[index].copyWith(isActive: false, startTime: '', endTime: '');
+    notifyChildrens();
+  }
+
+
+  bool validateAll() {
+    for (var avail in availabilityList) {
+      if (avail.isActive) {
+        return avail.startTime.isNotEmpty & avail.endTime.isNotEmpty;
+      }
+    }
+    return timeSlotController.validate() & assignSessionController.validate();
+  }
+
+  Future<void> submitAvailability() async {
+    if (validateAll()) {
+      for (var avail in availabilityList) {
+        avail.appointmentInterval = int.parse(timeSlotController.text);
+        avail.buffer = int.parse(assignSessionController.text);
+      }
+      ProgressDialog pd = ProgressDialog()..showDialog();
+      String response = await AvailabilityService().addShedule(drID: '', availabilityList:  availabilityList);
+      if (response == "Success") {
+      
+     CustomDialogs() .showDialog("Success", response, DialogType.success);
+    } else {
+      CustomDialogs()
+            .showDialog("Alert", response, DialogType.error);
+    }
+      pd.dismissDialog();
+    } else{
+      CommonCode().showToast(message: "Please enter valid data!");
+    }
   }
 }
