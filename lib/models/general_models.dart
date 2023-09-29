@@ -381,7 +381,7 @@ class Appointment {
   String time = '';
   int charges = 0;
   String type = '';
-  String patient_name = '';
+  String patientName = '';
   String message = '';
   Doctor doctor = Doctor.empty();
   String doctorId = '';
@@ -399,7 +399,7 @@ class Appointment {
     this.time = '',
     this.charges = 0,
     this.type = '',
-    this.patient_name = '',
+    this.patientName = '',
     this.message = '',
     required this.doctor,
     this.doctorId = '',
@@ -422,7 +422,7 @@ class Appointment {
       time: json['time'] ?? '',
       charges: json['charges'] ?? 0,
       type: json['type'] ?? '',
-      patient_name: json['patient_name'] ?? '',
+      patientName: json['patient_ame'] ?? '',
       message: json['message'] ?? '',
       doctor: Doctor.fromJson(json['Doctor']),
       doctorId: json['doctorId'] ?? '',
@@ -447,7 +447,7 @@ class Appointment {
         time = '',
         charges = 0,
         type = '',
-        patient_name = '',
+        patientName = '',
         message = '',
         doctor = Doctor.empty(),
         doctorId = '',
@@ -466,7 +466,7 @@ class Appointment {
       'time': time,
       'charges': charges,
       'type': type,
-      'patient_name': patient_name,
+      'patient_ame': patientName,
       'message': message,
       'Doctor': doctor.toJson(),
       'doctorId': doctorId,

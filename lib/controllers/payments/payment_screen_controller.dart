@@ -11,6 +11,20 @@ class PaymentsController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   
   RxInt selectedPaymentIndex = 0.obs;
+  RxBool disableEditAcountEdtals = true.obs;
+  void changeEditMode(bool enableEditMode) {
+    disableEditAcountEdtals.value = enableEditMode;
+    notifyChildrens();
+  }
+
+  TextFieldManager bankNameController =
+  TextFieldManager('Bank Name', length: 50, filter: TextFilter.name);
+  TextFieldManager branchNameController =
+  TextFieldManager('Branch Name', length: 50, filter: TextFilter.name);
+  TextFieldManager accountController =
+  TextFieldManager('Account Number', length: 50, filter: TextFilter.alphaNumeric);
+  TextFieldManager accountHolderController =
+  TextFieldManager('Account Holder Name', length: 50, filter: TextFilter.name);
   
   RxList<PaymentMethodTypeModel> paymentMethods = [
     

@@ -1,13 +1,9 @@
 /*Created By: Suhail Thakrani on 23-Sept-2023*/
 
-import 'package:e_clinic_dr/models/user_login_model.dart';
 import 'package:e_clinic_dr/services/service_urls.dart';
 
 import '../models/response_model.dart';
-import '../models/token_model.dart';
-import '../models/user_model.dart';
 import '../utils/common_code.dart';
-import '../utils/user_session.dart';
 import 'http_client.dart';
 
 class AppointmentService {

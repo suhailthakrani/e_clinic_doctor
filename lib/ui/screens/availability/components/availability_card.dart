@@ -14,7 +14,7 @@ class SingleAvailabilityWidget extends GetView<AvailabilityController> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 8,
+      elevation: 5,
       margin: const EdgeInsets.all(8.0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
@@ -32,8 +32,12 @@ class SingleAvailabilityWidget extends GetView<AvailabilityController> {
                     controller.toggleStatus(index: index, value: value);
                   },
                 ),
-                Text(controller.availabilityList[index].day.capitalizeFirst ??
-                    '', style: const TextStyle(fontWeight: FontWeight.w600,),),
+                Text(
+                  controller.availabilityList[index].day.capitalizeFirst ?? '',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ],
             ),
             Visibility(
@@ -141,17 +145,16 @@ class SingleAvailabilityWidget extends GetView<AvailabilityController> {
                   ),
                   const SizedBox(width: 16.0),
                   GestureDetector(
-                        onTap: () {
-                          controller.deleteTime(index: index);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.only(top: 16),
-                          child: Icon(
-                            CupertinoIcons.delete,
-                            color: kRequiredRedColor,
-                          ),
-                        )),
-                  
+                      onTap: () {
+                        controller.deleteTime(index: index);
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(top: 16),
+                        child: Icon(
+                          CupertinoIcons.delete,
+                          color: kRequiredRedColor,
+                        ),
+                      )),
                 ],
               ),
             ),

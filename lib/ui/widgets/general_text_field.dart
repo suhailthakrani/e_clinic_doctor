@@ -12,6 +12,7 @@ class GeneralTextField extends StatelessWidget {
   final double paddingVertical;
   final bool readOnly;
   final RxBool _withShadow = RxBool(false);
+  TextInputType? inputType;
 
   GeneralTextField.withBorder(
       {Key? key,
@@ -20,7 +21,7 @@ class GeneralTextField extends StatelessWidget {
       this.maxLines = 1,
       this.paddingHorizontal = 20,
       this.paddingVertical = 10,
-      this.readOnly = false})
+      this.readOnly = false, this.inputType})
       : super(key: key);
 
   GeneralTextField.withShadow(
@@ -30,7 +31,7 @@ class GeneralTextField extends StatelessWidget {
       this.maxLines = 1,
       this.paddingHorizontal = 4,
       this.paddingVertical = 10,
-      this.readOnly = false})
+      this.readOnly = false, this.inputType})
       : super(key: key) {
     _withShadow.value = true;
   }
@@ -45,7 +46,8 @@ class GeneralTextField extends StatelessWidget {
         children: [
           Text(
             tfManager.fieldName,
-            style: const TextStyle(color: kBlackColor, fontSize: 14, fontWeight: FontWeight.w500),
+            style: const TextStyle(
+                color: kBlackColor, fontSize: 14, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 6),
           Obx(
@@ -60,7 +62,7 @@ class GeneralTextField extends StatelessWidget {
                           color: tfManager.errorMessage.isEmpty
                               ? kFieldBorderColor
                               : kRequiredRedColor,
-                              ),
+                        ),
                   color: readOnly
                       ? kFieldGreyColor
                       : _withShadow.isTrue

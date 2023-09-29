@@ -12,7 +12,7 @@ class DropdownController {
 
   final bool mandatory;
 
-  DropdownController({required this.title, required this.items, this.mandatory=true});
+  DropdownController({required this.title, required this.items, this.mandatory=true,});
 
   bool validate(){
     if(selectedItem.value == null){

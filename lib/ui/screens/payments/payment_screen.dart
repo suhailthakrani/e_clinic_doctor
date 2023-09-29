@@ -7,7 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/payments/payment_screen_controller.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/constants.dart';
+import '../../widgets/button1.dart';
 import '../../widgets/button2.dart';
+import '../../widgets/general_button.dart';
+import '../../widgets/general_text_field.dart';
 import 'components/small_info_button.dart';
 
 class PaymentsScreen extends GetView<PaymentsController> {
@@ -20,182 +25,185 @@ class PaymentsScreen extends GetView<PaymentsController> {
       className: runtimeType.toString(),
       screenName: 'Manage Payment',
       body: SingleChildScrollView(
-        child: ScreenUtilInit(
-          designSize: Size(
-            MediaQuery.of(context).size.width,
-            MediaQuery.of(context).size.height,
-          ),
-          builder: (context, widget) => Container(
-            child: Center(
-              child: Container(
-                margin: EdgeInsets.all(15.w),
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            SizedBox(height: 30.h),
+            SizedBox(
+              width: Get.width,
+              child: Card(
+                elevation: 8,
+                child: Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset('assets/images/card.png'),
+                      SizedBox(height: 8),
+                      const Text("Total Balance",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w500,
+                          )),
+                      SizedBox(height: 8),
+                      const Text("\$9600",
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600,
+                          ))
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: Get.width,
+              child: Card(
+                  elevation: 8,
+                  child: Padding(
+                    padding: EdgeInsets.all(20.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset('assets/images/amount.png'),
+                        SizedBox(height: 8),
+                        const Text("Amount Requested",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w500,
+                            )),
+                        SizedBox(height: 8),
+                        const Text("\$0.00",
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.w600,
+                            ))
+                      ],
+                    ),
+                  )),
+            ),
+            SizedBox(
+              width: Get.width,
+              child: Card(
+                  elevation: 8,
+                  child: Padding(
+                    padding: EdgeInsets.all(20.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset('assets/images/total.png'),
+                        SizedBox(height: 8),
+                        const Text("Pending Payments",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.w500,
+                            )),
+                        SizedBox(height: 8),
+                        const Text(
+                          "\$9600",
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+            ),
+            SizedBox(height: 16.h),
+            Row(
+              children: [
+                SizedBox(
+                  height: 50,
+                  width: Get.width * 0.6,
+                  child: Button1(
+                    textStyle: const TextStyle(color: kWhiteColor),
+                    buttonColor: kBlueColor,
+                    text: 'Withdraw Amount',
+                    borderRadius: 12,
+                    onPress: () {
+                      Get.toNamed(kRequestPaymentScreenRoute);
+                    },
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.h),
+            Card(
+              elevation: 8,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 10.w),
-                        Text(
-                          "Add Payment Method",
-                          style: textTheme.displayMedium,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30.h),
-                   
-                    Obx(
-                      () => Row(
-                        children: [
-                          for(int index = 0; index<controller.paymentMethods.length; index++)
-                        PaymentMethodCard(text: controller.paymentMethods[index].title, icon: controller.paymentMethods[index].icon, index: index)
-                         
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 50.h),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        "Card Number",
-                        style: TextStyle(
-                          fontFamily: "Helvetica Now Display",
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 5.h),
-                    SizedBox(
-                      height: 50.h,
-                      width: 320.w,
-                      child: InputField(
-                        suffixIcon: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              onTap: () {},
-                              child:
-                                  Image.asset("assets/images/master-card.png"),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.credit_card),
-                            )
-                          ],
-                        ),
-                        hint: "5261 4141 0151 8472",
-                        label: "",
-                      ),
-                    ),
-                    SizedBox(height: 24.h),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        "CardHolder Name",
-                        style: TextStyle(
-                          fontFamily: "Helvetica Now Display",
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 5.h),
-                    SizedBox(
-                      height: 50.h,
-                      width: 320.w,
-                      child: const InputField(
-                        hint: "Christie Doe",
-                        label: "",
-                      ),
-                    ),
-                    SizedBox(height: 24.h),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Expiry Date",
-                                style: TextStyle(
-                                  fontFamily: "Helvetica Now Display",
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              SizedBox(height: 5.h),
-                              SizedBox(
-                                height: 56.h,
-                                width: 150.w,
-                                child: const InputField(
-                                  hint: "MM/YY",
-                                  label: "",
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 10.w),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  const Text(
-                                    "CVV / CVC",
-                                    style: TextStyle(
-                                      fontFamily: "Helvetica Now Display",
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  SizedBox(width: 10.w),
-                                  const SmallInfoButton()
-                                ],
-                              ),
-                              SizedBox(height: 5.h),
-                              SizedBox(
-                                height: 56.h,
-                                width: 150.w,
-                                child: const InputField(
-                                  hint: "MM/YY",
-                                  label: "",
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30.h),
                     const Text(
-                      "We will send you details to your email after the successfull payment",
-                      textAlign: TextAlign.center,
+                      "Account",
                       style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                    SizedBox(height: 50.h),
-                    Button2(
-                      text: "Skip And Continue",
-                      onPress: () {
-                        // Navigator.pushNamed(
-                        //     context, VerificationScreen.routeName);
+                    GestureDetector(
+                      onTap: () {
+                        controller.changeEditMode(false);
                       },
+                      child: Image.asset(
+                        'assets/images/edit_icon.png',
+                        height: 24,
+                        width: 24,
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    Obx(
+                      () => GeneralTextField.withBorder(
+                        tfManager: controller.bankNameController,
+                        paddingVertical: 0,
+                        paddingHorizontal: 8,
+                        readOnly: controller.disableEditAcountEdtals.value,
+                      ),
+                    ),
+                    Obx(
+                      () => GeneralTextField.withBorder(
+                        tfManager: controller.branchNameController,
+                        paddingVertical: 0,
+                        paddingHorizontal: 8,
+                        readOnly: controller.disableEditAcountEdtals.value,
+                      ),
+                    ),
+                    Obx(
+                      () => GeneralTextField.withBorder(
+                        tfManager: controller.accountController,
+                        paddingVertical: 0,
+                        paddingHorizontal: 8,
+                        readOnly: controller.disableEditAcountEdtals.value,
+                      ),
+                    ),
+                    Obx(
+                      () => GeneralTextField.withBorder(
+                        tfManager: controller.accountHolderController,
+                        paddingVertical: 0,
+                        paddingHorizontal: 8,
+                        readOnly: controller.disableEditAcountEdtals.value,
+                      ),
+                    ),
+                    GeneralButton(
+                      onPressed: () {
+                        // controller.changeEditMode(true);
+                      },
+                      text: 'Save Account Details',
+                      color: kBlueColor,
+                      margin: 0,
+                      height: 50,
+                      radius: 16,
                     ),
                   ],
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

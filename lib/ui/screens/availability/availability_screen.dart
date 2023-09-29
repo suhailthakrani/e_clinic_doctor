@@ -1,6 +1,7 @@
 import 'package:e_clinic_dr/ui/screens/availability/components/availability_card.dart';
 import 'package:e_clinic_dr/ui/widgets/button2.dart';
 import 'package:e_clinic_dr/ui/widgets/custom_scaffold.dart';
+import 'package:e_clinic_dr/ui/widgets/general_dropdown.dart';
 import 'package:e_clinic_dr/ui/widgets/general_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,34 +23,43 @@ class AvailabilityScreen extends GetView<AvailabilityController> {
         child: Card(
           elevation: 8,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // SizedBox(height: 20.h),
                 Text(
                   "Schedule Timings",
-                  style: TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 8.h),
                 Text(
                   "Schedule Your Availability",
-                  style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 15.w,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black54),
                 ),
-                 SizedBox(height: 20.h),
+                SizedBox(height: 10.h),
                 Column(
                   // mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       children: [
+                        // Flexible(
+                        //   child: GeneralTextField.withShadow(
+                        //       tfManager: controller.timeSlotController),
+                        // ),
                         Flexible(
-                          child: GeneralTextField.withShadow(
-                              tfManager: controller.timeSlotController),
+                          child: GeneralDropdown.withShadow(
+                            controller: controller.timeSlotDDController,
+                            hint: '30 Min',
+                          ),
                         ),
-                         SizedBox(width: 10.h),
+                        SizedBox(width: 10.h),
                         Flexible(
                           child: GeneralTextField.withShadow(
-                              tfManager: controller.assignSessionController),
+                              tfManager: controller.assignSessionController,),
                         ),
                       ],
                     ),
@@ -70,7 +80,7 @@ class AvailabilityScreen extends GetView<AvailabilityController> {
                     ),
                     SizedBox(height: 20.h),
                     SizedBox(
-                      width: Get.width,
+                      width: Get.width * 0.9,
                       child: Button2(
                           text: "Save Changes",
                           onPress: () {
