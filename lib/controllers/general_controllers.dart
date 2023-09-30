@@ -1,3 +1,4 @@
+import 'package:e_clinic_dr/utils/user_session.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -31,7 +32,7 @@ class ProfessionalInfoSettingsController extends GetxController {
       TextFieldManager('Hospital Name', length: 50, filter: TextFilter.name);
   TextFieldManager addressController =
       TextFieldManager('Address', length: 50, filter: TextFilter.name);
-      TextFieldManager cityController =
+  TextFieldManager cityController =
       TextFieldManager('City', length: 50, filter: TextFilter.name);
   TextFieldManager stateController =
       TextFieldManager('State', length: 50, filter: TextFilter.name);
@@ -87,7 +88,16 @@ class PersonalInfoSettingsController extends GetxController {
   );
   RxString profileUrl = RxString('');
 
-   Future<void> pickImage() async {
+  @override
+  Future<void> onInit() async {
+    firstNameController.controller.text =
+        await UserSession.userModel.value.firstName;
+    lastNameController.controller.text =
+        await UserSession.userModel.value.lastName;
+    super.onInit();
+  }
+
+  Future<void> pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
@@ -97,8 +107,7 @@ class PersonalInfoSettingsController extends GetxController {
       print('---------------------- [Unable to Pick Image!]');
     }
   }
-  
-  
+
   DateTimeManager dateOfBirthController = DateTimeManager("Date of Birth",
       firstDate: DateTime(DateTime.now().year - 80),
       lastDate: DateTime(
@@ -106,28 +115,42 @@ class PersonalInfoSettingsController extends GetxController {
 }
 
 class EmailSettingsController extends GetxController {
-   TextFieldManager currentEmailControler =
-      TextFieldManager('Current Email Address', length: 50, filter: TextFilter.email);
-  TextFieldManager newEmailControler =
-      TextFieldManager('New Email Address', length: 50, filter: TextFilter.email);
-    TextFieldManager confrimEmailControler =
-      TextFieldManager('Confrim Email Address', length: 50, filter: TextFilter.email);
+  TextFieldManager currentEmailControler = TextFieldManager(
+      'Current Email Address',
+      length: 50,
+      filter: TextFilter.email);
+  TextFieldManager newEmailControler = TextFieldManager('New Email Address',
+      length: 50, filter: TextFilter.email);
+  TextFieldManager confrimEmailControler = TextFieldManager(
+      'Confrim Email Address',
+      length: 50,
+      filter: TextFilter.email);
 }
 
 class PhoneNoSettingsController extends GetxController {
-   TextFieldManager currentPhoneControler =
-      TextFieldManager('Current Phone Number', length: 50, filter: TextFilter.number);
-  TextFieldManager newPhoneControler =
-      TextFieldManager('New Phone Number', length: 50, filter: TextFilter.number);
-    TextFieldManager confrimPhoneControler =
-      TextFieldManager('Confrim Phone Number', length: 50, filter: TextFilter.number);
+  TextFieldManager currentPhoneControler = TextFieldManager(
+      'Current Phone Number',
+      length: 50,
+      filter: TextFilter.number);
+  TextFieldManager newPhoneControler = TextFieldManager('New Phone Number',
+      length: 50, filter: TextFilter.number);
+  TextFieldManager confrimPhoneControler = TextFieldManager(
+      'Confrim Phone Number',
+      length: 50,
+      filter: TextFilter.number);
 }
 
 class PasswordSettingsController extends GetxController {
-  TextFieldManager currentPasswordControler =
-      TextFieldManager('Current Password Number', length: 50, filter: TextFilter.none);
-  TextFieldManager newPasswordControler =
-      TextFieldManager('New Password Number', length: 50, filter: TextFilter.none);
-    TextFieldManager confrimPasswordControler =
-      TextFieldManager('Confrim Password Number', length: 50, filter: TextFilter.none);
+  TextFieldManager currentPasswordControler = TextFieldManager(
+      'Current Password Number',
+      length: 50,
+      filter: TextFilter.none);
+  TextFieldManager newPasswordControler = TextFieldManager(
+      'New Password Number',
+      length: 50,
+      filter: TextFilter.none);
+  TextFieldManager confrimPasswordControler = TextFieldManager(
+      'Confrim Password Number',
+      length: 50,
+      filter: TextFilter.none);
 }

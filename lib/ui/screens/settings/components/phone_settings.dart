@@ -54,13 +54,13 @@ class PhoneNoSettingsScreen extends GetView<PhoneNoSettingsController> {
                 ),
                 const SizedBox(height: 20),
                 const SizedBox(height: 20),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.currentPhoneControler,
                   paddingVertical: 0,
                   paddingHorizontal: 4,
                 ),
                 SizedBox(height: 20.h),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.newPhoneControler,
                   paddingVertical: 0,
                   paddingHorizontal: 4,
@@ -97,7 +97,7 @@ class PhoneNoSettingsScreen extends GetView<PhoneNoSettingsController> {
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side:const BorderSide(color: kBlueColor)),
+                            side: const BorderSide(color: kBlueColor)),
                         backgroundColor: kWhiteColor,
                         foregroundColor: kBlueColor,
                       ),

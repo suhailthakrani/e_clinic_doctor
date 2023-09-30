@@ -1,16 +1,13 @@
+import 'package:e_clinic_dr/controllers/appointments/prescription_screen_controller.dart';
 import 'package:e_clinic_dr/ui/widgets/button2.dart';
 import 'package:e_clinic_dr/ui/widgets/general_text_field.dart';
-import 'package:flutter/foundation.dart';
+import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../controllers/appointments/write_report_controller.dart';
-import '../../../../utils/colors.dart';
-import '../../../widgets/general_dropdown.dart';
-
-class WriteReportScreen extends GetView<WriteReportScreenController> {
-  const WriteReportScreen({super.key});
+class PrescriptionsScreen extends GetView<PrescriptionScreenController> {
+  const PrescriptionsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +15,9 @@ class WriteReportScreen extends GetView<WriteReportScreenController> {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         elevation: 0,
+        title: const Text('Add Prescription'),
         backgroundColor: kWhiteColor,
         foregroundColor: kBlackColor,
-        title: const Text(
-          'Write Report',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -34,23 +28,40 @@ class WriteReportScreen extends GetView<WriteReportScreenController> {
               'Patient Information',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+            Obx(
+              () => ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: Image.network(
+                  controller.imageUrl.value,
+                  height: 70.h,
+                  width: 70.w,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(),
+                ),
+              ),
+            ),
+            GeneralTextField.withShadow(
+              tfManager: controller.appointIdController,
+              paddingHorizontal: 0,
+            ),
             GeneralTextField.withShadow(
               tfManager: controller.patientNameController,
               paddingHorizontal: 0,
             ),
-            GeneralDropdown.withShadow(
-              controller: controller.genderDDController,
-            ),
             GeneralTextField.withShadow(
-              tfManager: controller.ageController,
+              tfManager: controller.appointmnDateController,
               paddingHorizontal: 0,
             ),
             GeneralTextField.withShadow(
-              tfManager: controller.patientNumberController,
+              tfManager: controller.appointmntTimeController,
               paddingHorizontal: 0,
             ),
             GeneralTextField.withShadow(
-              tfManager: controller.medicalHistoryController,
+              tfManager: controller.chargesController,
+              paddingHorizontal: 0,
+            ),
+            GeneralTextField.withShadow(
+              tfManager: controller.descriptionController,
               paddingHorizontal: 0,
             ),
             const Text(
@@ -65,7 +76,7 @@ class WriteReportScreen extends GetView<WriteReportScreenController> {
                     paddingHorizontal: 0,
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Flexible(
                   child: GeneralTextField.withShadow(
                     tfManager: controller.diagnosis2Controller,
@@ -82,7 +93,7 @@ class WriteReportScreen extends GetView<WriteReportScreenController> {
                     paddingHorizontal: 0,
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Flexible(
                   child: GeneralTextField.withShadow(
                     tfManager: controller.diagnosis4Controller,

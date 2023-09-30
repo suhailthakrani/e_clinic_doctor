@@ -19,16 +19,16 @@ class AccountSettingsScreen extends GetView<AccountSettingsController> {
         elevation: 0,
         backgroundColor: kWhiteColor,
         foregroundColor: kBlackColor,
-        title:  Text(
-              "Account Settings",
-              style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
-            ),
+        title: Text(
+          "Account Settings",
+          style: TextStyle(fontSize: 24.w, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(20.r),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
         child: Column(
@@ -41,19 +41,16 @@ class AccountSettingsScreen extends GetView<AccountSettingsController> {
             // ),
             SizedBox(height: 20.h),
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: kWhiteColor,
-                    borderRadius: BorderRadius.circular(8.r),
-                    boxShadow: const [
-                      BoxShadow(
-                          color: kFieldShadowColor, offset: Offset(-1, -1)),
-                      BoxShadow(color: kFieldShadowColor, offset: Offset(1, 1))
-                    ]),
-                padding: EdgeInsets.all(8.w),
+              child: Card(
+                elevation: 8,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                // padding: EdgeInsets.all(8.w),
                 child: Column(
                   // mainAxisSize: MainAxisSize.max,
                   children: [
+                    const SizedBox(height: 20),
                     CustomTile(
                         title: 'Personal Info',
                         onTap: () {

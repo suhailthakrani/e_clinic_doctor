@@ -1,7 +1,9 @@
+import 'package:e_clinic_dr/ui/screens/appointments/components/appointment_card.dart';
 import 'package:e_clinic_dr/ui/screens/appointments/components/appointment_type_widget.dart';
 import 'package:e_clinic_dr/ui/widgets/button1.dart';
 import 'package:e_clinic_dr/ui/widgets/button2.dart';
 import 'package:e_clinic_dr/ui/widgets/custom_scaffold.dart';
+import 'package:e_clinic_dr/utils/app_enum.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,17 +56,44 @@ class AppointmentsScreen extends GetView<AppointmentsController> {
                     ),
                     actions: [],
                   ),
-                  
                   SliverToBoxAdapter(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                      
                         SizedBox(height: 25.h),
-                        if (controller.selectedAppointmentType.value == 0)
-                          ...upComingAppointments
-                        else
-                          ...previousAppointments
+                        (controller.selectedAppointmentType.value == 0)
+                            ? Obx(
+                                () => ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      controller.appointmentsRequests.length,
+                                  padding: const EdgeInsets.all(20),
+                                  itemBuilder: (context, index) {
+                                    return AppointmentCard(
+                                      status: AppointmentStatus.pending,
+                                      appointment: controller
+                                          .appointmentsRequests[index],
+                                      controller: controller,
+                                    );
+                                  },
+                                ),
+                              )
+                            : Obx(
+                                () => ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      controller.appointmentsCompleted.length,
+                                  padding: const EdgeInsets.all(20),
+                                  itemBuilder: (context, index) {
+                                    return AppointmentCard(
+                                      status: AppointmentStatus.completed,
+                                      appointment: controller
+                                          .appointmentsCompleted[index],
+                                      controller: controller,
+                                    );
+                                  },
+                                ),
+                              )
                       ],
                     ),
                   )

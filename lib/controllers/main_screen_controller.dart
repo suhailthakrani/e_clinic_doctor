@@ -1,6 +1,11 @@
+import 'package:e_clinic_dr/models/appointment_model.dart';
+import 'package:e_clinic_dr/models/doctor_model.dart';
+import 'package:e_clinic_dr/models/patient_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../services/appointment_service.dart';
 import '../ui/screens/appointments/components/appointment_card.dart';
 import '../utils/app_enum.dart';
 import '../utils/text_field_manager.dart';
@@ -9,54 +14,28 @@ import '../utils/text_filter.dart';
 class MainScreenController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final RxInt selectedScreenIndex = 0.obs;
-  RxBool disableEditAcountEdtals = true.obs;
-
-  void selectScreen(int index) {
-    selectedScreenIndex.value = index;
-    Get.back();
+  RxList<Appointment> appointmentsRequests = <Appointment>[].obs;
+  RxList<Appointment> appointmentsCompleted = <Appointment>[].obs;
+  
+     @override
+  Future<void> onInit() async {
+    appointmentsRequests.value =
+        await AppointmentService().getRequestedAppointmentsList();
+    appointmentsCompleted.value =
+        await AppointmentService().getCompletedAppointmentsList();
+    super.onInit();
   }
 
-  void changeEditMode(bool enableEditMode) {
-    disableEditAcountEdtals.value = enableEditMode;
-    notifyChildrens();
+    String convertDateFormat(String inputDate) {
+    DateTime dateTime = DateTime.parse(inputDate);
+    String formattedDate = DateFormat('d MMMM y').format(dateTime);
+    return formattedDate;
   }
 
-  TextFieldManager bankNameController =
-      TextFieldManager('Bank Name', length: 50, filter: TextFilter.name);
-  TextFieldManager branchNameController =
-      TextFieldManager('Branch Name', length: 50, filter: TextFilter.name);
-  TextFieldManager accountController = TextFieldManager('Account Number',
-      length: 50, filter: TextFilter.alphaNumeric);
-  TextFieldManager accountHolderController = TextFieldManager(
-      'Account Holder Name',
-      length: 50,
-      filter: TextFilter.name);
-
-  List<AppointmentCard> upComingAppointments = [
-    const AppointmentCard(
-      drName: "Mary Freund",
-      category: "General Checkup",
-      image: "assets/images/doctor.png",
-      status: AppointmentStatus.pending,
-    ),
-    const AppointmentCard(
-      drName: "Kathy Pacheco",
-      category: "Pyscology",
-      image: "assets/images/doctor.png",
-      status: AppointmentStatus.pending,
-    ),
-    const AppointmentCard(
-      drName: "Rodger Struck",
-      category: "Carminology",
-      image: "assets/images/doctor.png",
-      status: AppointmentStatus.pending,
-    ),
-    const AppointmentCard(
-      drName: "Rodger Struck",
-      category: "Carminology",
-      image: "assets/images/doctor.png",
-      status: AppointmentStatus.pending,
-    ),
-  ];
+  String convertToAMPM(String timeString) {
+    DateTime dateTime = DateFormat('HH:mm').parse(timeString);
+    String formattedTime = DateFormat('h:mm a').format(dateTime);
+    return formattedTime;
+  }
+  
 }

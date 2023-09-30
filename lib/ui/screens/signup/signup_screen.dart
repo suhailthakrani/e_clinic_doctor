@@ -62,78 +62,75 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                       ),
                     ],
                   ),
-                  GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
                     tfManager: controller.firstNameController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                  GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
                     tfManager: controller.lastNameController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                  GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
                     tfManager: controller.cnicController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                  GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
                     tfManager: controller.emailController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                  GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
                     tfManager: controller.passwordController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                  GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
                     tfManager: controller.phoneNoController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                  GeneralTextField.withBorder(
-                    tfManager: controller.specializationController,
+                  GeneralDropdown.withShadow(
+                    controller: controller.specializationController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                  
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Row(
                       children: [
                         Expanded(
                           flex: 1,
-                          child: GeneralDropdown.withBorder(
+                          child: GeneralDropdown.withShadow(
                               controller: controller.genderDDController),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
                           flex: 1,
-                          child: GeneralDropdown.withBorder(
+                          child: GeneralDropdown.withShadow(
                               controller: controller.experienceDDController),
                         ),
                       ],
                     ),
                   ),
-                   GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
                     tfManager: controller.hospitalController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                   GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
                     tfManager: controller.stateController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                 
-                  GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
                     tfManager: controller.cityController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
                   ),
-                 
-                  GeneralTextField.withBorder(
+                  GeneralTextField.withShadow(
                     tfManager: controller.addressController,
                     paddingVertical: 0,
                     paddingHorizontal: 8,
@@ -187,13 +184,14 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Obx(
-                        ()=> Text(
-                         controller.degreeDocument.value.isNotEmpty? controller.degreeDocument.value.split('/').last:'',
+                        () => Text(
+                          controller.degreeDocument.value.isNotEmpty
+                              ? controller.degreeDocument.value.split('/').last
+                              : '',
                           style: const TextStyle(
-                            color: kBlack90Color,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 10
-                          ),
+                              color: kBlack90Color,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 10),
                         ),
                       ),
                     ],

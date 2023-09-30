@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:e_clinic_dr/models/base_model.dart';
+import 'package:e_clinic_dr/models/doctor_model.dart';
+import 'package:e_clinic_dr/models/patient_model.dart';
 
 import 'general_models.dart';
 
@@ -37,20 +39,19 @@ class UserModel extends BaseModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      firstName: json['first_name'] ?? '',
-      lastName: json['last_name'] ?? '',
-      cnic: json['cnic'] ?? '',
-      email: json['email'] ?? '',
-      gender: json['gender'] ?? '',
-      specialization: json['specialization'] ?? '',
-      degreeDocument: json['degree_document'] ?? '',
-      hospitalClinicName: json['hospital_clinic_name'] ?? '',
-      address: json['address'] ?? '',
-      city: json['city'] ?? '',
-      state: json['state'] ?? '',
-      password: json['password'] ?? '',
-      experience: json['experiene'] ?? ''
-    );
+        firstName: json['first_name'] ?? '',
+        lastName: json['last_name'] ?? '',
+        cnic: json['cnic'] ?? '',
+        email: json['email'] ?? '',
+        gender: json['gender'] ?? '',
+        specialization: json['specialization'] ?? '',
+        degreeDocument: json['degree_document'] ?? '',
+        hospitalClinicName: json['hospital_clinic_name'] ?? '',
+        address: json['address'] ?? '',
+        city: json['city'] ?? '',
+        state: json['state'] ?? '',
+        password: json['password'] ?? '',
+        experience: json['experiene'] ?? '');
   }
 
   UserModel.empty()
@@ -80,7 +81,7 @@ class UserModel extends BaseModel {
       'city': city,
       'state': state,
       'password': password,
-      'image':degreeDocument,
+      // 'degree_document': degreeDocument,
     };
   }
 
@@ -98,7 +99,6 @@ class UserModel extends BaseModel {
         'state: $state}';
   }
 }
-
 
 class UserModel2 extends BaseModel {
   String id = '';
@@ -170,10 +170,13 @@ class UserModel2 extends BaseModel {
       password: json['password'] ?? '',
       createdAt: DateTime.parse(json['created_at'] ?? ''),
       updatedAt: DateTime.parse(json['updated_at'] ?? ''),
-      patient: json['patient'] != null ? Patient.fromJson(json['patient']) : Patient.empty(),
-      doctor: json['doctor'] != null ? Doctor.fromJson(json['doctor']) : Doctor.empty(),
+      patient: json['patient'] != null
+          ? Patient.fromJson(json['patient'])
+          : Patient.empty(),
+      doctor: json['doctor'] != null
+          ? Doctor.fromJson(json['doctor'])
+          : Doctor.empty(),
     );
-
   }
 
   Map<String, String> toJson() {
@@ -196,7 +199,8 @@ class UserModel2 extends BaseModel {
       // 'doctor': doctor.toJson(),
     };
   }
-   Map<String, String> saveInJson() {
+
+  Map<String, String> saveInJson() {
     return {
       'id': id,
       'first_name': firstName,

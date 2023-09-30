@@ -10,7 +10,6 @@ class PaymentsController extends GetxController {
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   
-  RxInt selectedPaymentIndex = 0.obs;
   RxBool disableEditAcountEdtals = true.obs;
   void changeEditMode(bool enableEditMode) {
     disableEditAcountEdtals.value = enableEditMode;
@@ -26,20 +25,6 @@ class PaymentsController extends GetxController {
   TextFieldManager accountHolderController =
   TextFieldManager('Account Holder Name', length: 50, filter: TextFilter.name);
   
-  RxList<PaymentMethodTypeModel> paymentMethods = [
-    
-    PaymentMethodTypeModel(
-      title: "Credit Card",
-      icon: Icons.credit_card,
-      
-    ),
-    
-    PaymentMethodTypeModel(
-      title: "Apple Pay",
-      icon: Icons.credit_card,
-      
-    ),
-  ].obs;
 
   TextFieldManager requestAmountController = TextFieldManager('Request Payment', length: 50, filter: TextFilter.email);
   TextFieldManager descriptionController = TextFieldManager('Description', length: 50, filter: TextFilter.none);
@@ -49,10 +34,6 @@ class PaymentsController extends GetxController {
     items: ["6011 **** **** 2239", "3011 **** **** 2139"].obs,
   );
 
-  void selectPaymentMethod(int index) {
-    selectedPaymentIndex.value = index;
-    notifyChildrens();
-  }
 }
 
 class PaymentMethodTypeModel {

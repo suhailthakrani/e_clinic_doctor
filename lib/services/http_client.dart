@@ -38,13 +38,18 @@ class HTTPClient extends GetConnect {
       Response response = await post(
         url,
         requestBody != null ? FormData(requestBody) : null,
-        headers: requireToken
-            ? await _getHeaders()
-            : null,
+        headers: requireToken ? await _getHeaders() : null,
       ).timeout(const Duration(seconds: _requestTimeOut));
 
       log('───────────────────POST> $requestBody');
       log('───────────────────POST> $url\n${response.body}');
+
+      if (response.unauthorized) {
+        return Future.value(
+          ResponseModel.named(message: "Invalid Credentials", data: []),
+        );
+      }
+      log(response.statusText.toString());
 
       ResponseModel responseModel = ResponseModel.fromJson(
           response.body is Map ? response.body : jsonDecode(response.body));
@@ -52,16 +57,14 @@ class HTTPClient extends GetConnect {
     } on TimeoutException {
       return Future.value(ResponseModel.named(
           message: "Request TimeOut", data: kPoorInternetConnection));
-    } on SocketException {
-      return Future.value(
-          ResponseModel.named(message: "Bad Request", data: kNetworkError));
     } catch (e) {
       if (!(await CommonCode().checkInternetAccess())) {
         return Future.value(ResponseModel.named(
             message: kPoorInternetConnection, data: kPoorInternetConnection));
       }
-      return Future.value(
-          ResponseModel.named(message: kNetworkError, data: kNetworkError));
+      log(e.toString());
+      return Future.value(ResponseModel.named(
+          message: 'Ups Something Went Wrong!', data: e.toString()));
     }
   }
 
@@ -135,7 +138,7 @@ class HTTPClient extends GetConnect {
           file.key,
           file.value,
           filename: name,
-          contentType: MediaType('image', type),
+          contentType: MediaType('file', type),
         ));
       }
 
@@ -165,45 +168,44 @@ class HTTPClient extends GetConnect {
           ResponseModel.named(message: 'ERROR', data: e.toString()));
     }
   }
-}
 
-Future<ResponseModel> putRequest(
-    {required String url,
-    dynamic requestBody,
-    bool requireToken = true}) async {
-  if (!(await CommonCode().checkInternetConnection())) {
-    return Future.value(
-        ResponseModel.named(message: kNoInternetMsg, data: kNoInternetMsg));
-  }
-
-  try {
-    Map<String, String> customHeader = await _getHeaders();
-
-    http.Response response = await http.put(
-      Uri.parse(url),
-      body: requestBody != null ? FormData(requestBody) : null,
-      headers: customHeader,
-    );
-
-    log('───────────────────POST> $requestBody');
-    log('───────────────────POST> $url\n${response.body}');
-
-    ResponseModel responseModel = ResponseModel.fromJson(
-        response.body is Map ? response.body : jsonDecode(response.body));
-    return responseModel;
-  } on TimeoutException {
-    return Future.value(ResponseModel.named(
-        message: "Request TimeOut", data: kPoorInternetConnection));
-  } on SocketException {
-    return Future.value(
-        ResponseModel.named(message: "Bad Request", data: kNetworkError));
-  } catch (e) {
-    if (!(await CommonCode().checkInternetAccess())) {
-      return Future.value(ResponseModel.named(
-          message: kPoorInternetConnection, data: kPoorInternetConnection));
+  Future<ResponseModel> putRequest(
+      {required String url,
+      dynamic requestBody,
+      bool requireToken = true}) async {
+    if (!(await CommonCode().checkInternetConnection())) {
+      return Future.value(
+          ResponseModel.named(message: kNoInternetMsg, data: kNoInternetMsg));
     }
-    return Future.value(
-        ResponseModel.named(message: kNetworkError, data: kNetworkError));
+
+    try {
+      Map<String, String> customHeader = await _getHeaders();
+      customHeader['Content-Type'] = 'application/json';
+
+      http.Response response = await http.put(
+        Uri.parse(url),
+        body: requestBody,
+        headers: customHeader,
+      );
+
+      log('───────────────────POST> $requestBody');
+      log('───────────────────POST> $url\n${response.body}');
+
+      ResponseModel responseModel = ResponseModel.fromJson(
+          response.body is Map ? response.body : jsonDecode(response.body));
+      return responseModel;
+    } on TimeoutException {
+      return Future.value(ResponseModel.named(
+          message: "Request TimeOut", data: kPoorInternetConnection));
+    } catch (e) {
+      if (!(await CommonCode().checkInternetAccess())) {
+        return Future.value(ResponseModel.named(
+            message: kPoorInternetConnection, data: kPoorInternetConnection));
+      }
+      log(e.toString());
+      return Future.value(ResponseModel.named(
+          message: 'Ups Something Went Wrong!', data: e.toString()));
+    }
   }
 }
 
@@ -219,10 +221,15 @@ Future<Map<String, String>> _getHeaders() async {
       Get.offAllNamed(kLoginScreenRoute);
     });
     return {};
-  } else if (token.accessToken.isNotEmpty) {
-    // return {'X-Auth-Token': token.accessToken};
-    return {'Authorization': 'Bearer ${token.accessToken}'};
+  }
+
+  if (token.accessToken.isNotEmpty) {
+    print('----------------------------______________________');
+    return {'X-Auth-Token': token.accessToken};
+    // return {'Authorization': 'Bearer ${token.accessToken}'};
   } else {
+    print('\______________________');
+
     return {};
   }
 }

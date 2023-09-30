@@ -5,7 +5,7 @@ import 'package:e_clinic_dr/ui/screens/main_screen/main_screen.dart';
 import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_driver_screen.dart';
 import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_id_screen.dart';
 import 'package:e_clinic_dr/ui/screens/payments/components/verification_screen/verification_passport_screen.dart';
-import 'package:e_clinic_dr/ui/screens/prescriptions/prescriptions.dart';
+import 'package:e_clinic_dr/ui/screens/appointments/components/write_prescriptions.dart';
 import 'package:e_clinic_dr/ui/screens/settings/components/account_settings.dart';
 import 'package:e_clinic_dr/ui/screens/signup/signup_screen.dart';
 import 'package:e_clinic_dr/ui/screens/test_screen.dart';
@@ -44,6 +44,11 @@ class RouteManagement {
       GetPage(
         name: kSplashScreenRoute,
         page: () => const SplashScreen(),
+        binding: ScreensBindings(),
+      ),
+      GetPage(
+        name: kPrescriptionScreenRoute,
+        page: () => const PrescriptionsScreen(),
         binding: ScreensBindings(),
       ),
       GetPage(

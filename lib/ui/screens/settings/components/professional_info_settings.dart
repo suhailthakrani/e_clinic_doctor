@@ -55,12 +55,12 @@ class ProfessionalInfoSettingsScreen
                   ),
                 ),
                 const SizedBox(height: 20),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.specializationController,
                   paddingVertical: 0,
                   paddingHorizontal: 4,
                 ),
-                GeneralDropdown.withBorder(
+                GeneralDropdown.withShadow(
                     controller: controller.experienceDDController),
                 const SizedBox(height: 20),
                 const Text(
@@ -74,23 +74,23 @@ class ProfessionalInfoSettingsScreen
                   ),
                 ),
                 const SizedBox(height: 20),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.hospitalNameController,
                   paddingVertical: 0,
                   paddingHorizontal: 4,
                 ),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.addressController,
                   paddingVertical: 0,
                   paddingHorizontal: 4,
                 ),
                 const SizedBox(height: 20),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.cityController,
                   paddingVertical: 0,
                   paddingHorizontal: 4,
                 ),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.stateController,
                   paddingVertical: 0,
                   paddingHorizontal: 4,

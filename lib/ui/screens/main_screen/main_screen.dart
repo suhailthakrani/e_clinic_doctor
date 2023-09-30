@@ -133,27 +133,29 @@ class MainScreen extends GetView<MainScreenController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           "Today's Appointments",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Text(
-                            "See All",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: kBlueColor,
-                            ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     //
+                        //   },
+                        //   child: const Text(
+                        //     "See All",
+                        //     style: TextStyle(
+                        //       fontSize: 12,
+                        //       fontWeight: FontWeight.w500,
+                        //       color: kBlueColor,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                     SizedBox(height: 20.h),
@@ -177,102 +179,137 @@ class MainScreen extends GetView<MainScreenController> {
                         ),
                         SizedBox(width: 8.h),
                         GestureDetector(
-                            onTap: () {},
-                            child: const Icon(
-                              Icons.arrow_forward_ios,
-                              size: 20,
-                              color: kBlueColor,
-                            )),
-                      ],
-                    ),
-                    SizedBox(height: 10.h),
-                    Column(
-                      children: [
-                        for (int i = 0; i < 5; i++)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Expanded(flex: 1, child: Text("8:00 AM")),
-                                Expanded(
-                                  flex: 4,
-                                  child: Card(
-                                    elevation: 4,
-                                    color: i == 0
-                                        ? Theme.of(context).canvasColor
-                                        : kWhiteColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            "Physical",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          SizedBox(height: 8.h),
-                                          const Text('Paid:\$100'),
-                                          SizedBox(height: 8.h),
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            child: Image.asset(
-                                                'assets/images/commenter.png',
-                                                height: 50,
-                                                width: 50),
-                                          ),
-                                          SizedBox(height: 4.h),
-                                          const Text(
-                                            "Patient Name",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          SizedBox(height: 8.h),
-                                          const Text(
-                                            "August 16, 2023",
-                                            style: TextStyle(),
-                                          ),
-                                          SizedBox(height: 8.h),
-                                          const Text(
-                                            "8:00 AM - 10:30 AM",
-                                            style: TextStyle(),
-                                          ),
-                                          SizedBox(height: 8.h),
-                                          Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.call,
-                                                color: kBlueColor,
-                                              ),
-                                              SizedBox(width: 8.w),
-                                              const Icon(
-                                                Icons.message,
-                                                color: kBlueColor,
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
+                          onTap: () {},
+                          child: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 20,
+                            color: kBlueColor,
                           ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 10.h),
+                    Obx(
+                      () => Column(
+                        children: [
+                          for (int i = 0;
+                              i <
+                                  (controller.appointmentsCompleted.length <= 7
+                                      ? controller.appointmentsCompleted.length
+                                      : 7);
+                              i++)
+                            Obx(
+                              () => Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          controller.convertToAMPM(
+                                            controller
+                                                .appointmentsCompleted[i].time,
+                                          ),
+                                        )),
+                                    Expanded(
+                                      flex: 6,
+                                      child: Card(
+                                        elevation: 4,
+                                        color: i == 0
+                                            ? Theme.of(context).canvasColor
+                                            : kWhiteColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                controller
+                                                    .appointmentsCompleted[i]
+                                                    .type,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              SizedBox(height: 8.h),
+                                              Text(
+                                                  'Paid: \$${controller.appointmentsCompleted[i].charges}'),
+                                              SizedBox(height: 8.h),
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                child: Image.network(
+                                                  controller
+                                                      .appointmentsCompleted[i]
+                                                      .image,
+                                                  height: 50.h,
+                                                  width: 50.w,
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (context, error,
+                                                          stackTrace) =>
+                                                      Container(),
+                                                ),
+                                              ),
+                                              SizedBox(height: 4.h),
+                                              Text(
+                                                controller
+                                                    .appointmentsCompleted[i]
+                                                    .patientName,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              SizedBox(height: 8.h),
+                                              Text(
+                                                controller.convertDateFormat(
+                                                    controller
+                                                        .appointmentsCompleted[
+                                                            i]
+                                                        .date),
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                              SizedBox(height: 8.h),
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.call,
+                                                    color: kBlueColor,
+                                                  ),
+                                                  SizedBox(width: 8.w),
+                                                  const Icon(
+                                                    Icons.message,
+                                                    color: kBlueColor,
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      "Total: ${controller.appointmentsCompleted.length}",
+                    )
                   ],
                 ),
               ),
@@ -286,101 +323,120 @@ class MainScreen extends GetView<MainScreenController> {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           "Appointment Requests",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Text(
-                            "See All",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: kBlueColor,
-                            ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap: () {},
+                        //   child: const Text(
+                        //     "See All",
+                        //     style: TextStyle(
+                        //       fontSize: 12,
+                        //       fontWeight: FontWeight.w500,
+                        //       color: kBlueColor,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                     SizedBox(height: 20.h),
-                    ListView.builder(
-                      padding: const EdgeInsets.all(2),
-                      shrinkWrap: true,
-                      itemCount: 5,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            CircleAvatar(
-                              child: Image.asset(
-                                "assets/images/commenter.png",
-                                height: 45,
-                                width: 45,
+                    Obx(
+                      () => ListView.separated(
+                        padding: const EdgeInsets.all(2),
+                        shrinkWrap: true,
+                        itemCount: (controller.appointmentsCompleted.length <= 7
+                            ? controller.appointmentsCompleted.length
+                            : 7),
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.network(
+                                  controller.appointmentsRequests[index].image,
+                                  height: 50.h,
+                                  width: 50.w,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Container(),
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 12),
-                            const Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      controller.appointmentsRequests[index]
+                                          .patientName,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Text(
+                                      controller
+                                          .appointmentsRequests[index].type,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: kBlueColor,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    Text(
+                                      controller.convertDateFormat(controller
+                                          .appointmentsRequests[index].date),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Row(
                                 children: [
-                                  Text(
-                                    "Patient",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
+                                  CircleAvatar(
+                                    backgroundColor: kRequiredRedColor,
+                                    foregroundColor: kWhiteColor,
+                                    radius: 14,
+                                    child: Icon(
+                                      CupertinoIcons.multiply,
                                     ),
                                   ),
-                                  Text(
-                                    'General Checkup',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: kBlueColor,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Date',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
+                                  SizedBox(width: 8),
+                                  CircleAvatar(
+                                    backgroundColor: kGreenNormalColor,
+                                    foregroundColor: kWhiteColor,
+                                    radius: 14,
+                                    child: Icon(
+                                      Icons.check,
                                     ),
                                   ),
                                 ],
-                              ),
-                            ),
-                            const Row(
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor: kRequiredRedColor,
-                                  foregroundColor: kWhiteColor,
-                                  radius: 14,
-                                  child: Icon(
-                                    CupertinoIcons.multiply,
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                CircleAvatar(
-                                  backgroundColor: kGreenNormalColor,
-                                  foregroundColor: kWhiteColor,
-                                  radius: 14,
-                                  child: Icon(
-                                    Icons.check,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        );
-                      },
+                              )
+                            ],
+                          );
+                        },
+                        separatorBuilder: (_, int index) =>
+                            const SizedBox(height: 8),
+                      ),
                     ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      "Total: ${controller.appointmentsRequests.length}",
+                    )
                   ],
                 ),
               ),

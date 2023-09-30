@@ -38,16 +38,14 @@ class PasswordSettingsScreen extends GetView<PasswordSettingsController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              
-               
                 const SizedBox(height: 20),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.currentPasswordControler,
                   paddingVertical: 0,
                   paddingHorizontal: 4,
                 ),
                 SizedBox(height: 20.h),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.newPasswordControler,
                   paddingVertical: 0,
                   paddingHorizontal: 4,
@@ -67,7 +65,7 @@ class PasswordSettingsScreen extends GetView<PasswordSettingsController> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.confrimPasswordControler,
                   paddingVertical: 0,
                   paddingHorizontal: 4,

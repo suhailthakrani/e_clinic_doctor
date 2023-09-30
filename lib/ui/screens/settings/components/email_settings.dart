@@ -42,13 +42,13 @@ class EmailSettingsScreen extends GetView<EmailSettingsController> {
               
                
                 const SizedBox(height: 20),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.currentEmailControler,
                   paddingVertical: 0,
                   paddingHorizontal: 4,
                 ),
                 SizedBox(height: 20.h),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.newEmailControler,
                   paddingVertical: 0,
                   paddingHorizontal: 4,
@@ -68,7 +68,7 @@ class EmailSettingsScreen extends GetView<EmailSettingsController> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                GeneralTextField.withBorder(
+                GeneralTextField.withShadow(
                   tfManager: controller.confrimEmailControler,
                   paddingVertical: 0,
                   paddingHorizontal: 4,

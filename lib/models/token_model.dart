@@ -5,11 +5,11 @@ class TokenModel {
 
   TokenModel.fromString(String token) {
     accessToken = token;
-    expiryTime = DateTime.now().add(const Duration(days: 1)).toString();
+    expiryTime = DateTime.now().add(const Duration(days: 6)).toString();
   }
 
   TokenModel.fromSession(Map<String, dynamic> json) {
-    accessToken = json["access_token"] ?? '';
+    accessToken = json["token"] ?? '';
     clientId = json["client_id"] ?? 0;
     expiryTime = json["expiryTime"] ?? '';
   }
@@ -17,7 +17,7 @@ class TokenModel {
   Map<String, dynamic> forSession() {
     return {
       "client_id": clientId,
-      "access_token": accessToken,
+      "token": accessToken,
       "expiryTime": expiryTime,
     };
   }
@@ -33,6 +33,6 @@ class TokenModel {
 
   @override
   String toString() {
-    return 'TokenModel{accessToken: $accessToken, clientId: $clientId, expiryTime: $expiryTime}';
+    return 'TokenModel{token: $accessToken, clientId: $clientId, expiryTime: $expiryTime}';
   }
 }

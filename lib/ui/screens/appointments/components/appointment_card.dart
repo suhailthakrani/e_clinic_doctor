@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:e_clinic_dr/controllers/appointments/appointments_screen_cntroller.dart';
+import 'package:e_clinic_dr/models/appointment_model.dart';
+import 'package:e_clinic_dr/services/appointment_service.dart';
 import 'package:e_clinic_dr/utils/app_enum.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:e_clinic_dr/utils/constants.dart';
@@ -9,16 +14,13 @@ import 'package:get/get.dart';
 class AppointmentCard extends StatelessWidget {
   const AppointmentCard({
     Key? key,
-    required this.drName,
-    required this.category,
-    required this.image,
     required this.status,
+    required this.appointment,
+    required this.controller,
   }) : super(key: key);
-
-  final String drName;
-  final String category;
-  final String image;
+  final Appointment appointment;
   final AppointmentStatus status;
+  final AppointmentsController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +52,15 @@ class AppointmentCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  child: Image.asset(image),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.network(
+                    appointment.image,
+                    height: 50.h,
+                    width: 50.w,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Container(),
+                  ),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
@@ -59,7 +68,7 @@ class AppointmentCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        drName,
+                        appointment.patientName,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -67,11 +76,11 @@ class AppointmentCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        category,
-                        style: const TextStyle(
-                          color: Colors.grey,
+                        appointment.type,
+                        style: TextStyle(
+                          color: Colors.blue.shade900,
                           fontSize: 15,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
@@ -127,15 +136,25 @@ class AppointmentCard extends StatelessWidget {
                   ),
               ],
             ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "31 September 2020",
-                  style: TextStyle(
+                  controller.convertDateFormat(appointment.date),
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  controller.convertToAMPM(appointment.time),
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -146,9 +165,22 @@ class AppointmentCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    appointment.charges != 0
+                        ? Chip(
+                            label: Text(
+                              "Paid: \$${appointment.charges}",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            backgroundColor: kGreenNormalColor.withOpacity(0.7),
+                          )
+                        : SizedBox(),
+                    SizedBox(width: 8.w),
                     GestureDetector(
-                      onTap: () {
-                        // TODO: Reject Appointment
+                      onTap: () async {
+                        await controller.rejectAppointment(appointment.id);
                       },
                       child: const Chip(
                         avatar: Icon(
@@ -167,8 +199,9 @@ class AppointmentCard extends StatelessWidget {
                     ),
                     SizedBox(width: 8.w),
                     GestureDetector(
-                      onTap: () {
-                        // TODO: Accept Appointment
+                      onTap: () async {
+                        await AppointmentService()
+                            .acceptAppointment(appId: appointment.id);
                       },
                       child: const Chip(
                         avatar: Icon(
@@ -195,9 +228,36 @@ class AppointmentCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    appointment.charges != 0
+                        ? Chip(
+                            label: Text(
+                              "Paid: \$${appointment.charges}",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            backgroundColor: kGreenNormalColor.withOpacity(0.7),
+                          )
+                        : SizedBox(),
+                    SizedBox(width: 8.w),
                     GestureDetector(
-                      onTap: () {
-                        Get.toNamed(kPrescriptionScreenRoute);
+                      onTap: () async {
+                        Map<String, String> appointmentData = {
+                          "id": appointment.id,
+                          "patient_name": appointment.patientName,
+                          "date": appointment.date,
+                          "time": appointment.time,
+                          "type": appointment.type,
+                          "charges": appointment.charges.toString(),
+                          "message": appointment.message,
+                          "image": appointment.image,
+                        };
+
+                        await Get.toNamed(
+                          kPrescriptionScreenRoute,
+                          arguments: appointmentData,
+                        );
                       },
                       child: Chip(
                         label: const Text(

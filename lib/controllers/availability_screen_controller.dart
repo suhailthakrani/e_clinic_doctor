@@ -98,10 +98,8 @@ class AvailabilityController extends GetxController {
   ].obs;
 
   Future<String> showTimestampPicker(BuildContext context, int index) async {
-    TimeOfDay? selectedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
-        initialEntryMode: TimePickerEntryMode.input);
+    TimeOfDay? selectedTime =
+        await showTimePicker(context: context, initialTime: TimeOfDay.now());
     if (selectedTime != null) {
       DateTime now = DateTime.now();
       DateTime selectedDateTime = DateTime(
@@ -137,10 +135,15 @@ class AvailabilityController extends GetxController {
   bool validateAll() {
     for (var avail in availabilityList) {
       if (avail.isActive) {
-        return avail.startTime.isNotEmpty & avail.endTime.isNotEmpty;
+        if (avail.startTime.isEmpty || avail.endTime.isEmpty) {
+          return false;
+        }
+      } else {
+        return false;
       }
     }
-    return timeSlotDDController.validate() & assignSessionController.validate();
+    return timeSlotDDController.validate() &&
+        assignSessionController.validate();
   }
 
   Future<void> submitAvailability() async {
@@ -151,19 +154,20 @@ class AvailabilityController extends GetxController {
             .replaceAll(RegExp(r'[^0-9]'), ''));
         avail.buffer = int.parse(assignSessionController.text);
       }
-      print(
-          "====================${availabilityList.map((element) => element.toJson())}");
-      log("====================${availabilityList}");
 
-      // ProgressDialog pd = ProgressDialog()..showDialog();
-      // String response = await AvailabilityService()
-      //     .addShedule(drID: '', availabilityList: availabilityList);
-      // pd.dismissDialog();
-      // if (response == "Success") {
-      //   CustomDialogs().showDialog("Success", response, DialogType.success);
-      // } else {
-      //   CustomDialogs().showDialog("Alert", response, DialogType.error);
-      // }
+      ProgressDialog pd = ProgressDialog()..showDialog();
+      String response = await AvailabilityService()
+          .addShedule(drID: '', availabilityList: availabilityList);
+      pd.dismissDialog();
+      if (response == "Success") {
+        CustomDialogs().showDialog(
+          "Success",
+          "Schedule Added Successfully!",
+          DialogType.success,
+        );
+      } else {
+        CustomDialogs().showDialog("Alert", response, DialogType.error);
+      }
     } else {
       CommonCode().showToast(message: "Please enter valid data!");
     }

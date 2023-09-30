@@ -29,7 +29,7 @@ class RegisterScreenController extends GetxController {
       TextFieldManager('Email', length: 50, filter: TextFilter.email);
   TextFieldManager passwordController =
       TextFieldManager('Password', length: 50, filter: TextFilter.none);
-  
+
   DropdownController genderDDController = DropdownController(
     title: "Gender",
     items: ["MALE", "FEMALE"].obs,
@@ -51,8 +51,21 @@ class RegisterScreenController extends GetxController {
 
   TextFieldManager phoneNoController =
       TextFieldManager('Phone Number', length: 50, filter: TextFilter.number);
-  TextFieldManager specializationController =
-      TextFieldManager('Specialization', length: 50, filter: TextFilter.none);
+  DropdownController specializationController = DropdownController(
+      title: 'Specialization',
+      items: RxList([
+        "Neuro",
+        "Neurology",
+        "Psychiatry",
+        "Oncology",
+        "Gastroenterology",
+        "Hematology",
+        "Cardiology",
+        "Pediatrics",
+        "Endocrinology",
+        "Dermatology",
+        "Urology"
+      ]));
   TextFieldManager hospitalController = TextFieldManager(
       'Hospital/ Clinic Name',
       length: 50,
@@ -95,12 +108,11 @@ class RegisterScreenController extends GetxController {
   }
 
   bool validateAllData() {
-    
     bool valid = true;
     return valid &
         firstNameController.validate() &
         lastNameController.validate() &
-       genderDDController.validate() &
+        genderDDController.validate() &
         emailController.validate() &
         passwordController.validate() &
         phoneNoController.validate() &
@@ -118,27 +130,27 @@ class RegisterScreenController extends GetxController {
       CommonCode().showToast(message: 'Please Enter Valid Data!');
     } else {
       UserModel userModel = UserModel(
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        cnic: cnicController.text,
-        email: emailController.text,
-        gender: genderDDController.selectedItem.value,
-        specialization: specializationController.text,
-        degreeDocument: degreeDocument.value,
-        hospitalClinicName: hospitalController.text,
-        city: cityController.text,
-        state: stateController.text,
-        address: addressController.text,
-        password: passwordController.text,
-        experience: experienceDDController.selectedItem.value
-      );
-      print('-------------------- ${userModel.toJson()}');
+          firstName: firstNameController.text,
+          lastName: lastNameController.text,
+          cnic: cnicController.text,
+          email: emailController.text,
+          gender: genderDDController.selectedItem.value,
+          specialization: specializationController.selectedItem.value,
+          degreeDocument: degreeDocument.value,
+          hospitalClinicName: hospitalController.text,
+          city: cityController.text,
+          state: stateController.text,
+          address: addressController.text,
+          password: passwordController.text,
+          experience: experienceDDController.selectedItem.value);
       ProgressDialog pd = ProgressDialog()..showDialog();
       await UserService().registerUser(userModel: userModel);
       pd.dismissDialog();
       if (userModel.responseMessage == 'Success') {
-        await UserSession().createSession(user: userModel);
-        Get.offAllNamed(kMainScreenRoute);
+        // await UserSession().createSession(user: userModel);
+        CustomDialogs().showDialog("Success",
+            "You have been registered successfully!", DialogType.success);
+        Get.offAllNamed(kLoginScreenRoute);
       } else {
         pd.dismissDialog();
         CustomDialogs()

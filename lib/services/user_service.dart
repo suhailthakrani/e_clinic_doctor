@@ -27,20 +27,21 @@ class UserService {
     String base64Image = base64Encode(imageBytes);
 
     Map<String, String> files = {
-      'image': userModel.degreeDocument,
+      // 'image': userModel.degreeDocument,
+      'degree_document': userModel.degreeDocument,
     };
-    userModel.degreeDocument = base64Image;
+    // userModel.degreeDocument = imageFile.path;
 
     // ResponseModel responseModel = await _httpClient.postRequest(
     //   url:kRegisterURL,
     //   requestBody : userModel.toJson(),
     //   requireToken: true
     // );
-    
+
     ResponseModel responseModel = await _httpClient.postMultipartRequest(
-      url:kRegisterURL,
-      fields : userModel.toJson(),
-      files: files
+      url: kRegisterURL,
+      fields: userModel.toJson(),
+      files: files,
     );
 
     if (responseModel.message == "Success" &&
@@ -63,13 +64,16 @@ class UserService {
         url: kLoginURL,
         requestBody: {'email': username, 'password': password},
         requireToken: false);
-    if (responseModel.message == "Success" &&
+    if (responseModel.message == "Login successful" &&
         responseModel.data != null &&
         responseModel.data['token'] != null) {
-      user = UserModel.fromJson(responseModel.data['user'] ?? {});
+      // user = UserModel.fromJson(responseModel.data['user'] ?? {});
+      user.email = username;
+      user.password = password;
       UserSession().saveToken(
           token: TokenModel.fromString(responseModel.data['token'] ?? ''));
     } else {
+      print("else00000000000000000000000000000");
       user.responseMessage = responseModel.message;
     }
     return user;
