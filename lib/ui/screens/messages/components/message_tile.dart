@@ -26,10 +26,11 @@ class _MessageTileState extends State<MessageTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           ListTile(
+            contentPadding: const EdgeInsets.symmetric(vertical: 4),
             onTap: () {
               Navigator.push(
                 context,

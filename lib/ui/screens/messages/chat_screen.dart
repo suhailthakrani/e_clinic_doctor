@@ -15,15 +15,15 @@ class ChatScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          title: Row(
+          title: const Row(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 16,
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text('Chat'),
                   Text(
                     "Online",
