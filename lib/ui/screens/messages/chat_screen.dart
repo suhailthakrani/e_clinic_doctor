@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:e_clinic_dr/ui/screens/messages/components/chat_reciever_item.dart';
+import 'package:e_clinic_dr/ui/screens/messages/components/chat_sender_item.dart';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -30,16 +32,39 @@ class _ChatScreenState extends State<ChatScreen> {
   TextEditingController controller = TextEditingController();
   late io.Socket socket;
 
-   List<Message> chatMessages = [];
+  List<Message> chatMessages = [];
 
   @override
   void initState() {
     super.initState();
+    
     call();
+    chatMessages.add(Message(
+        senderId: widget.message.participant.id,
+        recieverId: '28a60433-52bb-4a6e-a925-b0b61fe879f6',
+        participant: Participant(
+          id: widget.message.participant.id,
+          firstName: widget.message.participant.firstName,
+          lastName: widget.message.participant.lastName,
+        ),
+        unreadCount: '4',
+        message: 'Hello, how do you feel now?'));
+
+    chatMessages.add(Message(
+        senderId: '28a60433-52bb-4a6e-a925-b0b61fe879f6',
+        recieverId: widget.message.participant.id,
+        participant: Participant(
+          id: meModel.id,
+          firstName: meModel.firstName,
+          lastName: meModel.lastName,
+        ),
+        unreadCount: '4',
+        message: 'He, I am ni feeling well. I need prescription.'));
   }
 
   Future<void> call() async {
-    meModel = await UserSession().getMe();
+      meModel = await UserSession().getMe();
+      Future.delayed(Duration.zero);
     await connectToServer();
   }
 
@@ -63,20 +88,16 @@ class _ChatScreenState extends State<ChatScreen> {
       socket.on('new-messages', (data) {
         print("-------------${data}");
         setState(() {
-          chatMessages.add(
-            Message.fromJson(data??{})
-          );
-        });        
+          chatMessages.add(Message.fromJson(data ?? {}));
+        });
       });
       socket.on('message', (data) {
         print("-------------${data}");
         setState(() {
-          chatMessages.add(
-            Message.fromJson(data??{})
-          );
-        });        
+          chatMessages.add(Message.fromJson(data ?? {}));
+        });
       });
-      
+
       // Connect to the server
       socket.connect();
     } catch (e) {
@@ -85,28 +106,19 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void sendMessage(Message message) {
-    if (socket.connected) {
-        setState(() {
+     setState(() {
         chatMessages.add(message);
       });
-       socket.on('new-messages', (data) {
-        print("-------------${data}");
-        setState(() {
-          chatMessages.add(
-            Message.fromJson(data??{})
-          );
-        });        
-      });
-      socket.emit('message', message.toJson());
+    if (socket.connected) {
+      socket.emit('message', jsonEncode(message.toJson()));
     } else {
-      socket.connect();
-      
-      if(socket.connected) {
-        socket.emit('message', message.toJson());
-      } else{
+      // socket.connect();
+
+      // if (socket.connected) {
+      //   socket.emit('message', jsonEncode(message.toJson()));
+      // } else {
         print('Socket connection is not open.');
-      }
-      
+      // }
     }
   }
 
@@ -117,8 +129,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   // WebSocket? ws;
- 
-
 
   // @override
   // void initState() {
@@ -154,6 +164,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(chatMessages.map((e) => e.senderId).toList());
+    print(chatMessages.map((e) => e.recieverId).toList());
+    print(meModel.id);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -215,100 +228,76 @@ class _ChatScreenState extends State<ChatScreen> {
             const SizedBox(width: 10)
           ],
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 100),
-          child: Column(
-            children: [
-              // ... Existing code ...
+        body: Column(
+          children: [
+            SizedBox(height: 20.h),
+            Expanded(
+              child: FutureBuilder(
+                  future: Future.delayed(Duration.zero),
+                  builder: (context, snapshot) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: chatMessages.length,
+                      itemBuilder: (context, index) {
+                        final message = chatMessages[index];
+                        if (message.senderId == meModel.id) {
+                          return chatSenderWidget(message);
+                          //    return ListTile(
+                          //   title: Text(message.message),
+                          //   subtitle: Text(
+                          //     '${message.participant.firstName} ${message.participant.lastName}',
+                          //   ),
+                          // );
+                        } else {
+                          return chatRecieverWidget(message);
+                          //  return ListTile(
+                          // title: Text(message.message),
+                          // subtitle: Text(
+                          //   '${message.participant.firstName} ${message.participant.lastName}',
+                          // ),
+                        }
+                      },
+                    );
+                  }),
+            ),
 
-              SizedBox(height: 20.h),
-               ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: chatMessages.length,
-                  itemBuilder: (context, index) {
-                    final message = chatMessages[index];
-                    if(message.senderId == meModel.id) {
-                      return SenderChatItem(text: message.message);
-                    //    return ListTile(
-                    //   title: Text(message.message),
-                    //   subtitle: Text(
-                    //     '${message.participant.firstName} ${message.participant.lastName}',
-                    //   ),
-                    // );
-                    } else{
-                      RecieverChatItem(text: message.message);
-                      //  return ListTile(
-                      // title: Text(message.message),
-                      // subtitle: Text(
-                      //   '${message.participant.firstName} ${message.participant.lastName}',
-                      // ),
-                    }
-                   
-                  },
-                ),
-              
-
-              // ... Existing code ...
-            ],
-          ),
-        ),
-        bottomSheet: Padding(
-          padding: const EdgeInsets.all(18.0),
+             Padding(
+          padding: const EdgeInsets.symmetric(horizontal:18.0, vertical: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: SizedBox(
-                  // height: 45.h,
-                  width: 320.w,
-                  child: TextFormField(
-                    controller: controller,
-                    decoration: InputDecoration(
-                      prefixIcon: IconButton(
-                        icon: Icon(
-                          Icons.attach_file,
-                          color: kPrimaryColor,
-                        ),
-                        onPressed: () {},
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: kPrimaryColor,
-                          )),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: kGreyColor)),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.keyboard_voice,
-                          color: kPrimaryColor,
-                        ),
-                        onPressed: () {},
-                      ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.75,
+                height: 50.h,
+                child: TextField(
+                  controller: controller,
+                  autofocus: false,
+                  // focusNode: controller/,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: kPrimaryColor)
                     ),
+                    hintText: 'Send messages...',
                   ),
                 ),
               ),
-              const SizedBox(width: 5),
               GestureDetector(
                 onTap: () {
                   print("====```````````===================${controller.text}");
-                 Message msg = Message(
-                        recieverId: widget.message.participant.id,
-                        senderId: meModel.id,
-                        participant: Participant(
-                          id: meModel.id, 
-                          firstName: meModel.firstName, 
-                          lastName: meModel.lastName
-                          ),
-                        unreadCount: 3.toString(),
-                        message: controller.text,
-                      );
-                
-                 
+                  Message msg = Message(
+                    recieverId: widget.message.participant.id,
+                    senderId: meModel.id,
+                    participant: Participant(
+                        id: meModel.id,
+                        firstName: meModel.firstName,
+                        lastName: meModel.lastName),
+                    unreadCount: 3.toString(),
+                    message: controller.text,
+                  );
+
                   sendMessage(msg);
-                  
+
                   // controller.clear();
                 },
                 child: const SendButton(),
@@ -316,6 +305,9 @@ class _ChatScreenState extends State<ChatScreen> {
             ],
           ),
         ),
+          ],
+        ),
+        
       ),
     );
   }
@@ -370,41 +362,6 @@ class ChatStartTime extends StatelessWidget {
   }
 }
 
-class RecieverDetails extends StatelessWidget {
-  final Participant participant;
-  const RecieverDetails({
-    Key? key,
-    required this.participant,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const CircleAvatar(
-          radius: 42,
-        ),
-        const SizedBox(height: 10),
-        Text(
-          "Dr. ${participant.firstName} ${participant.lastName}",
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        SizedBox(
-          height: 30.h,
-          width: Get.width * 0.8,
-          child: const Text(
-            "This is a small bio description to let users express themselves",
-            textAlign: TextAlign.center,
-          ),
-        ),
-        SizedBox(height: 40.h),
-      ],
-    );
-  }
-}
 
 class SendButton extends StatelessWidget {
   const SendButton({
@@ -427,98 +384,3 @@ class SendButton extends StatelessWidget {
   }
 }
 
-class RecieverChatItem extends StatelessWidget {
-  const RecieverChatItem({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            alignment: Alignment.center,
-            width: Get.width * 0.7,
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.4),
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(10.w),
-                topLeft: Radius.circular(10.w),
-                topRight: Radius.circular(10.w),
-              ),
-            ),
-            child: Text(text),
-          ),
-        ),
-        SizedBox(height: 5.h),
-        Container(
-          alignment: Alignment.centerLeft,
-          child: const Text(
-            "10:00 PM",
-            style: TextStyle(
-              fontSize: 12,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class SenderChatItem extends StatelessWidget {
-  const SenderChatItem({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            alignment: Alignment.center,
-            constraints: BoxConstraints(
-              maxWidth: 275.w,
-              minWidth: 100.w,
-            ),
-            decoration: BoxDecoration(
-              color: kPrimaryColor,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10.w),
-                bottomLeft: Radius.circular(10.w),
-                topLeft: Radius.circular(10.w),
-              ),
-            ),
-            child: Text(
-              text,
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
-        SizedBox(height: 5.h),
-        Container(
-          alignment: Alignment.centerRight,
-          child: const Text(
-            "10:00 PM",
-            style: TextStyle(
-              fontSize: 12,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}

@@ -61,6 +61,7 @@ dependencies:
   # image_gallery_saver: ^1.7.1
   flutter_screenutil: ^5.9.0
   dotted_border: ^2.0.0+3
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 /*Created By: Suhail Thakrani on 23-Sept-2023*/
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:e_clinic_dr/models/user_login_model.dart';
@@ -54,8 +55,7 @@ class UserService {
       // user = UserModel.fromJson(responseModel.data['user'] ?? {});
       UserSession().saveToken(
           token: TokenModel.fromString(responseModel.data['token'] ?? ''));
-      MeModel meModel = await UserService().getMyData();
-          await UserSession().saveMe(me: meModel);
+     
     } else {
       userModel.responseMessage = responseModel.message;
     }
