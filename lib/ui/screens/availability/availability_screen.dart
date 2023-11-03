@@ -55,7 +55,8 @@ class AvailabilityScreen extends GetView<AvailabilityController> {
                     SizedBox(width: 10.h),
                     Flexible(
                       child: GeneralTextField.withShadow(
-                          tfManager: controller.assignSessionController,),
+                        tfManager: controller.assignSessionController,
+                      ),
                     ),
                   ],
                 ),
@@ -83,8 +84,7 @@ class AvailabilityScreen extends GetView<AvailabilityController> {
                         controller.submitAvailability();
                       }),
                 ),
-                                SizedBox(height: 60.h),
-
+                SizedBox(height: 60.h),
               ],
             )
           ],

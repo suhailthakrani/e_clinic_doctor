@@ -6,9 +6,11 @@ import 'dart:io';
 import 'package:e_clinic_dr/models/user_login_model.dart';
 import 'package:e_clinic_dr/services/service_urls.dart';
 
+import '../models/me_model.dart';
 import '../models/response_model.dart';
 import '../models/token_model.dart';
 import '../models/user_model.dart';
+import '../utils/common_code.dart';
 import '../utils/user_session.dart';
 import 'http_client.dart';
 
@@ -48,9 +50,12 @@ class UserService {
         responseModel.data != null &&
         responseModel.data['token'] != null) {
       UserSession().createSession(user: userModel);
+
       // user = UserModel.fromJson(responseModel.data['user'] ?? {});
       UserSession().saveToken(
           token: TokenModel.fromString(responseModel.data['token'] ?? ''));
+      MeModel meModel = await UserService().getMyData();
+          await UserSession().saveMe(me: meModel);
     } else {
       userModel.responseMessage = responseModel.message;
     }
@@ -77,5 +82,16 @@ class UserService {
       user.responseMessage = responseModel.message;
     }
     return user;
+  }
+
+  Future<MeModel> getMyData() async {
+    ResponseModel responseModel = await _httpClient.getRequest(url: kGetMeURL);
+    if (responseModel.message == "Success" && responseModel.data != null && responseModel.data is Map) {
+      return MeModel.fromJson(responseModel.data);
+    } else{
+      CommonCode().showToast(message: responseModel.message);
+    }
+    return MeModel.fromJson({});
+    
   }
 }

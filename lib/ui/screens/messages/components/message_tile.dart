@@ -25,63 +25,70 @@ class MessageTile extends StatefulWidget {
 class _MessageTileState extends State<MessageTile> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          ListTile(
-            contentPadding: const EdgeInsets.symmetric(vertical: 4),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ChatScreen(),
-                ),
-              );
-            },
-            leading: CircleAvatar(
-              backgroundColor: Colors.black45,
-              radius: 30,
-              child: Image.asset(
-                widget.image,
-                fit: BoxFit.cover,
-              ),
-            ),
-            title: Row(
-              children: [
-                if (widget.pinned)
-                  const Icon(
-                    Icons.push_pin_sharp,
-                    color: Colors.grey,
-                  ),
-                Text(
-                  widget.receiverName,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-            subtitle: Text(
-              widget.recentMessage,
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            trailing: Text(
-              widget.recentMessageTime,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+    return Column(
+      
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
           ),
-          const Divider(),
-        ],
-      ),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.black45,
+                radius: 32,
+                child: Image.asset(
+                  widget.image,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        if (widget.pinned)
+                          const Icon(
+                            Icons.push_pin_sharp,
+                            color: Colors.grey,
+                          ),
+                        Text(
+                          widget.receiverName,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      widget.recentMessage,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                widget.recentMessageTime,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Divider(
+          height: 20
+        ),
+      ],
     );
   }
 }

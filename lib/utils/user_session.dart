@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/me_model.dart';
 import '../models/token_model.dart';
 import '../models/user_model.dart';
 
@@ -45,5 +46,17 @@ class UserSession {
     final value = jsonDecode(preference.getString('token') ?? '{}');
     final TokenModel token = TokenModel.fromSession(value);
     return token;
+  }
+
+   
+  Future<void> saveMe({required MeModel me}) async {
+    final preference = await SharedPreferences.getInstance();
+    preference.setString("me", jsonEncode(me.toJson()));
+  }
+  Future<MeModel> getMe() async {
+    final preference = await SharedPreferences.getInstance();
+    Map<String, dynamic> name = jsonDecode((preference.getString("me")??'{}'));
+    return MeModel.fromJson(name);
+
   }
 }
