@@ -23,6 +23,19 @@ class SignUpScreen extends GetView<RegisterScreenController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: kWhiteColor,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: kWhiteColor,
+          foregroundColor: kBlackColor,
+          centerTitle: true,
+          title: WSvgWidget(
+            imageUrl: 'assets/images/logo.svg',
+            height: 120,
+          ),
+          // toolbarHeight: 70,
+        ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: ScreenUtilInit(
@@ -32,46 +45,17 @@ class SignUpScreen extends GetView<RegisterScreenController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      WSvgWidget(
-                        imageUrl: 'assets/images/logo.svg',
-                        height: 50,
-                      ),
-                    ],
-                  ),
-Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
+                  const Center(
+                    child: Text(
                       "Join As a Doctor",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Color.fromRGBO(87, 98, 182, 1),
+                        fontSize: 24,
+                        color: kTextColor,
                       ),
                     ),
                   ),
-                  TextButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: kPrimaryColor),
-                    onPressed: () {
-                      openOtherInterApp();
-                    },
-                    child: const Text(
-                      "Join As a Patient",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        color: kWhiteColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),                  Row(
+                  Row(
                     children: [
                       Text("Already a member?",
                           style: textTheme.headlineMedium),
@@ -85,85 +69,89 @@ Row(
                           "Login",
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                            fontSize: 17,
                             color: Color.fromRGBO(87, 98, 182, 1),
                           ),
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    height: 12,
+                  ),
                   GeneralTextField.withShadow(
                     tfManager: controller.firstNameController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
                   GeneralTextField.withShadow(
                     tfManager: controller.lastNameController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
                   GeneralTextField.withShadow(
                     tfManager: controller.cnicController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
                   GeneralTextField.withShadow(
                     tfManager: controller.emailController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
                   GeneralTextField.withShadow(
                     tfManager: controller.passwordController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
                   GeneralTextField.withShadow(
                     tfManager: controller.phoneNoController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
                   GeneralDropdown.withShadow(
                     controller: controller.specializationController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: GeneralDropdown.withShadow(
-                              controller: controller.genderDDController),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: GeneralDropdown.withShadow(
+                          controller: controller.genderDDController,
+                          paddingHorizontal: 0,
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          flex: 1,
-                          child: GeneralDropdown.withShadow(
-                              controller: controller.experienceDDController),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        flex: 1,
+                        child: GeneralDropdown.withShadow(
+                          controller: controller.experienceDDController,
+                          paddingHorizontal: 0,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   GeneralTextField.withShadow(
                     tfManager: controller.hospitalController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
                   GeneralTextField.withShadow(
                     tfManager: controller.stateController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
                   GeneralTextField.withShadow(
                     tfManager: controller.cityController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
                   GeneralTextField.withShadow(
                     tfManager: controller.addressController,
                     paddingVertical: 0,
-                    paddingHorizontal: 8,
+                    paddingHorizontal: 0,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -257,12 +245,14 @@ Row(
       ),
     );
   }
-   void openOtherInterApp() async {
-  AndroidIntent intent = const AndroidIntent(
-    action: 'action_view',
-    data: 'patientapp://open', // Replace with your custom scheme and action
-  );
-  if (intent.data != null) {
-  await intent.launch();
-}}
+
+  void openOtherInterApp() async {
+    AndroidIntent intent = const AndroidIntent(
+      action: 'action_view',
+      data: 'patientapp://open', // Replace with your custom scheme and action
+    );
+    if (intent.data != null) {
+      await intent.launch();
+    }
+  }
 }

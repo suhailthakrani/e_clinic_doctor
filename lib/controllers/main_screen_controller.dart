@@ -21,22 +21,24 @@ class MainScreenController extends GetxController {
 
   RxList<Appointment> appointmentsRequests = <Appointment>[].obs;
   RxList<Appointment> appointmentsCompleted = <Appointment>[].obs;
-  
-     @override
-  Future<void> onInit() async {
-     MeModel meModel = await UserService().getMyData();
+
+  @override
+  Future<void> onReady() async {
+    if (UserSession.userModel.value.email.isNotEmpty) {
+      MeModel meModel = await UserService().getMyData();
       print("---------------------${meModel.toJson()}");
-          await UserSession().saveMe(me: meModel);
+      await UserSession().saveMe(me: meModel);
       MeModel meModel2 = await UserSession().getMe();
       log("-----------------------${meModel2}");
-    appointmentsRequests.value =
-        await AppointmentService().getRequestedAppointmentsList();
-    appointmentsCompleted.value =
-        await AppointmentService().getCompletedAppointmentsList();
-    super.onInit();
+      appointmentsRequests.value =
+          await AppointmentService().getRequestedAppointmentsList();
+      appointmentsCompleted.value =
+          await AppointmentService().getCompletedAppointmentsList();
+    }
+    super.onReady();
   }
 
-    String convertDateFormat(String inputDate) {
+  String convertDateFormat(String inputDate) {
     DateTime dateTime = DateTime.parse(inputDate);
     String formattedDate = DateFormat('d MMMM y').format(dateTime);
     return formattedDate;
@@ -47,5 +49,4 @@ class MainScreenController extends GetxController {
     String formattedTime = DateFormat('h:mm a').format(dateTime);
     return formattedTime;
   }
-  
 }

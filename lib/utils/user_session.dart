@@ -9,12 +9,15 @@ import '../models/user_model.dart';
 class UserSession {
   static final RxBool isDataChanged = RxBool(false);
   static final Rx<UserModel> userModel = UserModel.empty().obs;
+  static RxString role = ''.obs;
 
   static final UserSession _instance = UserSession._internal();
   UserSession._internal();
   factory UserSession() {
     return _instance;
   }
+
+  
 
   Future<bool> createSession({required UserModel user}) async {
     final preference = await SharedPreferences.getInstance();
@@ -31,8 +34,8 @@ class UserSession {
   }
 
   Future<bool> logout() async {
-    // final preference = await SharedPreferences.getInstance()W;
-    // preference.remove('USER_DATA');
+    final preference = await SharedPreferences.getInstance();
+    preference.remove('USER_DATA');
     return true;
   }
 

@@ -63,8 +63,13 @@ class HTTPClient extends GetConnect {
             message: kPoorInternetConnection, data: kPoorInternetConnection));
       }
       log(e.toString());
+      if(e.toString().contains("Email") || e.toString().contains("email")) {
+        return Future.value(ResponseModel.named(
+          message: e.toString(), data: e.toString()));
+      }
+      log("===========================${e.toString()}");
       return Future.value(ResponseModel.named(
-          message: 'Ups Something Went Wrong!', data: e.toString()));
+          message: kServiceError, data: e.toString()));
     }
   }
 

@@ -41,11 +41,11 @@ class RouteManagement {
         page: () => const MainScreen(),
         binding: ScreensBindings(),
       ),
-      GetPage(
-        name: kSplashScreenRoute,
-        page: () => const SplashScreen(),
-        binding: ScreensBindings(),
-      ),
+      // GetPage(
+      //   name: kSplashScreenRoute,
+      //   page: () => const SplashScreen(),
+      //   binding: ScreensBindings(),
+      // ),
       GetPage(
         name: kPrescriptionScreenRoute,
         page: () => const PrescriptionsScreen(),

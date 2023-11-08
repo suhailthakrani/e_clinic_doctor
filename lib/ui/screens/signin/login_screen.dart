@@ -15,18 +15,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../controllers/login_screen_controller.dart';
-import '../../../ui/widgets/general_text_field.dart';
-import '../../../utils/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
-import '../../../utils/colors.dart';
-import '../../../utils/text_styles.dart';
-import '../../widgets/button1.dart';
 import '../../widgets/custom_dialogs.dart';
-import '../../widgets/input_field.dart';
 
 class LoginScreen extends GetView<LoginScreenController> {
   const LoginScreen({Key? key}) : super(key: key);
@@ -183,7 +173,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                     child: Button1(
                       textStyle: textTheme.labelLarge!,
                       buttonColor: button2Color,
-                      text: "Continue as Doctor",
+                      text: "Login",
                       borderRadius: 30,
                       onPress: () {
                         controller.onLoginClick();
@@ -192,33 +182,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                     ),
                   ),
                   SizedBox(height: 16.h),
-                  Container(
-                    height: 51.h,
-                    width: 390.w,
-                    decoration: BoxDecoration(
-                      // apply shadow to the container
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          // shadow on botom and right
-                          offset: const Offset(0, 5),
-                        ),
-                      ],
-                    ),
-                    child: Button1(
-                      textStyle: textTheme.labelLarge!,
-                      buttonColor: button2Color,
-                      text: "Continue As Patient",
-                      borderRadius: 30,
-                      onPress: ()  {
-                         openOtherInterApp();
-                        // Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
+                 
                   TextButton(
                       child: Text(
                         "Forgot Your Password",

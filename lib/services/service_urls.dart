@@ -1,5 +1,5 @@
 
-const String kBaseURL = "https://api.eclinic.live/api/"; // BASE URL
+const String kBaseURL = "http://api.eclinic.live/api/"; // BASE URL
 
 const String drId = 'acaba9ed-e9cd-4eef-9fbe-8fe1afd46c40';
 

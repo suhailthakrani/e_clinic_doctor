@@ -24,7 +24,7 @@ class ScreensBindings extends Bindings {
     Get.lazyPut(() => LoginScreenController());
     Get.lazyPut(() => RegisterScreenController());
     Get.lazyPut(() => TestScreenController());
-    Get.lazyPut(() => SplashScreenController());
+    // Get.lazyPut(() => SplashScreenController());
     Get.lazyPut(() => MainScreenController());
     Get.lazyPut(() => MessagesController());
     Get.lazyPut(() => AppointmentsController());
