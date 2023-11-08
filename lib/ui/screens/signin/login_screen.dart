@@ -183,7 +183,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                     child: Button1(
                       textStyle: textTheme.labelLarge!,
                       buttonColor: button2Color,
-                      text: "Login",
+                      text: "Continue as Doctor",
                       borderRadius: 30,
                       onPress: () {
                         controller.onLoginClick();
@@ -280,7 +280,7 @@ class LoginScreen extends GetView<LoginScreenController> {
  void openOtherInterApp() async {
   AndroidIntent intent = const AndroidIntent(
     action: 'action_view',
-    data: 'patientapp://open', // Replace with your custom scheme and action
+    data: 'patientapp://open', 
   );
   if (intent.data != null) {
   await intent.launch();
