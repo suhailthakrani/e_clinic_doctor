@@ -1,3 +1,4 @@
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:e_clinic_dr/controllers/register_screen_controller.dart';
 import 'package:e_clinic_dr/ui/widgets/general_text_field.dart';
 import 'package:e_clinic_dr/ui/widgets/widget_svg.dart';
@@ -40,8 +41,37 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                       ),
                     ],
                   ),
-                  Text("Join As a Doctor", style: textTheme.headline1),
-                  Row(
+Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      "Join As a Doctor",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Color.fromRGBO(87, 98, 182, 1),
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: kPrimaryColor),
+                    onPressed: () {
+                      openOtherInterApp();
+                    },
+                    child: const Text(
+                      "Join As a Patient",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: kWhiteColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),                  Row(
                     children: [
                       Text("Already a member?",
                           style: textTheme.headlineMedium),
@@ -227,4 +257,12 @@ class SignUpScreen extends GetView<RegisterScreenController> {
       ),
     );
   }
+   void openOtherInterApp() async {
+  AndroidIntent intent = const AndroidIntent(
+    action: 'action_view',
+    data: 'patientapp://open', // Replace with your custom scheme and action
+  );
+  if (intent.data != null) {
+  await intent.launch();
+}}
 }
