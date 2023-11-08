@@ -124,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
-    socket.disconnect(); // Disconnect the socket when the widget is disposed
+    socket.disconnect();
     super.dispose();
   }
 
