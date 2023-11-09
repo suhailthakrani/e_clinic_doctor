@@ -1,8 +1,6 @@
 import 'dart:developer';
 
 import 'package:e_clinic_dr/models/appointment_model.dart';
-import 'package:e_clinic_dr/models/doctor_model.dart';
-import 'package:e_clinic_dr/models/patient_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -10,10 +8,6 @@ import 'package:intl/intl.dart';
 import '../models/me_model.dart';
 import '../services/appointment_service.dart';
 import '../services/user_service.dart';
-import '../ui/screens/appointments/components/appointment_card.dart';
-import '../utils/app_enum.dart';
-import '../utils/text_field_manager.dart';
-import '../utils/text_filter.dart';
 import '../utils/user_session.dart';
 
 class MainScreenController extends GetxController {

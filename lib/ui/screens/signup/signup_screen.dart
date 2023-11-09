@@ -4,6 +4,7 @@ import 'package:e_clinic_dr/ui/widgets/general_text_field.dart';
 import 'package:e_clinic_dr/ui/widgets/widget_svg.dart';
 import 'package:e_clinic_dr/utils/colors.dart';
 import 'package:e_clinic_dr/utils/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -99,11 +100,56 @@ class SignUpScreen extends GetView<RegisterScreenController> {
                     paddingVertical: 0,
                     paddingHorizontal: 0,
                   ),
-                  GeneralTextField.withShadow(
-                    tfManager: controller.passwordController,
-                    paddingVertical: 0,
-                    paddingHorizontal: 0,
+                  Text(
+                    controller.passwordController.fieldName,
+                    style: const TextStyle(
+                        color: kBlackColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500),
                   ),
+                  const SizedBox(height: 6),
+                  Obx(
+                    () => Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      child: TextField(
+                        obscureText: controller.obscureText.value,
+                        controller: controller.passwordController.controller,
+                        focusNode: controller.passwordController.focusNode,
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.text,
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.black),
+                        decoration: InputDecoration(
+                          fillColor: kWhiteColor,
+                          filled: true,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                              borderSide: BorderSide.none),
+                          // prefixIcon: Icon(Icons.lock, color: kPrimaryColor),
+                          contentPadding: const EdgeInsets.only(
+                              top: 10.0, left: 10, bottom: 10),
+                          hintText: controller.passwordController.fieldName,
+                          hintStyle: const TextStyle(
+                              color: kTextHintColor, fontSize: 16),
+                          suffixIcon: GestureDetector(
+                            onTap: controller.onObscureText,
+                            child: controller.obscureText.value
+                                ? Icon(CupertinoIcons.eye_slash_fill,
+                                    color: kPrimaryColor)
+                                : Icon(CupertinoIcons.eye_fill,
+                                    color: kPrimaryColor),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          controller.passwordController.validate();
+                        },
+                      ),
+                    ),
+                  ),
+                  _getErrorMessage(
+                      errorMessage: controller.passwordController.errorMessage),
                   GeneralTextField.withShadow(
                     tfManager: controller.phoneNoController,
                     paddingVertical: 0,
@@ -243,6 +289,29 @@ class SignUpScreen extends GetView<RegisterScreenController> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _getErrorMessage({required RxString errorMessage}) {
+    return Obx(
+      () => Visibility(
+          visible: errorMessage.isNotEmpty,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 4, top: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  errorMessage.value,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: kRequiredRedColor,
+                  ),
+                ),
+              ],
+            ),
+          )),
     );
   }
 
